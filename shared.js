@@ -9,7 +9,7 @@
   <div class="navbar-inner">
     <a href="index.html" class="navbar-brand">
       <img src="logo.png" alt="Friends of the Badger Park logo">
-      <span>Friends of the<br>Badger Park</span>
+
     </a>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
       <span></span><span></span><span></span>
@@ -73,3 +73,4 @@
     document.getElementById('navLinks').classList.toggle('open');
   });
 })();
+
