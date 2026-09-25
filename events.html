@@ -3,229 +3,194 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Events — Friends of the Badger Park</title>
+  <meta name="description" content="Explore Friends of the Badger Park events and activities from 2020 to 2026, including family events, nature activities, sport and community celebrations.">
+  <meta name="theme-color" content="#2D6A3F">
+  <title>Events & Activities — Friends of the Badger Park</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    .filter-bar {
-      display: flex; gap: 0.5rem; flex-wrap: wrap;
-      margin-bottom: 2.5rem; justify-content: center;
-    }
-    .filter-btn {
-      padding: 0.45rem 1.1rem; border-radius: 50px;
-      border: 2px solid #ddd; background: var(--white);
-      font-family: 'Nunito', sans-serif;
-      font-weight: 700; font-size: 0.85rem;
-      cursor: pointer; transition: all var(--transition);
-      color: var(--text);
-    }
-    .filter-btn:hover, .filter-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
-
-    .events-list { display: flex; flex-direction: column; gap: 1.25rem; }
-    .ev-card {
-      background: var(--white); border-radius: var(--radius);
-      box-shadow: var(--shadow); overflow: hidden;
-      display: grid; grid-template-columns: 90px 1fr auto;
-      transition: transform var(--transition), box-shadow var(--transition);
-    }
-    .ev-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
-    .ev-date {
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      text-align: center; padding: 1.25rem 0.75rem;
-      background: var(--blue); color: #fff;
-    }
-    .ev-date strong { font-size: 2rem; font-family: 'Playfair Display', serif; line-height: 1; }
-    .ev-date span { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.85; }
-    .ev-date small { font-size: 0.7rem; opacity: 0.7; margin-top: 0.2rem; }
-    .ev-body { padding: 1.25rem 1.5rem; }
-    .ev-body h3 { font-size: 1.1rem; margin-bottom: 0.3rem; color: var(--text); }
-    .ev-body p  { font-size: 0.9rem; color: var(--text-muted); margin: 0 0 0.75rem; }
-    .ev-meta { display: flex; gap: 1.25rem; font-size: 0.82rem; color: var(--text-muted); flex-wrap: wrap; }
-    .ev-meta span { display: flex; align-items: center; gap: 0.3rem; }
-    .ev-action { display: flex; align-items: center; padding: 1.25rem; }
-
-    .month-heading {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.5rem; color: var(--blue-dark);
-      margin: 2.5rem 0 1rem;
-      display: flex; align-items: center; gap: 0.75rem;
-    }
-    .month-heading::after { content:''; flex:1; height:2px; background: var(--parchment); border-radius:1px; }
-
-    /* colour variants */
-    .ev-date.green  { background: var(--green); }
-    .ev-date.amber  { background: var(--amber); }
-    .ev-date.purple { background: #6B46C1; }
-
-    @media(max-width:640px){
-      .ev-card { grid-template-columns: 70px 1fr; }
-      .ev-action { display: none; }
-      .ev-date strong { font-size: 1.5rem; }
-    }
+    .events-hero-copy{max-width:760px}
+    .events-hero-copy p{max-width:680px}
+    .event-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem;max-width:720px}
+    .event-stat{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:16px;padding:1rem 1.25rem}
+    .event-stat strong{display:block;font-family:'Nunito',sans-serif;font-size:1.7rem;line-height:1.1}
+    .event-stat span{font-size:.82rem;opacity:.85}
+    .filter-wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:2.25rem}
+    .filter-bar{display:flex;gap:.55rem;flex-wrap:wrap}
+    .filter-btn{padding:.55rem 1rem;border-radius:50px;border:2px solid #d8e3da;background:#fff;font-family:'Nunito',sans-serif;font-weight:800;font-size:.82rem;cursor:pointer;color:var(--text);transition:all var(--transition)}
+    .filter-btn:hover,.filter-btn.active{background:var(--green);color:#fff;border-color:var(--green)}
+    .filter-note{font-size:.84rem;color:var(--text-muted);margin:0}
+    .year-group{margin-top:2.75rem}
+    .year-heading{display:flex;align-items:center;gap:1rem;margin-bottom:1rem}
+    .year-heading h2{font-family:'Nunito',sans-serif;color:var(--green-dark,#16452A);font-size:1.8rem;font-weight:900;margin:0}
+    .year-heading::after{content:'';height:2px;background:var(--parchment);flex:1}
+    .events-list{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+    .ev-card{background:#fff;border-radius:18px;box-shadow:var(--shadow);padding:1.15rem;display:grid;grid-template-columns:74px 1fr;gap:1rem;transition:transform var(--transition),box-shadow var(--transition)}
+    .ev-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+    .ev-date{min-height:74px;border-radius:15px;background:var(--green-light);color:var(--green);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:.5rem}
+    .ev-date strong{font-family:'Nunito',sans-serif;font-size:1.15rem;line-height:1.1;font-weight:900}
+    .ev-date span{font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;font-weight:800;margin-top:.18rem}
+    .ev-body h3{font-family:'Nunito',sans-serif;font-weight:900;color:#164f2e;font-size:1.05rem;margin:.1rem 0 .35rem}
+    .ev-body p{font-size:.9rem;color:var(--text-muted);margin:0}
+    .card-tag{margin-bottom:.4rem}
+    .empty-state{display:none;background:#fff;border-radius:18px;padding:2rem;text-align:center;color:var(--text-muted);box-shadow:var(--shadow)}
+    .history-note{margin-top:3rem;background:#fffdf3;border:1px solid #f0e4b8;border-radius:18px;padding:1.5rem;display:flex;gap:1rem;align-items:flex-start}
+    .history-note-icon{font-size:1.8rem;line-height:1}
+    .history-note h3{font-family:'Nunito',sans-serif;font-weight:900;color:#164f2e;font-size:1.05rem;margin-bottom:.3rem}
+    .history-note p{margin:0;color:var(--text-muted);font-size:.9rem}
+    @media(max-width:760px){.events-list{grid-template-columns:1fr}.event-stats{grid-template-columns:1fr}.event-stat{display:flex;align-items:baseline;gap:.5rem;justify-content:center}.event-stat strong{font-size:1.4rem}}
+    @media(max-width:480px){.ev-card{grid-template-columns:64px 1fr}.ev-date{min-height:64px}.filter-wrap{align-items:flex-start}}
   </style>
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
 
 <section class="page-hero">
-  <div class="container">
+  <div class="container events-hero-copy">
     <p class="breadcrumb"><a href="index.html">Home</a> / Events</p>
-    <h1>Events &amp; Activities</h1>
-    <p>From litter picks to family fun days — there's always something happening at the park.</p>
+    <h1>Events at Badger Park</h1>
+    <p>Bringing our community together, one event at a time. Since 2020, we've organised family activities, outdoor adventures and community celebrations at Badger Park.</p>
+    <div class="event-stats" aria-label="Event history summary">
+      <div class="event-stat"><strong>20</strong><span>events since 2020</span></div>
+      <div class="event-stat"><strong>7</strong><span>years of community activity</span></div>
+      <div class="event-stat"><strong>1</strong><span>community coming together</span></div>
+    </div>
   </div>
 </section>
 
+<main id="main-content">
 <section class="section">
   <div class="container">
-
-    <div class="filter-bar">
-      <button class="filter-btn active">All events</button>
-      <button class="filter-btn">🧹 Volunteering</button>
-      <button class="filter-btn">👨‍👩‍👧 Family</button>
-      <button class="filter-btn">🌿 Nature</button>
-      <button class="filter-btn">🎉 Social</button>
+    <div class="section-heading">
+      <h2>Our events through the years</h2>
+      <p>From bulb planting and Easter treasure hunts to Colour Runs and family walks, these are some of the moments we've shared at Badger Park.</p>
     </div>
 
-    <!-- July -->
-    <div class="month-heading">July 2026</div>
-    <div class="events-list">
-
-      <div class="ev-card fade-up">
-        <div class="ev-date">
-          <strong>18</strong><span>Jul</span><small>Saturday</small>
-        </div>
-        <div class="ev-body">
-          <span class="card-tag tag-green">🧹 Volunteering</span>
-          <h3>Summer Litter Pick</h3>
-          <p>Help us tidy the park before the school holidays kick in. Gloves, bags and refreshments provided — just bring yourself!</p>
-          <div class="ev-meta">
-            <span>🕙 10:00 AM – 12:00 PM</span>
-            <span>📍 Main gate entrance</span>
-            <span>👥 All welcome</span>
-          </div>
-        </div>
-        <div class="ev-action"><a href="contact.html" class="btn btn-primary" style="white-space:nowrap;">Join us</a></div>
+    <div class="filter-wrap">
+      <div class="filter-bar" role="group" aria-label="Filter events by category">
+        <button class="filter-btn active" type="button" data-filter="all" aria-pressed="true">All</button>
+        <button class="filter-btn" type="button" data-filter="family" aria-pressed="false">Family</button>
+        <button class="filter-btn" type="button" data-filter="nature" aria-pressed="false">Nature</button>
+        <button class="filter-btn" type="button" data-filter="sport" aria-pressed="false">Sport</button>
+        <button class="filter-btn" type="button" data-filter="community" aria-pressed="false">Community</button>
+        <button class="filter-btn" type="button" data-filter="seasonal" aria-pressed="false">Seasonal</button>
       </div>
-
-      <div class="ev-card fade-up delay-1">
-        <div class="ev-date green">
-          <strong>25</strong><span>Jul</span><small>Saturday</small>
-        </div>
-        <div class="ev-body">
-          <span class="card-tag tag-amber">👨‍👩‍👧 Family</span>
-          <h3>Summer Fun Day</h3>
-          <p>Our biggest event of the summer! Games, face painting, a wildlife trail, local food stalls, and live music. Free entry for everyone.</p>
-          <div class="ev-meta">
-            <span>🕙 11:00 AM – 4:00 PM</span>
-            <span>📍 Bandstand area</span>
-            <span>🎟️ Free entry</span>
-          </div>
-        </div>
-        <div class="ev-action"><a href="contact.html" class="btn btn-amber" style="white-space:nowrap;">Find out more</a></div>
-      </div>
-
+      <p class="filter-note" id="filterNote">Showing all 20 events</p>
     </div>
 
-    <!-- August -->
-    <div class="month-heading">August 2026</div>
-    <div class="events-list">
-
-      <div class="ev-card fade-up">
-        <div class="ev-date amber">
-          <strong>08</strong><span>Aug</span><small>Saturday</small>
-        </div>
-        <div class="ev-body">
-          <span class="card-tag tag-blue">🌿 Nature</span>
-          <h3>Wildflower &amp; Wildlife Walk</h3>
-          <p>Join our resident naturalist for a gentle guided walk around the park identifying wildflowers, pollinators, and signs of badger activity.</p>
-          <div class="ev-meta">
-            <span>🕙 2:00 PM – 3:30 PM</span>
-            <span>📍 South meadow gate</span>
-            <span>👥 Max 20 people</span>
-          </div>
-        </div>
-        <div class="ev-action"><a href="contact.html" class="btn btn-primary" style="white-space:nowrap;">Book place</a></div>
-      </div>
-
-      <div class="ev-card fade-up delay-1">
-        <div class="ev-date">
-          <strong>22</strong><span>Aug</span><small>Saturday</small>
-        </div>
-        <div class="ev-body">
-          <span class="card-tag tag-green">🧹 Volunteering</span>
-          <h3>Hedge &amp; Tree Survey</h3>
-          <p>Help our conservation team carry out our annual tree and hedgerow condition survey. Training provided on the day.</p>
-          <div class="ev-meta">
-            <span>🕙 9:30 AM – 1:00 PM</span>
-            <span>📍 Car park</span>
-            <span>👥 Volunteers needed</span>
-          </div>
-        </div>
-        <div class="ev-action"><a href="contact.html" class="btn btn-green" style="white-space:nowrap;">Sign up</a></div>
-      </div>
-
-    </div>
-
-    <!-- September -->
-    <div class="month-heading">September 2026</div>
-    <div class="events-list">
-
-      <div class="ev-card fade-up">
-        <div class="ev-date green">
-          <strong>05</strong><span>Sep</span><small>Saturday</small>
-        </div>
-        <div class="ev-body">
-          <span class="card-tag tag-amber">🎉 Social</span>
-          <h3>Autumn Harvest Picnic</h3>
-          <p>Celebrate the season with a community picnic. Bring your own food and blanket — we'll provide games and a quiz!</p>
-          <div class="ev-meta">
-            <span>🕙 12:00 PM – 3:00 PM</span>
-            <span>📍 Central lawn</span>
-            <span>🎟️ Free</span>
-          </div>
-        </div>
-        <div class="ev-action"><a href="contact.html" class="btn btn-amber" style="white-space:nowrap;">Attend</a></div>
-      </div>
-
-      <div class="ev-card fade-up delay-1">
-        <div class="ev-date purple">
-          <strong>19</strong><span>Sep</span><small>Saturday</small>
-        </div>
-        <div class="ev-body">
-          <span class="card-tag tag-blue">🌿 Nature</span>
-          <h3>Big Badger Survey</h3>
-          <p>An evening badger-watching session for all the family. Torches provided. Meet our resident badger population — quietly!</p>
-          <div class="ev-meta">
-            <span>🕙 7:30 PM – 9:00 PM</span>
-            <span>📍 North woodland</span>
-            <span>👥 Book required</span>
-          </div>
-        </div>
-        <div class="ev-action"><a href="contact.html" class="btn btn-primary" style="white-space:nowrap;">Book place</a></div>
-      </div>
-
-    </div>
-
-    <!-- Info box -->
-    <div style="background:var(--blue-light);border-radius:var(--radius);padding:1.75rem;margin-top:3rem;display:flex;gap:1.25rem;align-items:flex-start;">
-      <div style="font-size:2rem;flex-shrink:0;">📬</div>
-      <div>
-        <h4 style="color:var(--blue-dark);margin-bottom:0.4rem;">Never miss an event</h4>
-        <p style="color:var(--text-muted);font-size:0.92rem;margin:0;">Sign up to our newsletter or follow us on social media to get the latest event updates straight to your inbox or feed.</p>
-        <a href="contact.html" class="btn btn-primary" style="margin-top:1rem;display:inline-block;">Sign up for updates</a>
+    <div class="year-group" data-year="2026">
+      <div class="year-heading"><h2>2026</h2></div>
+      <div class="events-list">
+        <article class="ev-card" data-category="family community">
+          <div class="ev-date"><strong>July</strong><span>2026</span></div>
+          <div class="ev-body"><span class="card-tag tag-green">Family · Community</span><h3>Colour Run</h3><p>A colourful community event bringing families together for fun, activity and fundraising.</p></div>
+        </article>
+        <article class="ev-card" data-category="family community">
+          <div class="ev-date"><strong>May</strong><span>2026</span></div>
+          <div class="ev-body"><span class="card-tag tag-green">Community</span><h3>Family Walk</h3><p>A chance for local families and friends to enjoy the park and spend time together outdoors.</p></div>
+        </article>
       </div>
     </div>
 
+    <div class="year-group" data-year="2025">
+      <div class="year-heading"><h2>2025</h2></div>
+      <div class="events-list">
+        <article class="ev-card" data-category="seasonal community"><div class="ev-date"><strong>Dec</strong><span>2025</span></div><div class="ev-body"><span class="card-tag tag-amber">Seasonal · Community</span><h3>Christmas Carols</h3><p>A festive community gathering to round off the year at Badger Park.</p></div></article>
+        <article class="ev-card" data-category="family community"><div class="ev-date"><strong>Aug</strong><span>2025</span></div><div class="ev-body"><span class="card-tag tag-green">Family · Community</span><h3>Colour Run</h3><p>A colourful summer event bringing the community together for fun and fundraising.</p></div></article>
+        <article class="ev-card" data-category="family seasonal"><div class="ev-date"><strong>Apr</strong><span>2025</span></div><div class="ev-body"><span class="card-tag tag-amber">Family · Seasonal</span><h3>Easter Crafts</h3><p>Creative Easter activities for local families to enjoy together.</p></div></article>
+      </div>
+    </div>
+
+    <div class="year-group" data-year="2024">
+      <div class="year-heading"><h2>2024</h2></div>
+      <div class="events-list">
+        <article class="ev-card" data-category="family seasonal"><div class="ev-date"><strong>Nov</strong><span>2024</span></div><div class="ev-body"><span class="card-tag tag-amber">Family · Seasonal</span><h3>Creepy Crafts</h3><p>Halloween-inspired crafts and family fun at Badger Park.</p></div></article>
+        <article class="ev-card" data-category="family community"><div class="ev-date"><strong>Jul</strong><span>2024</span></div><div class="ev-body"><span class="card-tag tag-green">Family · Community</span><h3>Colour Run</h3><p>A summer Colour Run bringing energy, colour and community spirit to the park.</p></div></article>
+        <article class="ev-card" data-category="family seasonal"><div class="ev-date"><strong>Apr</strong><span>2024</span></div><div class="ev-body"><span class="card-tag tag-amber">Family · Seasonal</span><h3>Easter Egg Hunt</h3><p>An Easter favourite bringing families together for a fun hunt around the park.</p></div></article>
+      </div>
+    </div>
+
+    <div class="year-group" data-year="2023">
+      <div class="year-heading"><h2>2023</h2></div>
+      <div class="events-list">
+        <article class="ev-card" data-category="family community"><div class="ev-date"><strong>Aug</strong><span>2023</span></div><div class="ev-body"><span class="card-tag tag-green">Family · Community</span><h3>Colour Run</h3><p>Our first recorded Colour Run — a colourful new tradition for the Badger Park community.</p></div></article>
+        <article class="ev-card" data-category="family nature"><div class="ev-date"><strong>Jun</strong><span>2023</span></div><div class="ev-body"><span class="card-tag tag-blue">Family · Nature</span><h3>Half Term Fun</h3><p>Half-term activities including Samba Sports, minibeasts and sunflowers.</p></div></article>
+        <article class="ev-card" data-category="family seasonal"><div class="ev-date"><strong>Apr</strong><span>2023</span></div><div class="ev-body"><span class="card-tag tag-amber">Family · Seasonal</span><h3>Easter Treasure Hunt</h3><p>A family Easter treasure hunt around Badger Park.</p></div></article>
+      </div>
+    </div>
+
+    <div class="year-group" data-year="2022">
+      <div class="year-heading"><h2>2022</h2></div>
+      <div class="events-list">
+        <article class="ev-card" data-category="nature community"><div class="ev-date"><strong>Oct</strong><span>2022</span></div><div class="ev-body"><span class="card-tag tag-blue">Nature · Community</span><h3>Badger Park Tree Festival</h3><p>A community event celebrating trees, nature and the park.</p></div></article>
+        <article class="ev-card" data-category="community seasonal"><div class="ev-date"><strong>Jun</strong><span>2022</span></div><div class="ev-body"><span class="card-tag tag-green">Community · Seasonal</span><h3>Jubilee Picnic on the Park</h3><p>A community picnic celebrating the Queen's Platinum Jubilee.</p></div></article>
+        <article class="ev-card" data-category="community"><div class="ev-date"><strong>Feb</strong><span>2022</span></div><div class="ev-body"><span class="card-tag tag-green">Major milestone</span><h3>Official Opening of the New Park</h3><p>A major milestone for the community as the new park was officially opened.</p></div></article>
+      </div>
+    </div>
+
+    <div class="year-group" data-year="2021">
+      <div class="year-heading"><h2>2021</h2></div>
+      <div class="events-list">
+        <article class="ev-card" data-category="family seasonal"><div class="ev-date"><strong>Oct</strong><span>2021</span></div><div class="ev-body"><span class="card-tag tag-amber">Family · Seasonal</span><h3>Halloween Xplorer</h3><p>A Halloween-themed family activity in the park.</p></div></article>
+        <article class="ev-card" data-category="family community"><div class="ev-date"><strong>Sep</strong><span>2021</span></div><div class="ev-body"><span class="card-tag tag-green">Family · Community</span><h3>Iron Age Archery</h3><p>A hands-on historical activity introducing the community to Iron Age archery.</p></div></article>
+        <article class="ev-card" data-category="sport family"><div class="ev-date"><strong>Aug</strong><span>2021</span></div><div class="ev-body"><span class="card-tag tag-blue">Sport · Family</span><h3>Multi-sports Sessions with Samba Sports</h3><p>Active sessions giving children and families the chance to try different sports.</p></div></article>
+        <article class="ev-card" data-category="family community"><div class="ev-date"><strong>Aug</strong><span>2021</span></div><div class="ev-body"><span class="card-tag tag-green">Family · Community</span><h3>National Playday in the Park</h3><p>Climbing wall, circus workshop, games and a picnic for the local community.</p></div></article>
+        <article class="ev-card" data-category="family seasonal"><div class="ev-date"><strong>Apr</strong><span>2021</span></div><div class="ev-body"><span class="card-tag tag-amber">Family · Seasonal</span><h3>Easter Treasure Hunt</h3><p>A family Easter treasure hunt around Badger Park.</p></div></article>
+      </div>
+    </div>
+
+    <div class="year-group" data-year="2020">
+      <div class="year-heading"><h2>2020</h2></div>
+      <div class="events-list">
+        <article class="ev-card" data-category="nature community"><div class="ev-date"><strong>Oct</strong><span>2020</span></div><div class="ev-body"><span class="card-tag tag-blue">Nature · Community</span><h3>Bulb Planting</h3><p>Our earliest recorded community activity, helping bring new life and colour to the park.</p></div></article>
+      </div>
+    </div>
+
+    <div class="empty-state" id="emptyState">No events in this category yet. Try another filter.</div>
+
+    <div class="history-note">
+      <div class="history-note-icon" aria-hidden="true">🌳</div>
+      <div><h3>More memories to come</h3><p>We're building this archive from the events Friends of the Badger Park has organised over the years. As we add photographs and more details, this page will become a visual record of the community's journey.</p></div>
+    </div>
   </div>
 </section>
+</main>
 
 <script src="shared.js"></script>
 <script>
-  // Simple filter behaviour
-  document.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', function(){
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      this.classList.add('active');
+(function(){
+  const buttons = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.ev-card');
+  const groups = document.querySelectorAll('.year-group');
+  const note = document.getElementById('filterNote');
+  const empty = document.getElementById('emptyState');
+  const total = cards.length;
+
+  buttons.forEach(button => {
+    button.addEventListener('click', function(){
+      const filter = this.dataset.filter;
+      let visible = 0;
+      buttons.forEach(btn => {
+        const active = btn === this;
+        btn.classList.toggle('active', active);
+        btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+
+      cards.forEach(card => {
+        const matches = filter === 'all' || card.dataset.category.split(' ').includes(filter);
+        card.style.display = matches ? 'grid' : 'none';
+        if(matches) visible++;
+      });
+
+      groups.forEach(group => {
+        const visibleInYear = Array.from(group.querySelectorAll('.ev-card')).some(card => card.style.display !== 'none');
+        group.style.display = visibleInYear ? 'block' : 'none';
+      });
+
+      empty.style.display = visible ? 'none' : 'block';
+      note.textContent = filter === 'all' ? `Showing all ${total} events` : `Showing ${visible} event${visible === 1 ? '' : 's'}`;
     });
   });
+})();
 </script>
 </body>
 </html>
