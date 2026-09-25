@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us — Friends of the Badger Park</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 3rem; align-items: start;
+    }
+    .contact-form-card {
+      background: var(--white); border-radius: var(--radius);
+      padding: 2.25rem; box-shadow: var(--shadow);
+    }
+    .contact-form-card h2 { color: var(--blue-dark); margin-bottom: 0.5rem; }
+    .contact-form-card > p { color: var(--text-muted); margin-bottom: 1.75rem; }
+
+    /* Topic selector */
+    .topic-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 0.65rem; margin-bottom: 1.5rem; }
+    .topic-btn {
+      border: 2px solid #ddd; background: var(--white);
+      border-radius: 10px; padding: 0.7rem 0.85rem;
+      font-family: 'Nunito', sans-serif; font-weight: 700;
+      font-size: 0.84rem; cursor: pointer;
+      transition: all var(--transition); text-align: left;
+      display: flex; gap: 0.5rem; align-items: center;
+      color: var(--text);
+    }
+    .topic-btn:hover, .topic-btn.active { border-color: var(--blue); background: var(--blue-light); color: var(--blue); }
+
+    /* Sidebar info */
+    .contact-info { display: flex; flex-direction: column; gap: 1.5rem; }
+    .info-card {
+      background: var(--white); border-radius: var(--radius);
+      padding: 1.5rem; box-shadow: var(--shadow);
+    }
+    .info-card h4 { color: var(--blue-dark); margin-bottom: 1rem; display: flex; gap: 0.5rem; align-items: center; }
+    .info-row { display: flex; gap: 0.75rem; margin-bottom: 0.85rem; align-items: flex-start; }
+    .info-row .ico { font-size: 1.25rem; flex-shrink:0; margin-top:0.1rem; }
+    .info-row h5 { font-size: 0.88rem; margin-bottom: 0.15rem; }
+    .info-row p, .info-row a { font-size: 0.85rem; color: var(--text-muted); margin: 0; }
+
+    /* Map placeholder */
+    .map-placeholder {
+      background: linear-gradient(135deg, var(--green-light), var(--blue-light));
+      border-radius: var(--radius); height: 220px;
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; text-align: center; gap: 0.5rem;
+      border: 2px dashed #ccc;
+    }
+    .map-placeholder .pin { font-size: 2.5rem; }
+    .map-placeholder p { font-size: 0.88rem; color: var(--text-muted); margin: 0; }
+    .map-placeholder a { font-weight: 700; font-size: 0.88rem; }
+
+    /* Social row */
+    .social-row { display: flex; gap: 0.75rem; }
+    .social-link {
+      flex: 1; display: flex; align-items: center; justify-content: center;
+      gap: 0.5rem; padding: 0.65rem;
+      border-radius: 10px; border: 2px solid #ddd;
+      font-weight: 700; font-size: 0.82rem; color: var(--text);
+      transition: all var(--transition); text-decoration: none;
+    }
+    .social-link:hover { border-color: var(--blue); background: var(--blue-light); color: var(--blue); }
+
+    /* Success message */
+    .success-msg {
+      display: none; background: var(--green-light);
+      border: 2px solid var(--green); border-radius: var(--radius);
+      padding: 1.5rem; text-align: center; margin-top: 1rem;
+    }
+    .success-msg .tick { font-size: 2.5rem; }
+    .success-msg h4 { color: var(--green); margin: 0.5rem 0 0.25rem; }
+    .success-msg p  { color: var(--text-muted); font-size: 0.9rem; margin: 0; }
+
+    /* Volunteer CTA */
+    .volunteer-banner {
+      background: linear-gradient(135deg, var(--blue-dark), var(--green));
+      color: #fff; border-radius: var(--radius);
+      padding: 2rem; text-align: center; margin-top: 1.5rem;
+    }
+    .volunteer-banner h3 { margin-bottom: 0.5rem; }
+    .volunteer-banner p { opacity: 0.85; font-size: 0.92rem; margin-bottom: 1.25rem; }
+
+    @media(max-width:900px){ .contact-layout { grid-template-columns: 1fr; } }
+    @media(max-width:480px){ .topic-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<section class="page-hero">
+  <div class="container">
+    <p class="breadcrumb"><a href="index.html">Home</a> / Contact</p>
+    <h1>Get in Touch</h1>
+    <p>We'd love to hear from you — whether you want to volunteer, donate, report an issue, or just say hello.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="contact-layout">
+
+      <!-- Form -->
+      <div class="contact-form-card fade-up">
+        <h2>Send us a message</h2>
+        <p>We aim to respond within 2 working days.</p>
+
+        <form id="contactForm" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="contact">
+          <p style="display:none"><label>Don't fill this: <input name="bot-field"></label></p>
+
+          <div style="margin-bottom:1.5rem;">
+            <label style="font-weight:700;display:block;margin-bottom:0.75rem;">What's this about?</label>
+            <input type="hidden" name="topic" id="topicField" value="Volunteering">
+            <div class="topic-grid">
+              <button type="button" class="topic-btn active" data-topic="Volunteering">🤝 Volunteering</button>
+              <button type="button" class="topic-btn" data-topic="Events & Activities">🎉 Events &amp; Activities</button>
+              <button type="button" class="topic-btn" data-topic="Donation enquiry">💶 Donation enquiry</button>
+              <button type="button" class="topic-btn" data-topic="Report an issue">📣 Report an issue</button>
+              <button type="button" class="topic-btn" data-topic="Partnership">🤝 Partnership</button>
+              <button type="button" class="topic-btn" data-topic="General enquiry">💬 General enquiry</button>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="form-group"><label>First name *</label><input type="text" name="first-name" placeholder="Jane" required></div>
+            <div class="form-group"><label>Last name *</label><input type="text" name="last-name" placeholder="Smith" required></div>
+          </div>
+          <div class="form-group"><label>Email address *</label><input type="email" name="email" placeholder="jane@example.com" required></div>
+          <div class="form-group"><label>Phone (optional)</label><input type="tel" name="phone" placeholder="07…"></div>
+          <div class="form-group"><label>Message *</label><textarea name="message" placeholder="Tell us a bit more…" required></textarea></div>
+
+          <!-- Newsletter opt-in -->
+          <div style="margin-bottom:1.5rem;">
+            <label style="display:flex;gap:0.75rem;align-items:center;cursor:pointer;font-size:0.88rem;">
+              <input type="checkbox" name="newsletter" style="width:16px;height:16px;accent-color:var(--blue);">
+              <span>Sign me up for the Friends of the Badger Park newsletter</span>
+            </label>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%;font-size:1.05rem;padding:1rem;" id="sendBtn">Send message →</button>
+
+          <div class="success-msg" id="successMsg">
+            <div class="tick">✅</div>
+            <h4>Message sent — thank you!</h4>
+            <p>We'll get back to you within 2 working days. In the meantime, why not follow us on social media?</p>
+          </div>
+
+          <div class="error-msg" id="errorMsg" style="display:none;background:#fce4e4;border:2px solid #e74c3c;border-radius:var(--radius);padding:1.5rem;text-align:center;margin-top:1rem;">
+            <h4 style="color:#e74c3c;margin:0 0 0.25rem;">Something went wrong</h4>
+            <p style="color:var(--text-muted);font-size:0.9rem;margin:0;">Please try again or email us directly at friendsofbadgerpark@gmail.com</p>
+          </div>
+        </form>
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="contact-info">
+
+        <div class="info-card fade-up delay-1">
+          <h4>📍 Find us</h4>
+          <div class="info-row">
+            <div class="ico">📍</div>
+            <div>
+              <h5>Badger Park</h5>
+              <p>Badger Lane<br>Chesterfield<br>Derbyshire, S40</p>
+            </div>
+          </div>
+          <div class="map-placeholder">
+            <div class="pin">🗺️</div>
+            <p>Badger Park, Chesterfield</p>
+            <a href="https://maps.google.com/?q=Chesterfield,Derbyshire" target="_blank">Open in Google Maps →</a>
+          </div>
+        </div>
+
+        <div class="info-card fade-up delay-2">
+          <h4>📬 Contact details</h4>
+          <div class="info-row">
+            <div class="ico">📧</div>
+            <div>
+              <h5>Email</h5>
+              <a href="mailto:friendsofbadgerpark@gmail.com">friendsofbadgerpark@gmail.com</a>
+            </div>
+          </div>
+          <div class="info-row">
+            <div class="ico">🕐</div>
+            <div>
+              <h5>Response times</h5>
+              <p>We're all volunteers — we aim to reply within 2 working days.</p>
+            </div>
+          </div>
+          <div class="info-row">
+            <div class="ico">🏛️</div>
+            <div>
+              <h5>Registered address</h5>
+              <p>c/o Chesterfield Borough Council, Chesterfield, S40 1LP</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-card fade-up delay-3">
+          <h4>📱 Follow us</h4>
+          <p style="font-size:0.88rem;color:var(--text-muted);margin-bottom:1rem;">Stay up to date with park news, events, and wildlife sightings.</p>
+          <div class="social-row">
+            <a href="#" class="social-link">f Facebook</a>
+            <a href="#" class="social-link">X</a>
+          </div>
+          <div class="social-row" style="margin-top:0.65rem;">
+            <a href="#" class="social-link">📸 Instagram</a>
+            <a href="#" class="social-link">▶️ YouTube</a>
+          </div>
+        </div>
+
+        <div class="volunteer-banner fade-up">
+          <h3>Want to volunteer?</h3>
+          <p>No experience needed — just enthusiasm and a love for the outdoors. Join our fantastic group of 300+ volunteers.</p>
+          <a href="#" class="btn btn-amber">Become a volunteer</a>
+        </div>
+
+      </aside>
+    </div>
+  </div>
+</section>
+
+<script src="shared.js"></script>
+<script>
+  // Topic buttons
+  document.querySelectorAll('.topic-btn').forEach(btn => {
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      document.getElementById('topicField').value = this.dataset.topic;
+    });
+  });
+  // Form submission via AJAX
+  document.getElementById('contactForm').addEventListener('submit', async function(e){
+    e.preventDefault();
+    const btn = document.getElementById('sendBtn');
+    const successMsg = document.getElementById('successMsg');
+    const errorMsg = document.getElementById('errorMsg');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    errorMsg.style.display = 'none';
+    try {
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(new FormData(this)).toString()
+      });
+      if (response.ok) {
+        btn.style.display = 'none';
+        successMsg.style.display = 'block';
+      } else {
+        throw new Error('Submission failed');
+      }
+    } catch (err) {
+      btn.textContent = 'Send message →';
+      btn.disabled = false;
+      errorMsg.style.display = 'block';
+    }
+  });
+</script>
+</body>
+</html>

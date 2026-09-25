@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>News — Friends of the Badger Park</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .news-layout {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    /* Featured article */
+    .news-featured {
+      background: var(--white); border-radius: var(--radius);
+      box-shadow: var(--shadow); overflow: hidden; margin-bottom: 2rem;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .news-featured:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+    .news-featured-img {
+      width: 100%; height: 280px;
+      background: linear-gradient(135deg, var(--blue), var(--green));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 5rem;
+    }
+    .news-featured-body { padding: 2rem; }
+    .news-featured-body .card-tag { margin-bottom: 1rem; }
+    .news-featured-body h2 { font-size: 1.6rem; margin-bottom: 0.75rem; color: var(--blue-dark); }
+    .news-featured-body .meta { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1rem; }
+    .news-featured-body p { color: var(--text-muted); }
+
+    /* Article list */
+    .article-item {
+      background: var(--white); border-radius: var(--radius);
+      box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.25rem;
+      display: grid; grid-template-columns: 140px 1fr;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .article-item:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+    .article-thumb {
+      background: linear-gradient(135deg, var(--parchment), var(--blue-light));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.5rem;
+    }
+    .article-body { padding: 1.25rem; }
+    .article-body .card-tag { margin-bottom: 0.5rem; }
+    .article-body h3 { font-size: 1rem; margin-bottom: 0.35rem; color: var(--text); }
+    .article-body .meta { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+    .article-body p { font-size: 0.88rem; color: var(--text-muted); margin: 0 0 0.75rem; }
+    .article-body a { font-size: 0.85rem; font-weight: 700; color: var(--blue); }
+
+    /* Sidebar */
+    .sidebar-widget {
+      background: var(--white); border-radius: var(--radius);
+      padding: 1.5rem; box-shadow: var(--shadow); margin-bottom: 1.5rem;
+    }
+    .sidebar-widget h4 {
+      font-size: 1rem; color: var(--blue-dark); margin-bottom: 1rem;
+      padding-bottom: 0.5rem; border-bottom: 2px solid var(--parchment);
+    }
+    .category-list { list-style: none; }
+    .category-list li {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.5rem 0; border-bottom: 1px solid var(--parchment);
+      font-size: 0.9rem;
+    }
+    .category-list li:last-child { border: none; }
+    .category-list a { color: var(--text); font-weight: 600; }
+    .category-list a:hover { color: var(--blue); }
+    .category-count {
+      background: var(--blue-light); color: var(--blue);
+      border-radius: 50px; padding: 0.1rem 0.6rem;
+      font-size: 0.75rem; font-weight: 700;
+    }
+    .recent-item { display: flex; gap: 0.75rem; margin-bottom: 0.85rem; padding-bottom: 0.85rem; border-bottom: 1px solid var(--parchment); }
+    .recent-item:last-child { border: none; margin: 0; padding: 0; }
+    .recent-icon { font-size: 1.5rem; flex-shrink: 0; }
+    .recent-item h5 { font-size: 0.88rem; color: var(--text); margin-bottom: 0.2rem; }
+    .recent-item span { font-size: 0.75rem; color: var(--text-muted); }
+    .newsletter-box { background: linear-gradient(135deg, var(--blue-dark), var(--blue)); color: #fff; border-radius: var(--radius); padding: 1.5rem; }
+    .newsletter-box h4 { color: #fff; margin-bottom: 0.75rem; }
+    .newsletter-box p { font-size: 0.88rem; opacity: 0.85; margin-bottom: 1rem; }
+    .newsletter-box input {
+      width: 100%; padding: 0.65rem 0.9rem;
+      border: none; border-radius: 8px;
+      font-family: 'Nunito', sans-serif; font-size: 0.9rem;
+      margin-bottom: 0.6rem;
+    }
+
+    @media(max-width:900px){
+      .news-layout { grid-template-columns: 1fr; }
+      .article-item { grid-template-columns: 110px 1fr; }
+    }
+    @media(max-width:480px){
+      .article-item { grid-template-columns: 1fr; }
+      .article-thumb { height: 120px; }
+    }
+  </style>
+</head>
+<body>
+
+<section class="page-hero">
+  <div class="container">
+    <p class="breadcrumb"><a href="index.html">Home</a> / News</p>
+    <h1>News &amp; Updates</h1>
+    <p>The latest from Friends of the Badger Park and the local community.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="news-layout">
+
+      <!-- Main content -->
+      <div>
+        <!-- Featured -->
+        <article class="news-featured fade-up">
+          <div class="news-featured-img" style="background:linear-gradient(135deg,var(--green),var(--blue-dark));">💪</div>
+          <div class="news-featured-body">
+            <span class="card-tag tag-blue">⭐ Our Story</span>
+            <h2>From demolition to celebration — and back again</h2>
+            <p class="meta">📅 Summer 2024 &nbsp;·&nbsp; 🕐 5 min read &nbsp;·&nbsp; <span class="card-tag tag-blue" style="padding:0.15rem 0.5rem;">Community</span></p>
+            <p>In August 2020, residents formed Friends of Badger Park with a simple goal: replace the playground that Chesterfield Borough Council had to remove on safety grounds. What followed was an extraordinary four years of community spirit — raffles, grant applications, 5,000 daffodil bulbs planted, a successful funding bid, and a brand-new playground opened in February 2022.</p>
+            <p>But the story isn't without its setbacks. In May 2023 the community orchard was vandalised. Then in October 2023 an arson attack destroyed the slide and caused significant damage. The group was shaken — but never stopped. As we publish our very first newsletter in Summer 2024, we are stronger than ever.</p>
+            <a href="#" class="btn btn-primary" style="margin-top:0.5rem;">Read our full newsletter →</a>
+          </div>
+        </article>
+
+        <!-- Article list -->
+        <article class="article-item fade-up delay-1">
+          <div class="article-thumb">🎨</div>
+          <div class="article-body">
+            <span class="card-tag tag-blue">Community</span>
+            <h3>2023 Colour Run — a human rainbow!</h3>
+            <p class="meta">📅 August 2023</p>
+            <p>The highlight of 2023 — we were overwhelmed by the turnout for our Colour Run. Participants became a human rainbow and the park was filled with colour and laughter.</p>
+            <a href="#">Read more →</a>
+          </div>
+        </article>
+
+        <article class="article-item fade-up delay-2">
+          <div class="article-thumb">🎉</div>
+          <div class="article-body">
+            <span class="card-tag tag-amber">Milestone</span>
+            <h3>New playground officially opens — February 2022</h3>
+            <p class="meta">📅 February 2022</p>
+            <p>After over a year of fundraising, grant applications and construction, the new playground opened on a cold but wonderful day of community celebration. A dream realised.</p>
+            <a href="#">Read more →</a>
+          </div>
+        </article>
+
+        <article class="article-item fade-up delay-3">
+          <div class="article-thumb">🌱</div>
+          <div class="article-body">
+            <span class="card-tag tag-green">Nature</span>
+            <h3>5,000 daffodil bulbs planted in partnership with CBC</h3>
+            <p class="meta">📅 October 2020</p>
+            <p>One of our earliest achievements — planting 5,000 daffodil bulbs across the park in conjunction with Chesterfield Borough Council, just one month after the group formed.</p>
+            <a href="#">Read more →</a>
+          </div>
+        </article>
+
+        <article class="article-item fade-up">
+          <div class="article-thumb">🏆</div>
+          <div class="article-body">
+            <span class="card-tag tag-amber">Funding</span>
+            <h3>£5,000 awarded from CBC International Levy Fund</h3>
+            <p class="meta">📅 December 2020</p>
+            <p>Incredible news in our first December — a £5,000 grant from Chesterfield Borough Council brought our total fundraising to over £7,000 and gave real momentum to the project.</p>
+            <a href="#">Read more →</a>
+          </div>
+        </article>
+
+        <article class="article-item fade-up delay-1">
+          <div class="article-thumb">🦇</div>
+          <div class="article-body">
+            <span class="card-tag tag-green">Nature</span>
+            <h3>Bat and bird box making session — a great community day</h3>
+            <p class="meta">📅 June 2021</p>
+            <p>Supported by Chesterfield Borough Council, families joined us to build and install bat and bird boxes across the park — boosting habitat for local wildlife.</p>
+            <a href="#">Read more →</a>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- Sidebar -->
+      <aside>
+        <div class="sidebar-widget fade-up delay-2">
+          <h4>Categories</h4>
+          <ul class="category-list">
+            <li><a href="#">All News</a> <span class="category-count">18</span></li>
+            <li><a href="#">🌿 Nature &amp; Wildlife</a> <span class="category-count">7</span></li>
+            <li><a href="#">🧹 Volunteering</a> <span class="category-count">4</span></li>
+            <li><a href="#">🎉 Community</a> <span class="category-count">3</span></li>
+            <li><a href="#">💶 Funding</a> <span class="category-count">2</span></li>
+            <li><a href="#">🏆 Awards</a> <span class="category-count">2</span></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-widget fade-up delay-3">
+          <h4>Recent posts</h4>
+          <div class="recent-item">
+            <div class="recent-icon">🏆</div>
+            <div><h5>Green Flag shortlisting announced</h5><span>14 Jul 2026</span></div>
+          </div>
+          <div class="recent-item">
+            <div class="recent-icon">🌿</div>
+            <div><h5>Wildflower meadow takes root</h5><span>2 Jul 2026</span></div>
+          </div>
+          <div class="recent-item">
+            <div class="recent-icon">🎨</div>
+            <div><h5>Mosaic unveiled at entrance</h5><span>18 Jun 2026</span></div>
+          </div>
+          <div class="recent-item">
+            <div class="recent-icon">🧹</div>
+            <div><h5>Record spring litter pick</h5><span>5 May 2026</span></div>
+          </div>
+        </div>
+
+        <div class="newsletter-box fade-up">
+          <h4>📬 Stay in the loop</h4>
+          <p>Get news and events straight to your inbox.</p>
+          <input type="email" placeholder="Your email address">
+          <button class="btn btn-amber" style="width:100%;">Subscribe</button>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</section>
+
+<script src="shared.js"></script>
+</body>
+</html>

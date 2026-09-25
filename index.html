@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Friends of the Badger Park — Chesterfield</title>
+<meta name="description" content="Friends of the Badger Park brings the Chesterfield community together through events, fundraising and projects for Badger Park.">
+<meta name="theme-color" content="#2D6A3F">
+<link rel="stylesheet" href="style.css">
+<style>
+.home-hero{position:relative;min-height:78vh;display:flex;align-items:center;overflow:hidden;color:#fff;background:radial-gradient(circle at 80% 30%,rgba(255,202,40,.35),transparent 28%),linear-gradient(120deg,#0b4d2b,#168047 52%,#2d9b58)}
+.home-hero:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 15% 20%,rgba(255,255,255,.14) 0 2px,transparent 3px),radial-gradient(circle at 70% 70%,rgba(255,255,255,.10) 0 2px,transparent 3px);background-size:90px 90px,120px 120px;pointer-events:none}
+.hero-copy{position:relative;z-index:2;max-width:650px;padding:5rem 0}
+.hero-kicker{display:inline-flex;padding:.45rem 1rem;border-radius:999px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.28);font-size:.82rem;font-weight:800;margin-bottom:1.25rem}
+.hero-copy h1{font-family:'Nunito',sans-serif;font-size:clamp(3rem,7vw,5.4rem);line-height:.98;font-weight:900;letter-spacing:-.04em;margin-bottom:1.4rem}
+.hero-copy h1 span{color:#ffd43b}.hero-copy p{max-width:560px;font-size:1.2rem;line-height:1.55;opacity:.95;margin-bottom:2rem}
+.hero-actions{display:flex;gap:.8rem;flex-wrap:wrap}.hero-actions .btn{padding:.85rem 1.45rem}
+.btn-light{background:#fff;color:#155c32;border-color:#fff}.btn-light:hover{background:#f4f4f4;color:#155c32}
+.hero-art{position:absolute;right:-5vw;top:50%;transform:translateY(-50%);width:min(52vw,760px);height:100%;z-index:1;opacity:.95}
+.hero-art .sun{position:absolute;width:280px;height:280px;border-radius:50%;background:linear-gradient(135deg,#ffd43b,#ff9f1c);right:8%;top:14%;opacity:.9}
+.hero-art .tree{position:absolute;bottom:8%;width:34px;background:#704522;border-radius:18px}.hero-art .tree:before{content:"";position:absolute;width:170px;height:170px;border-radius:50%;background:#58b96b;left:50%;transform:translateX(-50%);bottom:25px;box-shadow:80px 15px 0 15px #3ca85b,-70px 20px 0 5px #67c777}
+.hero-art .t1{height:220px;right:23%}.hero-art .t2{height:150px;right:3%;transform:scale(.8)}
+.hero-art .hill{position:absolute;bottom:0;left:0;right:0;height:48%;background:#72c477;border-radius:55% 55% 0 0/35% 35% 0 0;transform:translateY(18%)}
+.hero-art .people{position:absolute;bottom:15%;right:28%;font-size:6rem;filter:drop-shadow(0 8px 6px rgba(0,0,0,.15))}
+.event-intro{display:grid;grid-template-columns:.85fr 2fr;gap:2.5rem;align-items:center;margin-bottom:2rem}.event-intro h2,.impact-heading h2{font-family:'Nunito',sans-serif;font-weight:900;color:#14562f;font-size:clamp(2rem,4vw,3rem)}.event-intro h2:after,.impact-heading h2:after{content:"";display:block;width:58px;height:5px;border-radius:99px;background:#58b947;margin-top:.8rem}.event-intro p{max-width:650px;color:var(--text-muted);font-size:1.05rem;margin:0}.home-events{background:#fbfaf1}
+.event-tile{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 8px 28px rgba(0,0,0,.09);display:flex;flex-direction:column;height:100%;transition:.25s}.event-tile:hover{transform:translateY(-5px);box-shadow:0 14px 36px rgba(0,0,0,.13)}
+.event-tile-art{height:155px;display:flex;align-items:center;justify-content:center;font-size:5rem}.colour{background:linear-gradient(135deg,#ff5aa5,#ffd43b,#5fd6ff)}.halloween{background:linear-gradient(135deg,#21163a,#5d2c7d,#ff7a18)}.community{background:linear-gradient(135deg,#b9e8bd,#70c77a,#dff4c8)}
+.event-tile-body{padding:1.25rem;display:flex;flex-direction:column;flex:1}.event-tile-body h3{font-family:'Nunito',sans-serif;font-weight:900;color:#164f2e;margin:.5rem 0 .35rem}.event-tile-body p{color:var(--text-muted);font-size:.92rem}.event-link{margin-top:auto;font-weight:900;color:#198a43}
+.what-we-do{background:linear-gradient(180deg,#eff9e9,#f7fbef)}.what-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;text-align:center}.what-card{padding:1.5rem}.what-icon{font-size:3rem;margin-bottom:.6rem}.what-card h3{font-family:'Nunito',sans-serif;font-weight:900;color:#14562f;margin-bottom:.4rem}.what-card p{color:var(--text-muted);margin:0 auto;max-width:280px}
+.impact-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:3rem;align-items:center}.impact-heading p{color:var(--text-muted);max-width:480px}.impact-stat{background:#eef7df;border-radius:24px;padding:2rem;text-align:center}.impact-stat strong{display:block;font-size:3.4rem;line-height:1;color:#14562f;font-weight:900}.impact-stat span{display:block;margin-top:.5rem;font-weight:800;color:#45624d}.impact-projects{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}.project-mini{background:#fff;border-radius:16px;padding:1rem;box-shadow:var(--shadow)}.project-icon{height:105px;border-radius:12px;background:linear-gradient(135deg,#d8f0cf,#8dca8e);display:flex;align-items:center;justify-content:center;font-size:3.5rem;margin-bottom:.8rem}.project-mini h4{font-family:'Nunito',sans-serif;font-weight:900;color:#164f2e;margin-bottom:.15rem}.project-mini p{margin:0;color:var(--text-muted);font-size:.82rem}
+.story-band{background:#e9f6fc}.story-line{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}.story-step{text-align:center;position:relative;padding:0 .5rem}.story-step:not(:last-child):after{content:"→";position:absolute;right:-.7rem;top:10px;font-size:2rem;color:#55a9d1;font-weight:900}.story-year{width:76px;height:76px;margin:0 auto 1rem;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#fff;color:#17608b;font-weight:900;box-shadow:var(--shadow)}.story-step h4{font-family:'Nunito',sans-serif;font-weight:900;color:#14562f;margin-bottom:.3rem}.story-step p{font-size:.86rem;color:var(--text-muted)}
+.home-gallery{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:180px 180px;gap:6px}.gallery-box{border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:4rem;overflow:hidden}.gallery-box:nth-child(1){grid-row:span 2;background:linear-gradient(135deg,#ff72b0,#ffd43b,#6bd4ff)}.gallery-box:nth-child(2){background:linear-gradient(135deg,#c7ebc7,#69bd70)}.gallery-box:nth-child(3){background:linear-gradient(135deg,#21163a,#8c3fb0,#ff7a18)}.gallery-box:nth-child(4){background:linear-gradient(135deg,#d5eec9,#73bd73)}.gallery-box:nth-child(5){background:linear-gradient(135deg,#9dd3e9,#5ba7c8)}
+.community-cta{background:#fffdf3;padding:4rem 0}.community-cta .container{display:flex;align-items:center;justify-content:space-between;gap:2rem}.community-cta h2{font-family:'Nunito',sans-serif;font-weight:900;color:#14562f;margin-bottom:.5rem}.community-cta p{color:var(--text-muted);max-width:620px;margin:0}.cta-buttons{display:flex;gap:.7rem;flex-wrap:wrap}.btn-pink{background:#ee4f91;color:#fff}.btn-pink:hover{background:#d93d7e;color:#fff}.btn-yellow{background:#ffd43b;color:#21451f}.btn-yellow:hover{background:#f4c31e;color:#21451f}
+@media(max-width:900px){.hero-art{opacity:.35;right:-20%;width:80vw}.event-intro,.impact-grid{grid-template-columns:1fr}.what-grid{grid-template-columns:1fr}.story-line{grid-template-columns:1fr 1fr}.story-step:not(:last-child):after{display:none}.community-cta .container{flex-direction:column;align-items:flex-start}.grid-3{grid-template-columns:1fr}}
+@media(max-width:640px){.hero-copy{padding:4rem 0 5rem}.hero-copy h1{font-size:3.2rem}.hero-art{display:none}.impact-projects{grid-template-columns:1fr}.story-line{grid-template-columns:1fr}.home-gallery{grid-template-columns:1fr 1fr;grid-template-rows:150px 150px 150px}.gallery-box:nth-child(1){grid-row:span 2}.gallery-box:nth-child(5){grid-column:span 2}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<main id="main-content">
+<section class="home-hero">
+<div class="container"><div class="hero-copy fade-up">
+<span class="hero-kicker">🦡 Friends of the Badger Park · Chesterfield</span>
+<h1>Bringing Badger Park <span>to life.</span></h1>
+<p>Events, activities and projects bringing our local community together — with the money we raise going back into the park and the people who enjoy it.</p>
+<div class="hero-actions"><a href="events.html" class="btn btn-primary">Upcoming Events →</a><a href="contact.html" class="btn btn-light">Get Involved →</a></div>
+</div></div>
+<div class="hero-art" aria-hidden="true"><div class="sun"></div><div class="hill"></div><div class="tree t1"></div><div class="tree t2"></div><div class="people">🏃‍♀️</div></div>
+</section>
+
+<section class="section home-events"><div class="container">
+<div class="event-intro"><div><h2>What's happening at Badger Park?</h2></div><p>We organise family-friendly events throughout the year. Come along, have fun, meet your neighbours and help us raise funds for future community projects.</p></div>
+<div class="grid-3">
+<article class="event-tile fade-up"><div class="event-tile-art colour">🎨🏃</div><div class="event-tile-body"><span class="card-tag tag-amber">Summer</span><h3>Colour Run</h3><p>A colourful day of running, laughing and getting messy — raising money for the park and our community.</p><a class="event-link" href="events.html">Find out more →</a></div></article>
+<article class="event-tile fade-up delay-1"><div class="event-tile-art halloween">🎃👻</div><div class="event-tile-body"><span class="card-tag" style="background:#f2e7ff;color:#6332a3;">October</span><h3>Halloween at Badger Park</h3><p>Spooky family fun, costumes and community spirit — with fundraising supporting future activities.</p><a class="event-link" href="events.html">Find out more →</a></div></article>
+<article class="event-tile fade-up delay-2"><div class="event-tile-art community">🌳🧑‍🤝‍🧑</div><div class="event-tile-body"><span class="card-tag tag-green">Community</span><h3>More events to come</h3><p>From family activities to projects that improve the park, there is always more we can do together.</p><a class="event-link" href="events.html">View all events →</a></div></article>
+</div></div></section>
+
+<section class="section what-we-do"><div class="container"><div class="section-heading"><h2>What we do</h2><p>It's a simple cycle: bring people together, raise funds and put that support back into the community.</p></div>
+<div class="what-grid"><div class="what-card fade-up"><div class="what-icon">🎉</div><h3>We bring people together</h3><p>Community events and activities for families, children and everyone who enjoys Badger Park.</p></div><div class="what-card fade-up delay-1"><div class="what-icon">💷</div><h3>We raise money</h3><p>Fundraising through events and community activities helps us support future projects.</p></div><div class="what-card fade-up delay-2"><div class="what-icon">🌳</div><h3>We give back</h3><p>The money raised helps us improve Badger Park and create more opportunities for the community.</p></div></div>
+</div></section>
+
+<section class="section"><div class="container"><div class="impact-grid">
+<div class="impact-heading"><h2>Your support makes a difference</h2><p>Every event is more than just a great day out. The support of local people helps turn fundraising into real improvements and new activities at Badger Park.</p><a href="about.html" class="btn btn-green">See our story →</a></div>
+<div><div class="impact-stat"><strong>£7,000+</strong><span>raised during our first year of fundraising</span></div><div class="impact-projects" style="margin-top:1rem;"><div class="project-mini"><div class="project-icon">🛝</div><h4>New playground</h4><p>Opened in February 2022 after the community came together.</p></div><div class="project-mini"><div class="project-icon">🌱</div><h4>Park improvements</h4><p>Projects that help make the park a better place to enjoy.</p></div><div class="project-mini"><div class="project-icon">🐦</div><h4>Nature & wildlife</h4><p>Supporting a greener, more welcoming Badger Park.</p></div></div></div>
+</div></div></section>
+
+<section class="section story-band"><div class="container"><div class="section-heading"><h2>Our story</h2><p>A local group, created by local people, for local people.</p></div>
+<div class="story-line"><div class="story-step"><div class="story-year">2020</div><h4>A community group begins</h4><p>Local residents came together when the playground needed to be replaced.</p></div><div class="story-step"><div class="story-year">2022</div><h4>The new playground opens</h4><p>Fundraising and community support helped turn the idea into reality.</p></div><div class="story-step"><div class="story-year">Today</div><h4>Events keep us moving</h4><p>We continue bringing people together and raising funds for the park.</p></div><div class="story-step"><div class="story-year">Next</div><h4>More to come</h4><p>More events, more projects and an even stronger local community.</p></div></div>
+</div></section>
+
+<section class="section"><div class="container"><div class="section-heading"><h2>A community in pictures</h2><p>Events, families, volunteers and the park we all share.</p></div>
+<div class="home-gallery"><div class="gallery-box">🎨🏃‍♀️</div><div class="gallery-box">🌳👨‍👩‍👧</div><div class="gallery-box">🎃</div><div class="gallery-box">🛝</div><div class="gallery-box">🌼🦡</div></div>
+<div style="text-align:center;margin-top:1.5rem"><a href="gallery.html" class="btn btn-secondary">View the gallery →</a></div>
+</div></section>
+
+<section class="community-cta"><div class="container"><div><h2>Be part of the community</h2><p>Whether you volunteer, come along to an event, help us fundraise or simply spread the word — every little bit helps.</p></div><div class="cta-buttons"><a href="contact.html" class="btn btn-pink">👥 Volunteer</a><a href="donate.html" class="btn btn-yellow">♥ Support Us</a><a href="contact.html" class="btn btn-green">✉ Contact Us</a></div></div></section>
+
+</main>
+<script src="shared.js"></script>
+</body>
+</html>

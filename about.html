@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us — Friends of the Badger Park</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .mission-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .mission-text h2 { color: var(--blue-dark); margin-bottom: 1.25rem; }
+    .mission-text p  { color: var(--text-muted); font-size: 1.05rem; }
+    .value-list { list-style: none; margin: 1.5rem 0; }
+    .value-list li {
+      padding: 0.85rem 1rem;
+      background: var(--white);
+      border-radius: 10px;
+      border-left: 4px solid var(--blue);
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+      display: flex; gap: 0.75rem;
+    }
+    .value-list li span { font-size: 1.25rem; }
+
+    .timeline { position: relative; padding-left: 2.5rem; }
+    .timeline::before {
+      content:''; position:absolute; left:10px; top:0; bottom:0;
+      width:3px; background: linear-gradient(var(--blue), var(--green));
+      border-radius:2px;
+    }
+    .tl-item { position: relative; margin-bottom: 2rem; }
+    .tl-dot {
+      position: absolute; left: -2.4rem; top: 4px;
+      width: 20px; height: 20px; border-radius: 50%;
+      background: var(--blue); border: 3px solid var(--white);
+      box-shadow: 0 0 0 3px var(--blue-light);
+    }
+    .tl-item h4 { font-size: 1rem; color: var(--blue-dark); margin-bottom: 0.25rem; }
+    .tl-year { font-size: 0.78rem; font-weight: 800; color: var(--amber); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.25rem; }
+    .tl-item p { font-size: 0.9rem; color: var(--text-muted); margin: 0; }
+
+    .team-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+    .team-card {
+      background: var(--white); border-radius: var(--radius);
+      padding: 1.75rem 1.25rem; text-align: center;
+      box-shadow: var(--shadow);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .team-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .team-avatar {
+      width: 80px; height: 80px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue-light), var(--green-light));
+      margin: 0 auto 1rem;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; border: 3px solid var(--white);
+      box-shadow: 0 0 0 3px var(--blue-light);
+    }
+    .team-card h4 { margin-bottom: 0.2rem; font-size: 1rem; }
+    .team-card .role { font-size: 0.82rem; color: var(--blue); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+    .team-card p { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.75rem; }
+
+    .stat-row {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 1.5rem; text-align: center;
+    }
+    .stat-box {
+      background: var(--white); border-radius: var(--radius);
+      padding: 2rem 1rem; box-shadow: var(--shadow);
+    }
+    .stat-box strong { display: block; font-size: 2.8rem; font-family: 'Playfair Display', serif; color: var(--blue); line-height: 1; }
+    .stat-box span   { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.4rem; display: block; }
+
+    @media(max-width:900px){
+      .mission-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .team-grid    { grid-template-columns: repeat(2,1fr); }
+      .stat-row     { grid-template-columns: repeat(2,1fr); }
+    }
+    @media(max-width:640px){
+      .team-grid { grid-template-columns: 1fr; }
+      .stat-row  { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<section class="page-hero">
+  <div class="container">
+    <p class="breadcrumb"><a href="index.html">Home</a> / About Us</p>
+    <h1>About Us</h1>
+    <p>Who we are, what we believe, and why we love Badger Park.</p>
+  </div>
+</section>
+
+<!-- Mission -->
+<section class="section">
+  <div class="container">
+    <div class="mission-grid">
+      <div class="mission-text fade-up">
+        <h2>Our mission</h2>
+        <p>Friends of Badger Park exists to protect, enhance and celebrate Badger Park as a vital green space for the people of Chesterfield. We believe that a well-loved park makes for a stronger, healthier, happier community.</p>
+        <p>We were formed in 2020 in response to the removal of the park's playground — and we've never stopped. From fundraising and grant-writing to planting days and community events, everything we do is powered by volunteers who care deeply about this place.</p>
+        <ul class="value-list">
+          <li><span>🌿</span> Care for the natural environment and local wildlife</li>
+          <li><span>🤝</span> Build an inclusive, welcoming community space</li>
+          <li><span>🎉</span> Create events that bring neighbours together</li>
+          <li><span>📣</span> Campaign for ongoing investment in the park</li>
+        </ul>
+        <a href="contact.html" class="btn btn-primary">Get involved →</a>
+      </div>
+      <div class="fade-up delay-1">
+        <h3 style="color:var(--blue-dark);margin-bottom:1.5rem;">Our story</h3>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-year">Aug 2020</div>
+            <h4>Founded by local residents</h4>
+            <p>After Chesterfield Borough Council announced the playground's removal, a group of neighbours came together to replace it. Goal: raise £3,000 to unlock up to £30,000 in further funding.</p>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot" style="background:var(--green)"></div>
+            <div class="tl-year">Oct–Dec 2020</div>
+            <h4>First fundraising push</h4>
+            <p>5,000 daffodil bulbs planted with CBC. A Christmas raffle raised £1,441. A £5,000 CBC International Levy Fund award brought the total to over £7,000.</p>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot" style="background:var(--amber)"></div>
+            <div class="tl-year">2021</div>
+            <h4>Design competition &amp; funding success</h4>
+            <p>Local primary schools entered a playground design competition. In July, the funding bid was successful! Halloween Xplorer, Giant Land Art, bat &amp; bird box sessions all ran this year.</p>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot" style="background:var(--green)"></div>
+            <div class="tl-year">Feb 2022</div>
+            <h4>New playground officially opens 🎉</h4>
+            <p>After over a year of construction and community effort, the brand-new playground opened on a cold but fantastic day of celebration. The community had done it.</p>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-year">2022–2023</div>
+            <h4>Going from strength to strength</h4>
+            <p>Easter Egg Hunts, a Jubilee Picnic, tree planting festival, sports days, and the hugely popular Colour Run in August 2023. The park was thriving.</p>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot" style="background:#e53e3e"></div>
+            <div class="tl-year">Oct 2023</div>
+            <h4>Setback: arson attack on playground</h4>
+            <p>Devastatingly, an arson attack blew out the slide and caused significant damage to the playground. The group was shaken — but not stopped.</p>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot" style="background:var(--amber)"></div>
+            <div class="tl-year">2024 →</div>
+            <h4>Stronger than ever</h4>
+            <p>Undeterred, the group continues to plan events, fundraise, and create a fabulous community space for everyone in Chesterfield.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-heading">
+      <h2>Our impact in numbers</h2>
+    </div>
+    <div class="stat-row">
+      <div class="stat-box fade-up delay-1"><strong>2020</strong><span>Year we were founded</span></div>
+      <div class="stat-box fade-up delay-2"><strong>5,000</strong><span>Bulbs planted in year one</span></div>
+      <div class="stat-box fade-up delay-3"><strong>£8k+</strong><span>Raised by end of 2021</span></div>
+      <div class="stat-box fade-up"><strong>2022</strong><span>New playground opened</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Team -->
+<section class="section">
+  <div class="container">
+    <div class="section-heading">
+      <h2>Meet the committee</h2>
+      <p>Our volunteer committee keeps everything running — from grant applications to picking up litter.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card fade-up delay-1">
+        <div class="team-avatar">🦡</div>
+        <h4>Sarah Mitchell</h4>
+        <div class="role">Chair</div>
+        <p>Sarah has lived near the park her whole life and has chaired the group since 2017.</p>
+      </div>
+      <div class="team-card fade-up delay-2">
+        <div class="team-avatar">🌱</div>
+        <h4>David Patel</h4>
+        <div class="role">Vice Chair</div>
+        <p>A horticulturalist by trade, David leads all our planting and habitat projects.</p>
+      </div>
+      <div class="team-card fade-up delay-3">
+        <div class="team-avatar">💷</div>
+        <h4>Jan Kowalski</h4>
+        <div class="role">Treasurer</div>
+        <p>Jan manages our finances and keeps us on track with grant reporting.</p>
+      </div>
+      <div class="team-card fade-up delay-1">
+        <div class="team-avatar">📋</div>
+        <h4>Karen Hughes</h4>
+        <div class="role">Secretary</div>
+        <p>Karen handles meeting minutes, communications, and keeps the committee organised.</p>
+      </div>
+      <div class="team-card fade-up delay-2">
+        <div class="team-avatar">🎉</div>
+        <h4>Tom Bradshaw</h4>
+        <div class="role">Events Co-ordinator</div>
+        <p>Tom plans and runs all our community events, bringing fresh ideas each year.</p>
+      </div>
+      <div class="team-card fade-up delay-3">
+        <div class="team-avatar">📸</div>
+        <h4>Priya Sharma</h4>
+        <div class="role">Communications</div>
+        <p>Priya runs our social media, newsletter and website — and takes all the great photos!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Partners -->
+<section class="section section--green">
+  <div class="container">
+    <div class="section-heading">
+      <h2>Our partners</h2>
+      <p>We work with great organisations across Chesterfield.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card" style="padding:1.5rem;text-align:center;">
+        <div style="font-size:2.5rem;margin-bottom:0.75rem;">🏛️</div>
+        <h4>Chesterfield Borough Council</h4>
+        <p style="font-size:0.88rem;color:var(--text-muted);">Our primary local authority partner, supporting us with funding and maintenance.</p>
+      </div>
+      <div class="card" style="padding:1.5rem;text-align:center;">
+        <div style="font-size:2.5rem;margin-bottom:0.75rem;">🏫</div>
+        <h4>Local Schools</h4>
+        <p style="font-size:0.88rem;color:var(--text-muted);">We work with nearby primary and secondary schools on environmental education projects.</p>
+      </div>
+      <div class="card" style="padding:1.5rem;text-align:center;">
+        <div style="font-size:2.5rem;margin-bottom:0.75rem;">🌍</div>
+        <h4>Keep Britain Tidy</h4>
+        <p style="font-size:0.88rem;color:var(--text-muted);">Members of the national Keep Britain Tidy network, working towards Green Flag status.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="shared.js"></script>
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events — Friends of the Badger Park</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .filter-bar {
+      display: flex; gap: 0.5rem; flex-wrap: wrap;
+      margin-bottom: 2.5rem; justify-content: center;
+    }
+    .filter-btn {
+      padding: 0.45rem 1.1rem; border-radius: 50px;
+      border: 2px solid #ddd; background: var(--white);
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700; font-size: 0.85rem;
+      cursor: pointer; transition: all var(--transition);
+      color: var(--text);
+    }
+    .filter-btn:hover, .filter-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+    .events-list { display: flex; flex-direction: column; gap: 1.25rem; }
+    .ev-card {
+      background: var(--white); border-radius: var(--radius);
+      box-shadow: var(--shadow); overflow: hidden;
+      display: grid; grid-template-columns: 90px 1fr auto;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .ev-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+    .ev-date {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 1.25rem 0.75rem;
+      background: var(--blue); color: #fff;
+    }
+    .ev-date strong { font-size: 2rem; font-family: 'Playfair Display', serif; line-height: 1; }
+    .ev-date span { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.85; }
+    .ev-date small { font-size: 0.7rem; opacity: 0.7; margin-top: 0.2rem; }
+    .ev-body { padding: 1.25rem 1.5rem; }
+    .ev-body h3 { font-size: 1.1rem; margin-bottom: 0.3rem; color: var(--text); }
+    .ev-body p  { font-size: 0.9rem; color: var(--text-muted); margin: 0 0 0.75rem; }
+    .ev-meta { display: flex; gap: 1.25rem; font-size: 0.82rem; color: var(--text-muted); flex-wrap: wrap; }
+    .ev-meta span { display: flex; align-items: center; gap: 0.3rem; }
+    .ev-action { display: flex; align-items: center; padding: 1.25rem; }
+
+    .month-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; color: var(--blue-dark);
+      margin: 2.5rem 0 1rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .month-heading::after { content:''; flex:1; height:2px; background: var(--parchment); border-radius:1px; }
+
+    /* colour variants */
+    .ev-date.green  { background: var(--green); }
+    .ev-date.amber  { background: var(--amber); }
+    .ev-date.purple { background: #6B46C1; }
+
+    @media(max-width:640px){
+      .ev-card { grid-template-columns: 70px 1fr; }
+      .ev-action { display: none; }
+      .ev-date strong { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<section class="page-hero">
+  <div class="container">
+    <p class="breadcrumb"><a href="index.html">Home</a> / Events</p>
+    <h1>Events &amp; Activities</h1>
+    <p>From litter picks to family fun days — there's always something happening at the park.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+
+    <div class="filter-bar">
+      <button class="filter-btn active">All events</button>
+      <button class="filter-btn">🧹 Volunteering</button>
+      <button class="filter-btn">👨‍👩‍👧 Family</button>
+      <button class="filter-btn">🌿 Nature</button>
+      <button class="filter-btn">🎉 Social</button>
+    </div>
+
+    <!-- July -->
+    <div class="month-heading">July 2026</div>
+    <div class="events-list">
+
+      <div class="ev-card fade-up">
+        <div class="ev-date">
+          <strong>18</strong><span>Jul</span><small>Saturday</small>
+        </div>
+        <div class="ev-body">
+          <span class="card-tag tag-green">🧹 Volunteering</span>
+          <h3>Summer Litter Pick</h3>
+          <p>Help us tidy the park before the school holidays kick in. Gloves, bags and refreshments provided — just bring yourself!</p>
+          <div class="ev-meta">
+            <span>🕙 10:00 AM – 12:00 PM</span>
+            <span>📍 Main gate entrance</span>
+            <span>👥 All welcome</span>
+          </div>
+        </div>
+        <div class="ev-action"><a href="contact.html" class="btn btn-primary" style="white-space:nowrap;">Join us</a></div>
+      </div>
+
+      <div class="ev-card fade-up delay-1">
+        <div class="ev-date green">
+          <strong>25</strong><span>Jul</span><small>Saturday</small>
+        </div>
+        <div class="ev-body">
+          <span class="card-tag tag-amber">👨‍👩‍👧 Family</span>
+          <h3>Summer Fun Day</h3>
+          <p>Our biggest event of the summer! Games, face painting, a wildlife trail, local food stalls, and live music. Free entry for everyone.</p>
+          <div class="ev-meta">
+            <span>🕙 11:00 AM – 4:00 PM</span>
+            <span>📍 Bandstand area</span>
+            <span>🎟️ Free entry</span>
+          </div>
+        </div>
+        <div class="ev-action"><a href="contact.html" class="btn btn-amber" style="white-space:nowrap;">Find out more</a></div>
+      </div>
+
+    </div>
+
+    <!-- August -->
+    <div class="month-heading">August 2026</div>
+    <div class="events-list">
+
+      <div class="ev-card fade-up">
+        <div class="ev-date amber">
+          <strong>08</strong><span>Aug</span><small>Saturday</small>
+        </div>
+        <div class="ev-body">
+          <span class="card-tag tag-blue">🌿 Nature</span>
+          <h3>Wildflower &amp; Wildlife Walk</h3>
+          <p>Join our resident naturalist for a gentle guided walk around the park identifying wildflowers, pollinators, and signs of badger activity.</p>
+          <div class="ev-meta">
+            <span>🕙 2:00 PM – 3:30 PM</span>
+            <span>📍 South meadow gate</span>
+            <span>👥 Max 20 people</span>
+          </div>
+        </div>
+        <div class="ev-action"><a href="contact.html" class="btn btn-primary" style="white-space:nowrap;">Book place</a></div>
+      </div>
+
+      <div class="ev-card fade-up delay-1">
+        <div class="ev-date">
+          <strong>22</strong><span>Aug</span><small>Saturday</small>
+        </div>
+        <div class="ev-body">
+          <span class="card-tag tag-green">🧹 Volunteering</span>
+          <h3>Hedge &amp; Tree Survey</h3>
+          <p>Help our conservation team carry out our annual tree and hedgerow condition survey. Training provided on the day.</p>
+          <div class="ev-meta">
+            <span>🕙 9:30 AM – 1:00 PM</span>
+            <span>📍 Car park</span>
+            <span>👥 Volunteers needed</span>
+          </div>
+        </div>
+        <div class="ev-action"><a href="contact.html" class="btn btn-green" style="white-space:nowrap;">Sign up</a></div>
+      </div>
+
+    </div>
+
+    <!-- September -->
+    <div class="month-heading">September 2026</div>
+    <div class="events-list">
+
+      <div class="ev-card fade-up">
+        <div class="ev-date green">
+          <strong>05</strong><span>Sep</span><small>Saturday</small>
+        </div>
+        <div class="ev-body">
+          <span class="card-tag tag-amber">🎉 Social</span>
+          <h3>Autumn Harvest Picnic</h3>
+          <p>Celebrate the season with a community picnic. Bring your own food and blanket — we'll provide games and a quiz!</p>
+          <div class="ev-meta">
+            <span>🕙 12:00 PM – 3:00 PM</span>
+            <span>📍 Central lawn</span>
+            <span>🎟️ Free</span>
+          </div>
+        </div>
+        <div class="ev-action"><a href="contact.html" class="btn btn-amber" style="white-space:nowrap;">Attend</a></div>
+      </div>
+
+      <div class="ev-card fade-up delay-1">
+        <div class="ev-date purple">
+          <strong>19</strong><span>Sep</span><small>Saturday</small>
+        </div>
+        <div class="ev-body">
+          <span class="card-tag tag-blue">🌿 Nature</span>
+          <h3>Big Badger Survey</h3>
+          <p>An evening badger-watching session for all the family. Torches provided. Meet our resident badger population — quietly!</p>
+          <div class="ev-meta">
+            <span>🕙 7:30 PM – 9:00 PM</span>
+            <span>📍 North woodland</span>
+            <span>👥 Book required</span>
+          </div>
+        </div>
+        <div class="ev-action"><a href="contact.html" class="btn btn-primary" style="white-space:nowrap;">Book place</a></div>
+      </div>
+
+    </div>
+
+    <!-- Info box -->
+    <div style="background:var(--blue-light);border-radius:var(--radius);padding:1.75rem;margin-top:3rem;display:flex;gap:1.25rem;align-items:flex-start;">
+      <div style="font-size:2rem;flex-shrink:0;">📬</div>
+      <div>
+        <h4 style="color:var(--blue-dark);margin-bottom:0.4rem;">Never miss an event</h4>
+        <p style="color:var(--text-muted);font-size:0.92rem;margin:0;">Sign up to our newsletter or follow us on social media to get the latest event updates straight to your inbox or feed.</p>
+        <a href="contact.html" class="btn btn-primary" style="margin-top:1rem;display:inline-block;">Sign up for updates</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script src="shared.js"></script>
+<script>
+  // Simple filter behaviour
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
