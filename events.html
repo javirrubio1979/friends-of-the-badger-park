@@ -26,7 +26,7 @@
     .events-list{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
     .ev-card{background:#fff;border-radius:18px;box-shadow:var(--shadow);padding:1.15rem;display:grid;grid-template-columns:74px 1fr;gap:1rem;transition:transform var(--transition),box-shadow var(--transition)}
     .ev-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
-    .ev-date{min-height:74px;border-radius:15px;background:var(--green-light);color:var(--green);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:.5rem}
+    .ev-photo{grid-column:1/-1;width:100%;height:180px;object-fit:cover;border-radius:13px}.ev-card.no-photo{border-top:5px solid #78b87a;background:linear-gradient(135deg,#fff 0%,#f2f8eb 100%)}.ev-card.no-photo:before{content:"Badger Park";grid-column:1/-1;min-height:88px;display:flex;align-items:flex-end;padding:1rem;border-radius:13px;color:#fff;font-weight:900;background:radial-gradient(circle at 80% 25%,rgba(255,255,255,.5) 0 18px,transparent 19px),linear-gradient(125deg,#1d673d,#75b96c)}.ev-card.no-photo:before{content:"Badger Park";grid-column:1/-1;min-height:88px;display:flex;align-items:flex-end;padding:1rem;border-radius:13px;color:#fff;font-weight:900;background:radial-gradient(circle at 80% 25%,rgba(255,255,255,.5) 0 18px,transparent 19px),linear-gradient(125deg,#1d673d,#75b96c)}.ev-card.no-photo:before{content:"Badger Park";grid-column:1/-1;min-height:88px;display:flex;align-items:flex-end;padding:1rem;border-radius:13px;color:#fff;font-weight:900;background:radial-gradient(circle at 80% 25%,rgba(255,255,255,.5) 0 18px,transparent 19px),linear-gradient(125deg,#1d673d,#75b96c)}.ev-date{min-height:74px;border-radius:15px;background:var(--green-light);color:var(--green);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:.5rem}
     .ev-date strong{font-family:'Nunito',sans-serif;font-size:1.15rem;line-height:1.1;font-weight:900}
     .ev-date span{font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;font-weight:800;margin-top:.18rem}
     .ev-body h3{font-family:'Nunito',sans-serif;font-weight:900;color:#164f2e;font-size:1.05rem;margin:.1rem 0 .35rem}
@@ -38,7 +38,7 @@
     .history-note h3{font-family:'Nunito',sans-serif;font-weight:900;color:#164f2e;font-size:1.05rem;margin-bottom:.3rem}
     .history-note p{margin:0;color:var(--text-muted);font-size:.9rem}
     @media(max-width:760px){.events-list{grid-template-columns:1fr}.event-stats{grid-template-columns:1fr}.event-stat{display:flex;align-items:baseline;gap:.5rem;justify-content:center}.event-stat strong{font-size:1.4rem}}
-    @media(max-width:480px){.ev-card{grid-template-columns:64px 1fr}.ev-date{min-height:64px}.filter-wrap{align-items:flex-start}}
+    @media(max-width:480px){.ev-photo{height:155px}.ev-card{grid-template-columns:64px 1fr}.ev-date{min-height:64px}.filter-wrap{align-items:flex-start}}
   </style>
 </head>
 <body>
@@ -50,8 +50,8 @@
     <h1>Events at Badger Park</h1>
     <p>Bringing our community together, one event at a time. Since 2020, we've organised family activities, outdoor adventures and community celebrations at Badger Park.</p>
     <div class="event-stats" aria-label="Event history summary">
-      <div class="event-stat"><strong>20</strong><span>events since 2020</span></div>
-      <div class="event-stat"><strong>7</strong><span>years of community activity</span></div>
+      <div class="event-stat"><strong>22</strong><span>events since 2020</span></div>
+      <div class="event-stat"><strong>6</strong><span>years of community activity</span></div>
       <div class="event-stat"><strong>1</strong><span>community coming together</span></div>
     </div>
   </div>
@@ -74,18 +74,18 @@
         <button class="filter-btn" type="button" data-filter="community" aria-pressed="false">Community</button>
         <button class="filter-btn" type="button" data-filter="seasonal" aria-pressed="false">Seasonal</button>
       </div>
-      <p class="filter-note" id="filterNote">Showing all 20 events</p>
+      <p class="filter-note" id="filterNote">Showing all 22 events</p>
     </div>
 
     <div class="year-group" data-year="2026">
       <div class="year-heading"><h2>2026</h2></div>
       <div class="events-list">
         <article class="ev-card" data-category="family community">
-          <div class="ev-date"><strong>July</strong><span>2026</span></div>
+          <img class="ev-photo" src="images/deploy/2026-colour-run-15.webp" alt="Colour Run, 2026" loading="lazy"><div class="ev-date"><strong>July</strong><span>2026</span></div>
           <div class="ev-body"><span class="card-tag tag-green">Family · Community</span><h3>Colour Run</h3><p>A colourful community event bringing families together for fun, activity and fundraising.</p></div>
         </article>
         <article class="ev-card" data-category="family community">
-          <div class="ev-date"><strong>May</strong><span>2026</span></div>
+          <img class="ev-photo" src="images/deploy/2026-family-walk-03.webp" alt="Family Walk, 2026" loading="lazy"><div class="ev-date"><strong>May</strong><span>2026</span></div>
           <div class="ev-body"><span class="card-tag tag-green">Community</span><h3>Family Walk</h3><p>A chance for local families and friends to enjoy the park and spend time together outdoors.</p></div>
         </article>
       </div>
@@ -94,16 +94,16 @@
     <div class="year-group" data-year="2025">
       <div class="year-heading"><h2>2025</h2></div>
       <div class="events-list">
-        <article class="ev-card" data-category="seasonal community"><div class="ev-date"><strong>Dec</strong><span>2025</span></div><div class="ev-body"><span class="card-tag tag-amber">Seasonal · Community</span><h3>Christmas Carols</h3><p>A festive community gathering to round off the year at Badger Park.</p></div></article>
+        <article class="ev-card" data-category="seasonal community"><img class="ev-photo" src="images/deploy/2025-christmas-carols-02.webp" alt="Christmas Carols, 2025" loading="lazy"><div class="ev-date"><strong>Dec</strong><span>2025</span></div><div class="ev-body"><span class="card-tag tag-amber">Seasonal · Community</span><h3>Christmas Carols</h3><p>A festive community gathering to round off the year at Badger Park.</p></div></article>
         <article class="ev-card" data-category="family community"><div class="ev-date"><strong>Aug</strong><span>2025</span></div><div class="ev-body"><span class="card-tag tag-green">Family · Community</span><h3>Colour Run</h3><p>A colourful summer event bringing the community together for fun and fundraising.</p></div></article>
-        <article class="ev-card" data-category="family seasonal"><div class="ev-date"><strong>Apr</strong><span>2025</span></div><div class="ev-body"><span class="card-tag tag-amber">Family · Seasonal</span><h3>Easter Crafts</h3><p>Creative Easter activities for local families to enjoy together.</p></div></article>
+        <article class="ev-card" data-category="family seasonal"><img class="ev-photo" src="images/deploy/2025-easter-crafts-02.webp" alt="Easter Crafts, 2025" loading="lazy"><div class="ev-date"><strong>Apr</strong><span>2025</span></div><div class="ev-body"><span class="card-tag tag-amber">Family · Seasonal</span><h3>Easter Crafts</h3><p>Creative Easter activities for local families to enjoy together.</p></div></article>
       </div>
     </div>
 
     <div class="year-group" data-year="2024">
       <div class="year-heading"><h2>2024</h2></div>
       <div class="events-list">
-        <article class="ev-card" data-category="family seasonal"><div class="ev-date"><strong>Nov</strong><span>2024</span></div><div class="ev-body"><span class="card-tag tag-amber">Family · Seasonal</span><h3>Creepy Crafts</h3><p>Halloween-inspired crafts and family fun at Badger Park.</p></div></article>
+        <article class="ev-card" data-category="family seasonal"><img class="ev-photo" src="images/deploy/2024-creepy-crafts-01.webp" alt="Creepy Crafts, 2024" loading="lazy"><div class="ev-date"><strong>Nov</strong><span>2024</span></div><div class="ev-body"><span class="card-tag tag-amber">Family · Seasonal</span><h3>Creepy Crafts</h3><p>Halloween-inspired crafts and family fun at Badger Park.</p></div></article>
         <article class="ev-card" data-category="family community"><div class="ev-date"><strong>Jul</strong><span>2024</span></div><div class="ev-body"><span class="card-tag tag-green">Family · Community</span><h3>Colour Run</h3><p>A summer Colour Run bringing energy, colour and community spirit to the park.</p></div></article>
         <article class="ev-card" data-category="family seasonal"><div class="ev-date"><strong>Apr</strong><span>2024</span></div><div class="ev-body"><span class="card-tag tag-amber">Family · Seasonal</span><h3>Easter Egg Hunt</h3><p>An Easter favourite bringing families together for a fun hunt around the park.</p></div></article>
       </div>
@@ -112,8 +112,9 @@
     <div class="year-group" data-year="2023">
       <div class="year-heading"><h2>2023</h2></div>
       <div class="events-list">
+<article class="ev-card no-photo" data-category="nature community"><div class="ev-date"><strong>Feb</strong><span>2023</span></div><div class="ev-body"><span class="card-tag tag-blue">Nature · Community</span><h3>Badger Park Tree Planting</h3><p>A tree-planting activity at Badger Park.</p></div></article>
         <article class="ev-card" data-category="family community"><div class="ev-date"><strong>Aug</strong><span>2023</span></div><div class="ev-body"><span class="card-tag tag-green">Family · Community</span><h3>Colour Run</h3><p>Our first recorded Colour Run — a colourful new tradition for the Badger Park community.</p></div></article>
-        <article class="ev-card" data-category="family nature"><div class="ev-date"><strong>Jun</strong><span>2023</span></div><div class="ev-body"><span class="card-tag tag-blue">Family · Nature</span><h3>Half Term Fun</h3><p>Half-term activities including Samba Sports, minibeasts and sunflowers.</p></div></article>
+        <article class="ev-card" data-category="family nature"><img class="ev-photo" src="images/deploy/2023-half-term-fun-04.webp" alt="Half Term Fun, 2023" loading="lazy"><div class="ev-date"><strong>Jun</strong><span>2023</span></div><div class="ev-body"><span class="card-tag tag-blue">Family · Nature</span><h3>Half Term Fun</h3><p>Half-term activities including Samba Sports, minibeasts and sunflowers.</p></div></article>
         <article class="ev-card" data-category="family seasonal"><div class="ev-date"><strong>Apr</strong><span>2023</span></div><div class="ev-body"><span class="card-tag tag-amber">Family · Seasonal</span><h3>Easter Treasure Hunt</h3><p>A family Easter treasure hunt around Badger Park.</p></div></article>
       </div>
     </div>
@@ -121,9 +122,10 @@
     <div class="year-group" data-year="2022">
       <div class="year-heading"><h2>2022</h2></div>
       <div class="events-list">
-        <article class="ev-card" data-category="nature community"><div class="ev-date"><strong>Oct</strong><span>2022</span></div><div class="ev-body"><span class="card-tag tag-blue">Nature · Community</span><h3>Badger Park Tree Festival</h3><p>A community event celebrating trees, nature and the park.</p></div></article>
-        <article class="ev-card" data-category="community seasonal"><div class="ev-date"><strong>Jun</strong><span>2022</span></div><div class="ev-body"><span class="card-tag tag-green">Community · Seasonal</span><h3>Jubilee Picnic on the Park</h3><p>A community picnic celebrating the Queen's Platinum Jubilee.</p></div></article>
-        <article class="ev-card" data-category="community"><div class="ev-date"><strong>Feb</strong><span>2022</span></div><div class="ev-body"><span class="card-tag tag-green">Major milestone</span><h3>Official Opening of the New Park</h3><p>A major milestone for the community as the new park was officially opened.</p></div></article>
+<article class="ev-card no-photo" data-category="family seasonal"><div class="ev-date"><strong>Apr</strong><span>2022</span></div><div class="ev-body"><span class="card-tag tag-amber">Family · Seasonal</span><h3>Easter Treasure Hunt</h3><p>A family Easter treasure hunt at Badger Park.</p></div></article>
+        <article class="ev-card" data-category="nature community"><img class="ev-photo" src="images/deploy/2022-tree-festival-11.webp" alt="Badger Park Tree Festival, 2022" loading="lazy"><div class="ev-date"><strong>Oct</strong><span>2022</span></div><div class="ev-body"><span class="card-tag tag-blue">Nature · Community</span><h3>Badger Park Tree Festival</h3><p>A community event celebrating trees, nature and the park.</p></div></article>
+        <article class="ev-card" data-category="community seasonal"><img class="ev-photo" src="images/deploy/2022-jubilee-picnic-07.webp" alt="Jubilee Picnic on the Park, 2022" loading="lazy"><div class="ev-date"><strong>Jun</strong><span>2022</span></div><div class="ev-body"><span class="card-tag tag-green">Community · Seasonal</span><h3>Jubilee Picnic on the Park</h3><p>A community picnic celebrating the Queen's Platinum Jubilee.</p></div></article>
+        <article class="ev-card" data-category="community"><img class="ev-photo" src="images/deploy/2022-park-opening-05.webp" alt="Official Opening of the New Park, 2022" loading="lazy"><div class="ev-date"><strong>Feb</strong><span>2022</span></div><div class="ev-body"><span class="card-tag tag-green">Major milestone</span><h3>Official Opening of the New Park</h3><p>A major milestone for the community as the new park was officially opened.</p></div></article>
       </div>
     </div>
 
@@ -141,7 +143,7 @@
     <div class="year-group" data-year="2020">
       <div class="year-heading"><h2>2020</h2></div>
       <div class="events-list">
-        <article class="ev-card" data-category="nature community"><div class="ev-date"><strong>Oct</strong><span>2020</span></div><div class="ev-body"><span class="card-tag tag-blue">Nature · Community</span><h3>Bulb Planting</h3><p>Our earliest recorded community activity, helping bring new life and colour to the park.</p></div></article>
+        <article class="ev-card" data-category="nature community"><img class="ev-photo" src="images/deploy/2020-bulb-planting-11.webp" alt="Bulb Planting, 2020" loading="lazy"><div class="ev-date"><strong>Oct</strong><span>2020</span></div><div class="ev-body"><span class="card-tag tag-blue">Nature · Community</span><h3>Bulb Planting</h3><p>Our earliest recorded community activity, helping bring new life and colour to the park.</p></div></article>
       </div>
     </div>
 

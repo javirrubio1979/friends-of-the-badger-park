@@ -16,7 +16,7 @@
     </button>
     <ul class="nav-links" id="navLinks">
       <li><a href="index.html"  class="${isActive('index.html')}">Home</a></li>
-      <li><a href="about.html"  class="${isActive('about.html')}">Our Story</a></li>
+      <li><a href="about.html"  class="${isActive('about.html')}">Our Achievements</a></li>
       <li><a href="events.html" class="${isActive('events.html')}">Events</a></li>
       <li><a href="news.html"   class="${isActive('news.html')}">News</a></li>
       <li><a href="gallery.html" class="${isActive('gallery.html')}">Gallery</a></li>
@@ -42,7 +42,7 @@
       <div>
         <h4>Quick Links</h4>
         <ul>
-          <li><a href="about.html">Our Story</a></li>
+          <li><a href="about.html">Our Achievements</a></li>
           <li><a href="events.html">Upcoming Events</a></li>
           <li><a href="news.html">Latest News</a></li>
           <li><a href="gallery.html">Photo Gallery</a></li>

@@ -37,12 +37,11 @@
     .gallery-item:hover .gallery-overlay { opacity: 1; }
 
     /* Placeholder coloured image tiles */
-    .gallery-img {
-      width: 100%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 3.5rem;
-      background: var(--green-light);
-    }
+    .gallery-img { width:100%; overflow:hidden; background:var(--green-light); }
+    .gallery-img img { width:100%; height:100%; object-fit:cover; display:block; }
+    .gallery-item { display:block; width:100%; padding:0; border:0; text-align:left; background:#fff; }
+    .gallery-caption { display:block; padding:.65rem .8rem; color:var(--text); font-weight:800; font-size:.85rem; }
+    .gallery-item[hidden] { display:none; }
     .gallery-img.h-sm  { height: 180px; }
     .gallery-img.h-md  { height: 240px; }
     .gallery-img.h-lg  { height: 310px; }
@@ -75,9 +74,7 @@
     }
     .lightbox.open .lightbox-inner { transform: scale(1); }
     .lightbox-img {
-      width: 100%; height: 320px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 6rem; background: var(--green-light);
+      width: 100%; max-height:70vh; object-fit:contain; display:block; background:#15251a;
     }
     .lightbox-body { padding: 1.5rem; }
     .lightbox-body h3 { margin-bottom: 0.4rem; color: var(--blue-dark); }
@@ -108,119 +105,50 @@
   <div class="container">
     <p class="breadcrumb"><a href="index.html">Home</a> / Gallery</p>
     <h1>Photo Gallery</h1>
-    <p>A glimpse of life at Badger Park — from wildlife and wildflowers to events and volunteering.</p>
+    <p>A selection of real moments from community events and activities at Badger Park.</p>
   </div>
 </section>
 
 <section class="section">
   <div class="container">
 
-    <div class="gallery-filter">
-      <button class="active">All photos</button>
-      <button>🦡 Wildlife</button>
-      <button>🌸 Nature &amp; Plants</button>
-      <button>🎉 Events</button>
-      <button>🧹 Volunteering</button>
-    </div>
-
+<div class="gallery-filter" role="group" aria-label="Filter gallery photos"><button class="active" data-filter="all" type="button">All photos</button><button data-filter="colour-run" type="button">Colour Runs</button><button data-filter="nature" type="button">Nature &amp; planting</button><button data-filter="community" type="button">Community events</button></div>
     <div class="masonry-grid">
-
-      <div class="gallery-item fade-up">
-        <div class="gallery-img h-lg">🦡</div>
-        <div class="gallery-overlay">
-          <span>Our resident badgers</span>
-          <small>North woodland · May 2025</small>
-        </div>
-      </div>
-
-      <div class="gallery-item fade-up delay-1">
-        <div class="gallery-img h-sm c-amber">🌻</div>
-        <div class="gallery-overlay">
-          <span>Wildflower meadow</span>
-          <small>South meadow · June 2025</small>
-        </div>
-      </div>
-
-      <div class="gallery-item fade-up delay-2">
-        <div class="gallery-img h-md c-blue">🎉</div>
-        <div class="gallery-overlay">
-          <span>Summer Fun Day 2024</span>
-          <small>Bandstand area · July 2024</small>
-        </div>
-      </div>
-
-      <div class="gallery-item fade-up">
-        <div class="gallery-img h-md">🌿</div>
-        <div class="gallery-overlay">
-          <span>Spring planting day</span>
-          <small>Community orchard · April 2025</small>
-        </div>
-      </div>
-
-      <div class="gallery-item fade-up delay-1">
-        <div class="gallery-img h-lg c-parch">🦋</div>
-        <div class="gallery-overlay">
-          <span>Butterfly survey</span>
-          <small>Wildflower strip · August 2024</small>
-        </div>
-      </div>
-
-      <div class="gallery-item fade-up delay-2">
-        <div class="gallery-img h-sm c-blue">🧹</div>
-        <div class="gallery-overlay">
-          <span>Spring Litter Pick 2025</span>
-          <small>85 volunteers · May 2025</small>
-        </div>
-      </div>
-
-      <div class="gallery-item fade-up">
-        <div class="gallery-img h-lg c-amber">🌸</div>
-        <div class="gallery-overlay">
-          <span>Cherry blossom walk</span>
-          <small>Blossom avenue · March 2025</small>
-        </div>
-      </div>
-
-      <div class="gallery-item fade-up delay-1">
-        <div class="gallery-img h-md">🎨</div>
-        <div class="gallery-overlay">
-          <span>Badger mosaic unveiled</span>
-          <small>Park entrance · June 2025</small>
-        </div>
-      </div>
-
-      <div class="gallery-item fade-up delay-2">
-        <div class="gallery-img h-sm c-blue">🐦</div>
-        <div class="gallery-overlay">
-          <span>Bird ringing session</span>
-          <small>East woodland · February 2025</small>
-        </div>
-      </div>
-
-      <div class="gallery-item fade-up">
-        <div class="gallery-img h-md c-parch">🌳</div>
-        <div class="gallery-overlay">
-          <span>New trees planted</span>
-          <small>North boundary · November 2024</small>
-        </div>
-      </div>
-
-      <div class="gallery-item fade-up delay-1">
-        <div class="gallery-img h-sm">🏆</div>
-        <div class="gallery-overlay">
-          <span>Green Flag shortlist announcement</span>
-          <small>July 2025</small>
-        </div>
-      </div>
-
-      <div class="gallery-item fade-up delay-2">
-        <div class="gallery-img h-lg c-amber">🎄</div>
-        <div class="gallery-overlay">
-          <span>Christmas lights switch-on</span>
-          <small>Bandstand · December 2024</small>
-        </div>
-      </div>
-
+<button class="gallery-item fade-up" data-category="nature" type="button" aria-label="View Bulb planting, 2020"><div class="gallery-img h-sm"><img src="images/deploy/2020-bulb-planting-03.webp" alt="Bulb planting, 2020" loading="lazy"></div><span class="gallery-caption">Bulb planting, 2020</span></button>
+<button class="gallery-item fade-up" data-category="nature" type="button" aria-label="View Bulb planting, 2020"><div class="gallery-img h-md"><img src="images/deploy/2020-bulb-planting-21.webp" alt="Bulb planting, 2020" loading="lazy"></div><span class="gallery-caption">Bulb planting, 2020</span></button>
+<button class="gallery-item fade-up" data-category="community" type="button" aria-label="View Official opening of the new park, 2022"><div class="gallery-img h-lg"><img src="images/deploy/2022-park-opening-05.webp" alt="Official opening of the new park, 2022" loading="lazy"></div><span class="gallery-caption">Official opening of the new park, 2022</span></button>
+<button class="gallery-item fade-up" data-category="community" type="button" aria-label="View Jubilee picnic, 2022"><div class="gallery-img h-sm"><img src="images/deploy/2022-jubilee-picnic-07.webp" alt="Jubilee picnic, 2022" loading="lazy"></div><span class="gallery-caption">Jubilee picnic, 2022</span></button>
+<button class="gallery-item fade-up" data-category="nature" type="button" aria-label="View Badger Park Tree Festival, 2022"><div class="gallery-img h-md"><img src="images/deploy/2022-tree-festival-03.webp" alt="Badger Park Tree Festival, 2022" loading="lazy"></div><span class="gallery-caption">Badger Park Tree Festival, 2022</span></button>
+<button class="gallery-item fade-up" data-category="nature" type="button" aria-label="View Badger Park Tree Festival, 2022"><div class="gallery-img h-lg"><img src="images/deploy/2022-tree-festival-11.webp" alt="Badger Park Tree Festival, 2022" loading="lazy"></div><span class="gallery-caption">Badger Park Tree Festival, 2022</span></button>
+<button class="gallery-item fade-up" data-category="nature" type="button" aria-label="View Badger Park Tree Festival, 2022"><div class="gallery-img h-sm"><img src="images/deploy/2022-tree-festival-31.webp" alt="Badger Park Tree Festival, 2022" loading="lazy"></div><span class="gallery-caption">Badger Park Tree Festival, 2022</span></button>
+<button class="gallery-item fade-up" data-category="community" type="button" aria-label="View Half-term fun, 2023"><div class="gallery-img h-md"><img src="images/deploy/2023-half-term-fun-01.webp" alt="Half-term fun, 2023" loading="lazy"></div><span class="gallery-caption">Half-term fun, 2023</span></button>
+<button class="gallery-item fade-up" data-category="community" type="button" aria-label="View Half-term fun, 2023"><div class="gallery-img h-lg"><img src="images/deploy/2023-half-term-fun-04.webp" alt="Half-term fun, 2023" loading="lazy"></div><span class="gallery-caption">Half-term fun, 2023</span></button>
+<button class="gallery-item fade-up" data-category="colour-run" type="button" aria-label="View Colour Run, 2023"><div class="gallery-img h-sm"><img src="images/deploy/2023-colour-run-03.webp" alt="Colour Run, 2023" loading="lazy"></div><span class="gallery-caption">Colour Run, 2023</span></button>
+<button class="gallery-item fade-up" data-category="colour-run" type="button" aria-label="View Colour Run, 2023"><div class="gallery-img h-md"><img src="images/deploy/2023-colour-run-06.webp" alt="Colour Run, 2023" loading="lazy"></div><span class="gallery-caption">Colour Run, 2023</span></button>
+<button class="gallery-item fade-up" data-category="colour-run" type="button" aria-label="View Colour Run, 2023"><div class="gallery-img h-lg"><img src="images/deploy/2023-colour-run-11.webp" alt="Colour Run, 2023" loading="lazy"></div><span class="gallery-caption">Colour Run, 2023</span></button>
+<button class="gallery-item fade-up" data-category="colour-run" type="button" aria-label="View Colour Run, 2024"><div class="gallery-img h-sm"><img src="images/deploy/2024-colour-run-01.webp" alt="Colour Run, 2024" loading="lazy"></div><span class="gallery-caption">Colour Run, 2024</span></button>
+<button class="gallery-item fade-up" data-category="colour-run" type="button" aria-label="View Colour Run, 2024"><div class="gallery-img h-md"><img src="images/deploy/2024-colour-run-06.webp" alt="Colour Run, 2024" loading="lazy"></div><span class="gallery-caption">Colour Run, 2024</span></button>
+<button class="gallery-item fade-up" data-category="colour-run" type="button" aria-label="View Colour Run, 2024"><div class="gallery-img h-lg"><img src="images/deploy/2024-colour-run-10.webp" alt="Colour Run, 2024" loading="lazy"></div><span class="gallery-caption">Colour Run, 2024</span></button>
+<button class="gallery-item fade-up" data-category="community" type="button" aria-label="View Creepy Crafts, 2024"><div class="gallery-img h-sm"><img src="images/deploy/2024-creepy-crafts-01.webp" alt="Creepy Crafts, 2024" loading="lazy"></div><span class="gallery-caption">Creepy Crafts, 2024</span></button>
+<button class="gallery-item fade-up" data-category="community" type="button" aria-label="View Creepy Crafts, 2024"><div class="gallery-img h-md"><img src="images/deploy/2024-creepy-crafts-02.webp" alt="Creepy Crafts, 2024" loading="lazy"></div><span class="gallery-caption">Creepy Crafts, 2024</span></button>
+<button class="gallery-item fade-up" data-category="community" type="button" aria-label="View Easter Crafts, 2025"><div class="gallery-img h-lg"><img src="images/deploy/2025-easter-crafts-01.webp" alt="Easter Crafts, 2025" loading="lazy"></div><span class="gallery-caption">Easter Crafts, 2025</span></button>
+<button class="gallery-item fade-up" data-category="community" type="button" aria-label="View Easter Crafts, 2025"><div class="gallery-img h-sm"><img src="images/deploy/2025-easter-crafts-02.webp" alt="Easter Crafts, 2025" loading="lazy"></div><span class="gallery-caption">Easter Crafts, 2025</span></button>
+<button class="gallery-item fade-up" data-category="community" type="button" aria-label="View Easter Crafts, 2025"><div class="gallery-img h-md"><img src="images/deploy/2025-easter-crafts-03.webp" alt="Easter Crafts, 2025" loading="lazy"></div><span class="gallery-caption">Easter Crafts, 2025</span></button>
+<button class="gallery-item fade-up" data-category="community" type="button" aria-label="View Easter Crafts, 2025"><div class="gallery-img h-lg"><img src="images/deploy/2025-easter-crafts-04.webp" alt="Easter Crafts, 2025" loading="lazy"></div><span class="gallery-caption">Easter Crafts, 2025</span></button>
+<button class="gallery-item fade-up" data-category="colour-run" type="button" aria-label="View Colour Run, 2025"><div class="gallery-img h-sm"><img src="images/deploy/2025-colour-run-01.webp" alt="Colour Run, 2025" loading="lazy"></div><span class="gallery-caption">Colour Run, 2025</span></button>
+<button class="gallery-item fade-up" data-category="colour-run" type="button" aria-label="View Colour Run, 2025"><div class="gallery-img h-md"><img src="images/deploy/2025-colour-run-07.webp" alt="Colour Run, 2025" loading="lazy"></div><span class="gallery-caption">Colour Run, 2025</span></button>
+<button class="gallery-item fade-up" data-category="colour-run" type="button" aria-label="View Colour Run, 2025"><div class="gallery-img h-lg"><img src="images/deploy/2025-colour-run-22.webp" alt="Colour Run, 2025" loading="lazy"></div><span class="gallery-caption">Colour Run, 2025</span></button>
+<button class="gallery-item fade-up" data-category="colour-run" type="button" aria-label="View Colour Run, 2025"><div class="gallery-img h-sm"><img src="images/deploy/2025-colour-run-33.webp" alt="Colour Run, 2025" loading="lazy"></div><span class="gallery-caption">Colour Run, 2025</span></button>
+<button class="gallery-item fade-up" data-category="community" type="button" aria-label="View Christmas Carols, 2025"><div class="gallery-img h-md"><img src="images/deploy/2025-christmas-carols-01.webp" alt="Christmas Carols, 2025" loading="lazy"></div><span class="gallery-caption">Christmas Carols, 2025</span></button>
+<button class="gallery-item fade-up" data-category="community" type="button" aria-label="View Christmas Carols, 2025"><div class="gallery-img h-lg"><img src="images/deploy/2025-christmas-carols-02.webp" alt="Christmas Carols, 2025" loading="lazy"></div><span class="gallery-caption">Christmas Carols, 2025</span></button>
+<button class="gallery-item fade-up" data-category="community" type="button" aria-label="View Family Walk, 2026"><div class="gallery-img h-sm"><img src="images/deploy/2026-family-walk-01.webp" alt="Family Walk, 2026" loading="lazy"></div><span class="gallery-caption">Family Walk, 2026</span></button>
+<button class="gallery-item fade-up" data-category="community" type="button" aria-label="View Family Walk, 2026"><div class="gallery-img h-md"><img src="images/deploy/2026-family-walk-03.webp" alt="Family Walk, 2026" loading="lazy"></div><span class="gallery-caption">Family Walk, 2026</span></button>
+<button class="gallery-item fade-up" data-category="colour-run" type="button" aria-label="View Colour Run, 2026"><div class="gallery-img h-lg"><img src="images/deploy/2026-colour-run-01.webp" alt="Colour Run, 2026" loading="lazy"></div><span class="gallery-caption">Colour Run, 2026</span></button>
+<button class="gallery-item fade-up" data-category="colour-run" type="button" aria-label="View Colour Run, 2026"><div class="gallery-img h-sm"><img src="images/deploy/2026-colour-run-07.webp" alt="Colour Run, 2026" loading="lazy"></div><span class="gallery-caption">Colour Run, 2026</span></button>
+<button class="gallery-item fade-up" data-category="colour-run" type="button" aria-label="View Colour Run, 2026"><div class="gallery-img h-md"><img src="images/deploy/2026-colour-run-13.webp" alt="Colour Run, 2026" loading="lazy"></div><span class="gallery-caption">Colour Run, 2026</span></button>
+<button class="gallery-item fade-up" data-category="colour-run" type="button" aria-label="View Colour Run, 2026"><div class="gallery-img h-lg"><img src="images/deploy/2026-colour-run-15.webp" alt="Colour Run, 2026" loading="lazy"></div><span class="gallery-caption">Colour Run, 2026</span></button>
+<button class="gallery-item fade-up" data-category="colour-run" type="button" aria-label="View Colour Run, 2026"><div class="gallery-img h-sm"><img src="images/deploy/2026-colour-run-22.webp" alt="Colour Run, 2026" loading="lazy"></div><span class="gallery-caption">Colour Run, 2026</span></button>
+<button class="gallery-item fade-up" data-category="nature" type="button" aria-label="View Bulb planting, 2020"><div class="gallery-img h-lg"><img src="images/deploy/2020-bulb-planting-11.webp" alt="Bulb planting, 2020" loading="lazy"></div><span class="gallery-caption">Bulb planting, 2020</span></button>
     </div>
 
     <div class="upload-cta">
@@ -237,7 +165,7 @@
 <div class="lightbox" id="lightbox">
   <button class="lightbox-close" id="lightboxClose">✕</button>
   <div class="lightbox-inner">
-    <div class="lightbox-img" id="lightboxEmoji">🦡</div>
+    <img class="lightbox-img" id="lightboxPhoto" src="" alt="">
     <div class="lightbox-body">
       <h3 id="lightboxTitle">Photo title</h3>
       <p id="lightboxMeta">Location · Date</p>
@@ -252,18 +180,18 @@
     btn.addEventListener('click', function(){
       document.querySelectorAll('.gallery-filter button').forEach(b => b.classList.remove('active'));
       this.classList.add('active');
+      const filter=this.dataset.filter;
+      document.querySelectorAll('.gallery-item').forEach(item => { item.hidden=filter!=='all' && item.dataset.category!==filter; });
     });
   });
 
   // Lightbox
   document.querySelectorAll('.gallery-item').forEach(item => {
     item.addEventListener('click', function(){
-      const emoji = this.querySelector('.gallery-img').textContent.trim();
-      const title = this.querySelector('.gallery-overlay span').textContent;
-      const meta  = this.querySelector('.gallery-overlay small').textContent;
-      document.getElementById('lightboxEmoji').textContent = emoji;
-      document.getElementById('lightboxTitle').textContent = title;
-      document.getElementById('lightboxMeta').textContent  = meta;
+      const img=this.querySelector('img'); const title=img.alt;
+      document.getElementById('lightboxPhoto').src=img.src; document.getElementById('lightboxPhoto').alt=title;
+      document.getElementById('lightboxTitle').textContent=title;
+      document.getElementById('lightboxMeta').textContent='Friends of the Badger Park photo archive';
       document.getElementById('lightbox').classList.add('open');
     });
   });
