@@ -3,236 +3,241 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>News — Friends of the Badger Park</title>
+  <title>News & Newsletters — Friends of the Badger Park</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    .news-layout {
-      display: grid;
-      grid-template-columns: 1fr 320px;
-      gap: 3rem;
-      align-items: start;
-    }
+    .news-hero-copy { max-width:760px; }
+    .news-hero-copy .eyebrow { background:rgba(255,255,255,.16); color:#fff; }
+    .news-hero-copy h1 { margin-bottom:.7rem; }
+    .news-intro { max-width:760px; margin:0 auto 2.5rem; text-align:center; }
+    .news-intro h2, .newsletter-section h2 { color:var(--blue-community-dark); font-family:'Nunito',sans-serif; font-weight:900; }
+    .news-intro p { color:var(--text-muted); }
 
-    /* Featured article */
-    .news-featured {
-      background: var(--white); border-radius: var(--radius);
-      box-shadow: var(--shadow); overflow: hidden; margin-bottom: 2rem;
-      transition: transform var(--transition), box-shadow var(--transition);
-    }
-    .news-featured:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
-    .news-featured-img {
-      width: 100%; height: 280px;
-      background: linear-gradient(135deg, var(--blue), var(--green));
-      display: flex; align-items: center; justify-content: center;
-      font-size: 5rem;
-    }
-    .news-featured-body { padding: 2rem; }
-    .news-featured-body .card-tag { margin-bottom: 1rem; }
-    .news-featured-body h2 { font-size: 1.6rem; margin-bottom: 0.75rem; color: var(--blue-dark); }
-    .news-featured-body .meta { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1rem; }
-    .news-featured-body p { color: var(--text-muted); }
+    .latest-news { display:grid; grid-template-columns:1.35fr 1fr 1fr; gap:1.25rem; margin-bottom:4rem; }
+    .news-card { background:#fff; border-radius:22px; overflow:hidden; box-shadow:0 8px 28px rgba(13,69,104,.09); transition:transform .25s ease,box-shadow .25s ease; }
+    .news-card:hover { transform:translateY(-4px); box-shadow:0 14px 36px rgba(13,69,104,.13); }
+    .news-card-image { height:175px; display:flex; align-items:center; justify-content:center; font-size:4.2rem; }
+    .news-card-image.blue { background:linear-gradient(135deg,#dff3fb,#77c0df); }
+    .news-card-image.yellow { background:linear-gradient(135deg,#fff1bc,#ffd55c); }
+    .news-card-image.pink { background:linear-gradient(135deg,#fbd8e7,#ef83b1); }
+    .news-card-body { padding:1.35rem; }
+    .news-card-body h3 { color:var(--blue-community-dark); font-family:'Nunito',sans-serif; font-weight:900; margin:.55rem 0 .4rem; }
+    .news-card-body p { color:var(--text-muted); font-size:.9rem; margin-bottom:1rem; }
+    .news-card-body a { color:var(--blue-community); font-weight:900; }
+    .news-meta { font-size:.75rem; color:var(--text-muted); }
 
-    /* Article list */
-    .article-item {
-      background: var(--white); border-radius: var(--radius);
-      box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.25rem;
-      display: grid; grid-template-columns: 140px 1fr;
-      transition: transform var(--transition), box-shadow var(--transition);
-    }
-    .article-item:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
-    .article-thumb {
-      background: linear-gradient(135deg, var(--parchment), var(--blue-light));
-      display: flex; align-items: center; justify-content: center;
-      font-size: 2.5rem;
-    }
-    .article-body { padding: 1.25rem; }
-    .article-body .card-tag { margin-bottom: 0.5rem; }
-    .article-body h3 { font-size: 1rem; margin-bottom: 0.35rem; color: var(--text); }
-    .article-body .meta { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.5rem; }
-    .article-body p { font-size: 0.88rem; color: var(--text-muted); margin: 0 0 0.75rem; }
-    .article-body a { font-size: 0.85rem; font-weight: 700; color: var(--blue); }
+    .newsletter-section { background:linear-gradient(180deg,#f4fafc,#eaf6fb); padding:4.5rem 0; }
+    .newsletter-heading { display:flex; justify-content:space-between; align-items:end; gap:2rem; margin-bottom:2rem; }
+    .newsletter-heading p { color:var(--text-muted); max-width:620px; margin:0; }
+    .newsletter-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem; }
+    .newsletter-card { background:#fff; border-radius:22px; overflow:hidden; box-shadow:0 8px 28px rgba(13,69,104,.1); display:flex; flex-direction:column; }
+    .newsletter-cover { position:relative; height:310px; background:#dceff8; overflow:hidden; }
+    .newsletter-cover img { width:100%; height:100%; object-fit:cover; object-position:top center; display:block; }
+    .newsletter-year { position:absolute; left:1rem; top:1rem; padding:.45rem .8rem; border-radius:999px; background:rgba(255,255,255,.94); color:var(--blue-community-dark); font-weight:900; box-shadow:0 4px 14px rgba(0,0,0,.1); }
+    .newsletter-body { padding:1.35rem; display:flex; flex-direction:column; flex:1; }
+    .newsletter-body h3 { font-family:'Nunito',sans-serif; color:var(--blue-community-dark); font-weight:900; margin:.4rem 0 .5rem; font-size:1.4rem; }
+    .newsletter-body p { color:var(--text-muted); font-size:.9rem; line-height:1.5; margin-bottom:1rem; }
+    .newsletter-highlights { list-style:none; padding:0; margin:0 0 1.2rem; }
+    .newsletter-highlights li { position:relative; padding-left:1.15rem; margin:.35rem 0; color:#45624d; font-size:.82rem; }
+    .newsletter-highlights li::before { content:'•'; position:absolute; left:0; color:var(--blue-community-mid); font-weight:900; }
+    .newsletter-action { margin-top:auto; }
+    .newsletter-action .btn { width:100%; text-align:center; }
 
-    /* Sidebar */
-    .sidebar-widget {
-      background: var(--white); border-radius: var(--radius);
-      padding: 1.5rem; box-shadow: var(--shadow); margin-bottom: 1.5rem;
-    }
-    .sidebar-widget h4 {
-      font-size: 1rem; color: var(--blue-dark); margin-bottom: 1rem;
-      padding-bottom: 0.5rem; border-bottom: 2px solid var(--parchment);
-    }
-    .category-list { list-style: none; }
-    .category-list li {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 0.5rem 0; border-bottom: 1px solid var(--parchment);
-      font-size: 0.9rem;
-    }
-    .category-list li:last-child { border: none; }
-    .category-list a { color: var(--text); font-weight: 600; }
-    .category-list a:hover { color: var(--blue); }
-    .category-count {
-      background: var(--blue-light); color: var(--blue);
-      border-radius: 50px; padding: 0.1rem 0.6rem;
-      font-size: 0.75rem; font-weight: 700;
-    }
-    .recent-item { display: flex; gap: 0.75rem; margin-bottom: 0.85rem; padding-bottom: 0.85rem; border-bottom: 1px solid var(--parchment); }
-    .recent-item:last-child { border: none; margin: 0; padding: 0; }
-    .recent-icon { font-size: 1.5rem; flex-shrink: 0; }
-    .recent-item h5 { font-size: 0.88rem; color: var(--text); margin-bottom: 0.2rem; }
-    .recent-item span { font-size: 0.75rem; color: var(--text-muted); }
-    .newsletter-box { background: linear-gradient(135deg, var(--blue-dark), var(--blue)); color: #fff; border-radius: var(--radius); padding: 1.5rem; }
-    .newsletter-box h4 { color: #fff; margin-bottom: 0.75rem; }
-    .newsletter-box p { font-size: 0.88rem; opacity: 0.85; margin-bottom: 1rem; }
-    .newsletter-box input {
-      width: 100%; padding: 0.65rem 0.9rem;
-      border: none; border-radius: 8px;
-      font-family: 'Nunito', sans-serif; font-size: 0.9rem;
-      margin-bottom: 0.6rem;
-    }
+    .archive-note { margin-top:2.5rem; padding:1.25rem 1.5rem; border-radius:18px; background:#fff; border:1px solid #d9edf6; color:var(--text-muted); text-align:center; }
+    .archive-note strong { color:var(--blue-community-dark); }
 
-    @media(max-width:900px){
-      .news-layout { grid-template-columns: 1fr; }
-      .article-item { grid-template-columns: 110px 1fr; }
+    .pdf-modal { position:fixed; inset:0; z-index:9999; background:rgba(4,25,38,.78); display:none; align-items:center; justify-content:center; padding:1rem; }
+    .pdf-modal.is-open { display:flex; }
+    .pdf-dialog { width:min(1100px,96vw); height:min(92vh,900px); background:#fff; border-radius:18px; overflow:hidden; display:flex; flex-direction:column; box-shadow:0 25px 70px rgba(0,0,0,.35); }
+    .pdf-toolbar { min-height:58px; display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:.7rem 1rem; background:var(--blue-community-dark); color:#fff; }
+    .pdf-toolbar strong { font-family:'Nunito',sans-serif; }
+    .pdf-toolbar button { border:0; background:rgba(255,255,255,.15); color:#fff; border-radius:9px; padding:.5rem .75rem; cursor:pointer; font-weight:800; }
+    .pdf-frame { flex:1; width:100%; border:0; }
+
+    @media(max-width:900px) {
+      .latest-news { grid-template-columns:1fr; }
+      .newsletter-grid { grid-template-columns:1fr 1fr; }
+      .newsletter-heading { align-items:start; flex-direction:column; }
     }
-    @media(max-width:480px){
-      .article-item { grid-template-columns: 1fr; }
-      .article-thumb { height: 120px; }
+    @media(max-width:640px) {
+      .newsletter-grid { grid-template-columns:1fr; }
+      .newsletter-cover { height:360px; }
+      .pdf-dialog { width:100%; height:94vh; border-radius:12px; }
     }
   </style>
 </head>
 <body>
 
 <section class="page-hero">
-  <div class="container">
+  <div class="container news-hero-copy">
     <p class="breadcrumb"><a href="index.html">Home</a> / News</p>
-    <h1>News &amp; Updates</h1>
-    <p>The latest from Friends of the Badger Park and the local community.</p>
+    <span class="eyebrow">News & newsletters</span>
+    <h1>Keeping our community up to date</h1>
+    <p>The latest news, community activities and annual newsletters from Friends of the Badger Park.</p>
   </div>
 </section>
 
 <section class="section">
   <div class="container">
-    <div class="news-layout">
+    <div class="news-intro">
+      <h2>Latest from Badger Park</h2>
+      <p>Our newsletters capture the progress, events and challenges that have shaped Friends of the Badger Park. They are also a great record of what the community has achieved together.</p>
+    </div>
 
-      <!-- Main content -->
-      <div>
-        <!-- Featured -->
-        <article class="news-featured fade-up">
-          <div class="news-featured-img" style="background:linear-gradient(135deg,var(--green),var(--blue-dark));">💪</div>
-          <div class="news-featured-body">
-            <span class="card-tag tag-blue">⭐ Our Achievements</span>
-            <h2>From demolition to celebration — and back again</h2>
-            <p class="meta">📅 Summer 2024 &nbsp;·&nbsp; 🕐 5 min read &nbsp;·&nbsp; <span class="card-tag tag-blue" style="padding:0.15rem 0.5rem;">Community</span></p>
-            <p>In August 2020, residents formed Friends of Badger Park with a simple goal: replace the playground that Chesterfield Borough Council had to remove on safety grounds. What followed was an extraordinary four years of community spirit — raffles, grant applications, 5,000 daffodil bulbs planted, a successful funding bid, and a brand-new playground opened in February 2022.</p>
-            <p>But the story isn't without its setbacks. In May 2023 the community orchard was vandalised. Then in October 2023 an arson attack destroyed the slide and caused significant damage. The group was shaken — but never stopped. As we publish our very first newsletter in Summer 2024, we are stronger than ever.</p>
-            <a href="#" class="btn btn-primary" style="margin-top:0.5rem;">Read our full newsletter →</a>
-          </div>
-        </article>
-
-        <!-- Article list -->
-        <article class="article-item fade-up delay-1">
-          <div class="article-thumb">🎨</div>
-          <div class="article-body">
-            <span class="card-tag tag-blue">Community</span>
-            <h3>2023 Colour Run — a human rainbow!</h3>
-            <p class="meta">📅 August 2023</p>
-            <p>The highlight of 2023 — we were overwhelmed by the turnout for our Colour Run. Participants became a human rainbow and the park was filled with colour and laughter.</p>
-            <a href="#">Read more →</a>
-          </div>
-        </article>
-
-        <article class="article-item fade-up delay-2">
-          <div class="article-thumb">🎉</div>
-          <div class="article-body">
-            <span class="card-tag tag-amber">Milestone</span>
-            <h3>New playground officially opens — February 2022</h3>
-            <p class="meta">📅 February 2022</p>
-            <p>After over a year of fundraising, grant applications and construction, the new playground opened on a cold but wonderful day of community celebration. A dream realised.</p>
-            <a href="#">Read more →</a>
-          </div>
-        </article>
-
-        <article class="article-item fade-up delay-3">
-          <div class="article-thumb">🌱</div>
-          <div class="article-body">
-            <span class="card-tag tag-green">Nature</span>
-            <h3>5,000 daffodil bulbs planted in partnership with CBC</h3>
-            <p class="meta">📅 October 2020</p>
-            <p>One of our earliest achievements — planting 5,000 daffodil bulbs across the park in conjunction with Chesterfield Borough Council, just one month after the group formed.</p>
-            <a href="#">Read more →</a>
-          </div>
-        </article>
-
-        <article class="article-item fade-up">
-          <div class="article-thumb">🏆</div>
-          <div class="article-body">
-            <span class="card-tag tag-amber">Funding</span>
-            <h3>£5,000 awarded from CBC International Levy Fund</h3>
-            <p class="meta">📅 December 2020</p>
-            <p>Incredible news in our first December — a £5,000 grant from Chesterfield Borough Council brought our total fundraising to over £7,000 and gave real momentum to the project.</p>
-            <a href="#">Read more →</a>
-          </div>
-        </article>
-
-        <article class="article-item fade-up delay-1">
-          <div class="article-thumb">🦇</div>
-          <div class="article-body">
-            <span class="card-tag tag-green">Nature</span>
-            <h3>Bat and bird box making session — a great community day</h3>
-            <p class="meta">📅 June 2021</p>
-            <p>Supported by Chesterfield Borough Council, families joined us to build and install bat and bird boxes across the park — boosting habitat for local wildlife.</p>
-            <a href="#">Read more →</a>
-          </div>
-        </article>
-
-      </div>
-
-      <!-- Sidebar -->
-      <aside>
-        <div class="sidebar-widget fade-up delay-2">
-          <h4>Categories</h4>
-          <ul class="category-list">
-            <li><a href="#">All News</a> <span class="category-count">18</span></li>
-            <li><a href="#">🌿 Nature &amp; Wildlife</a> <span class="category-count">7</span></li>
-            <li><a href="#">🧹 Volunteering</a> <span class="category-count">4</span></li>
-            <li><a href="#">🎉 Community</a> <span class="category-count">3</span></li>
-            <li><a href="#">💶 Funding</a> <span class="category-count">2</span></li>
-            <li><a href="#">🏆 Awards</a> <span class="category-count">2</span></li>
-          </ul>
+    <div class="latest-news">
+      <article class="news-card fade-up">
+        <div class="news-card-image blue">📹</div>
+        <div class="news-card-body">
+          <span class="card-tag tag-blue">2026 · Park</span>
+          <h3>CCTV installed to help protect the park</h3>
+          <p class="news-meta">July 2026 Newsletter</p>
+          <p>CCTV has now been installed following ongoing vandalism and damage to park equipment. The group continues to work with the council and local community to keep the park welcoming for everyone.</p>
+          <a href="#newsletters">Read the 2026 newsletter →</a>
         </div>
+      </article>
 
-        <div class="sidebar-widget fade-up delay-3">
-          <h4>Recent posts</h4>
-          <div class="recent-item">
-            <div class="recent-icon">🏆</div>
-            <div><h5>Green Flag shortlisting announced</h5><span>14 Jul 2026</span></div>
-          </div>
-          <div class="recent-item">
-            <div class="recent-icon">🌿</div>
-            <div><h5>Wildflower meadow takes root</h5><span>2 Jul 2026</span></div>
-          </div>
-          <div class="recent-item">
-            <div class="recent-icon">🎨</div>
-            <div><h5>Mosaic unveiled at entrance</h5><span>18 Jun 2026</span></div>
-          </div>
-          <div class="recent-item">
-            <div class="recent-icon">🧹</div>
-            <div><h5>Record spring litter pick</h5><span>5 May 2026</span></div>
-          </div>
+      <article class="news-card fade-up delay-1">
+        <div class="news-card-image yellow">🎨</div>
+        <div class="news-card-body">
+          <span class="card-tag tag-amber">2025 · Events</span>
+          <h3>Colour Run, Christmas Carols & Family Walks</h3>
+          <p class="news-meta">July 2026 Newsletter</p>
+          <p>The 2026 newsletter looks back at the Colour Run and Christmas Carols in 2025, plus the Family Walk in 2026 — all helping bring the community together.</p>
+          <a href="#newsletters">Read the 2026 newsletter →</a>
         </div>
+      </article>
 
-        <div class="newsletter-box fade-up">
-          <h4>📬 Stay in the loop</h4>
-          <p>Get news and events straight to your inbox.</p>
-          <input type="email" placeholder="Your email address">
-          <button class="btn btn-amber" style="width:100%;">Subscribe</button>
+      <article class="news-card fade-up delay-2">
+        <div class="news-card-image pink">🚶‍♀️</div>
+        <div class="news-card-body">
+          <span class="card-tag tag-blue">2025 · Improvements</span>
+          <h3>A new slide and a new walking path</h3>
+          <p class="news-meta">July 2025 Newsletter</p>
+          <p>The replacement slide was installed in May 2025, while the community-supported path between Brockwell Lane and Newbold Back Lane was completed in March.</p>
+          <a href="#newsletters">Read the 2025 newsletter →</a>
         </div>
-      </aside>
-
+      </article>
     </div>
   </div>
 </section>
 
+<section class="newsletter-section" id="newsletters">
+  <div class="container">
+    <div class="newsletter-heading">
+      <div>
+        <span class="eyebrow">The archive</span>
+        <h2>Our Annual Newsletters</h2>
+      </div>
+      <p>Three newsletters, three snapshots of the Friends of the Badger Park story. From the first newsletter in 2024 to the latest community update in 2026.</p>
+    </div>
+
+    <div class="newsletter-grid">
+      <article class="newsletter-card fade-up">
+        <div class="newsletter-cover">
+          <img src="assets/newsletters/newsletter-2026.jpg" alt="Cover of the Friends of Badger Park July 2026 newsletter">
+          <span class="newsletter-year">2026</span>
+        </div>
+        <div class="newsletter-body">
+          <span class="card-tag tag-blue">July 2026</span>
+          <h3>Our 2026 Newsletter</h3>
+          <p>The latest update on the park, vandalism, CCTV and the events that have kept the community together.</p>
+          <ul class="newsletter-highlights">
+            <li>CCTV installed at the park</li>
+            <li>Colour Run 2025 & Christmas Carols</li>
+            <li>Family Walk 2026</li>
+            <li>Plans for noticeboards and bench replacements</li>
+          </ul>
+          <div class="newsletter-action"><button class="btn btn-green open-newsletter" data-title="Friends of Badger Park — Newsletter 2026" data-pdf="assets/newsletters/newsletter-2026.pdf">Read newsletter →</button></div>
+        </div>
+      </article>
+
+      <article class="newsletter-card fade-up delay-1">
+        <div class="newsletter-cover">
+          <img src="assets/newsletters/newsletter-2025.jpg" alt="Cover of the Friends of Badger Park July 2025 newsletter">
+          <span class="newsletter-year">2025</span>
+        </div>
+        <div class="newsletter-body">
+          <span class="card-tag tag-blue">July 2025</span>
+          <h3>Our 2025 Newsletter</h3>
+          <p>A year of park improvements and community events, including the replacement slide and the new walking path.</p>
+          <ul class="newsletter-highlights">
+            <li>New slide installed in May 2025</li>
+            <li>New path installed in March 2025</li>
+            <li>Colour Run 2024 & Creepy Crafts</li>
+            <li>Easter Crafts 2025</li>
+          </ul>
+          <div class="newsletter-action"><button class="btn btn-green open-newsletter" data-title="Friends of Badger Park — Newsletter 2025" data-pdf="assets/newsletters/newsletter-2025.pdf">Read newsletter →</button></div>
+        </div>
+      </article>
+
+      <article class="newsletter-card fade-up delay-2">
+        <div class="newsletter-cover">
+          <img src="assets/newsletters/newsletter-2024.jpg" alt="Cover of the Friends of Badger Park July 2024 newsletter">
+          <span class="newsletter-year">2024</span>
+        </div>
+        <div class="newsletter-body">
+          <span class="card-tag tag-blue">July 2024</span>
+          <h3>Our first newsletter</h3>
+          <p>The original newsletter tells the story from the formation of the group in 2020 through the new playground and the community activities that followed.</p>
+          <ul class="newsletter-highlights">
+            <li>Friends of Badger Park formed in 2020</li>
+            <li>£8,000+ raised during 2021</li>
+            <li>New playground opened in February 2022</li>
+            <li>Colour Run 2023 and the challenges that followed</li>
+          </ul>
+          <div class="newsletter-action"><button class="btn btn-green open-newsletter" data-title="Friends of Badger Park — Newsletter 2024" data-pdf="assets/newsletters/newsletter-2024.pdf">Read newsletter →</button></div>
+        </div>
+      </article>
+    </div>
+
+    <div class="archive-note">
+      <strong>Have an older newsletter?</strong> We can add earlier editions to the archive as well, so the News page becomes a complete history of Friends of the Badger Park.
+    </div>
+  </div>
+</section>
+
+<div class="pdf-modal" id="pdfModal" aria-hidden="true">
+  <div class="pdf-dialog" role="dialog" aria-modal="true" aria-labelledby="pdfTitle">
+    <div class="pdf-toolbar">
+      <strong id="pdfTitle">Newsletter</strong>
+      <div style="display:flex;gap:.5rem;align-items:center;">
+        <a id="pdfNewTab" href="#" target="_blank" rel="noopener" class="btn btn-amber" style="padding:.45rem .7rem;font-size:.8rem;">Open PDF ↗</a>
+        <button type="button" id="closePdf">Close ✕</button>
+      </div>
+    </div>
+    <iframe id="pdfFrame" class="pdf-frame" title="Newsletter PDF"></iframe>
+  </div>
+</div>
+
 <script src="shared.js"></script>
+<script>
+  const modal = document.getElementById('pdfModal');
+  const frame = document.getElementById('pdfFrame');
+  const title = document.getElementById('pdfTitle');
+  const newTab = document.getElementById('pdfNewTab');
+  const closeBtn = document.getElementById('closePdf');
+
+  function closeNewsletter() {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    frame.src = '';
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.open-newsletter').forEach(button => {
+    button.addEventListener('click', () => {
+      const pdf = button.dataset.pdf;
+      title.textContent = button.dataset.title;
+      frame.src = pdf;
+      newTab.href = pdf;
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+  closeBtn.addEventListener('click', closeNewsletter);
+  modal.addEventListener('click', e => { if (e.target === modal) closeNewsletter(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('is-open')) closeNewsletter(); });
+</script>
 </body>
 </html>

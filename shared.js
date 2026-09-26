@@ -9,14 +9,14 @@
   <div class="navbar-inner">
     <a href="index.html" class="navbar-brand">
       <img src="logo.png" alt="Friends of the Badger Park logo">
-
+      <span>Friends of the<br>Badger Park</span>
     </a>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
       <span></span><span></span><span></span>
     </button>
     <ul class="nav-links" id="navLinks">
       <li><a href="index.html"  class="${isActive('index.html')}">Home</a></li>
-      <li><a href="about.html"  class="${isActive('about.html')}">Our Achievements</a></li>
+      <li><a href="about.html"  class="${isActive('about.html')}">Our Story</a></li>
       <li><a href="events.html" class="${isActive('events.html')}">Events</a></li>
       <li><a href="news.html"   class="${isActive('news.html')}">News</a></li>
       <li><a href="gallery.html" class="${isActive('gallery.html')}">Gallery</a></li>
@@ -42,7 +42,7 @@
       <div>
         <h4>Quick Links</h4>
         <ul>
-          <li><a href="about.html">Our Achievements</a></li>
+          <li><a href="about.html">Our Story</a></li>
           <li><a href="events.html">Upcoming Events</a></li>
           <li><a href="news.html">Latest News</a></li>
           <li><a href="gallery.html">Photo Gallery</a></li>
@@ -54,7 +54,7 @@
         <h4>Contact Us</h4>
         <p>📍 Badger Park, Chesterfield<br>Derbyshire</p>
         <p>📧 <a href="mailto:friendsofbadgerpark@gmail.com">friendsofbadgerpark@gmail.com</a></p>
-        <p>Local volunteer community group serving Badger Park and the surrounding Chesterfield community.</p>
+        <p>Registered Charity — England & Wales</p>
       </div>
     </div>
     <div class="footer-bottom">
@@ -64,7 +64,7 @@
   </div>
 </footer>`;
 
-  // Inject navigation and footer consistently across all pages.
+  // Inject nav before first element inside body
   document.body.insertAdjacentHTML('afterbegin', navHTML);
   document.body.insertAdjacentHTML('beforeend', footerHTML);
 
@@ -73,4 +73,3 @@
     document.getElementById('navLinks').classList.toggle('open');
   });
 })();
-

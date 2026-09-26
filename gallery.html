@@ -37,11 +37,12 @@
     .gallery-item:hover .gallery-overlay { opacity: 1; }
 
     /* Placeholder coloured image tiles */
-    .gallery-img { width:100%; overflow:hidden; background:var(--green-light); }
-    .gallery-img img { width:100%; height:100%; object-fit:cover; display:block; }
-    .gallery-item { display:block; width:100%; padding:0; border:0; text-align:left; background:#fff; }
-    .gallery-caption { display:block; padding:.65rem .8rem; color:var(--text); font-weight:800; font-size:.85rem; }
-    .gallery-item[hidden] { display:none; }
+    .gallery-img {
+      width: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3.5rem;
+      background: var(--green-light);
+    }
     .gallery-img.h-sm  { height: 180px; }
     .gallery-img.h-md  { height: 240px; }
     .gallery-img.h-lg  { height: 310px; }
@@ -74,15 +75,11 @@
     }
     .lightbox.open .lightbox-inner { transform: scale(1); }
     .lightbox-img {
-      width: 100%; max-height:70vh; object-fit:contain; display:block; background:#15251a;
+      width: 100%; height: 320px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 6rem; background: var(--green-light);
     }
-    .lightbox-nav { position:absolute; top:50%; transform:translateY(-50%); width:48px; height:48px; border:1px solid rgba(255,255,255,.65); border-radius:50%; background:rgba(0,0,0,.42); color:#fff; font-size:2rem; line-height:1; cursor:pointer; z-index:2; }
-    .lightbox-nav:hover { background:rgba(0,0,0,.72); }
-    .lightbox-nav[hidden] { display:none; }
-    .lightbox-prev { left:clamp(12px,4vw,56px); }
-    .lightbox-next { right:clamp(12px,4vw,56px); }
     .lightbox-body { padding: 1.5rem; }
-    @media(max-width:600px){.lightbox-inner{width:calc(100% - 76px)}.lightbox-nav{width:40px;height:40px;font-size:1.65rem}.lightbox-prev{left:8px}.lightbox-next{right:8px}}
     .lightbox-body h3 { margin-bottom: 0.4rem; color: var(--blue-dark); }
     .lightbox-body p  { color: var(--text-muted); font-size: 0.9rem; margin: 0; }
     .lightbox-close {
@@ -111,28 +108,119 @@
   <div class="container">
     <p class="breadcrumb"><a href="index.html">Home</a> / Gallery</p>
     <h1>Photo Gallery</h1>
-    <p>One selected photo for each event with archive images, ordered from newest to oldest.</p>
+    <p>A glimpse of life at Badger Park — from wildlife and wildflowers to events and volunteering.</p>
   </div>
 </section>
 
 <section class="section">
   <div class="container">
 
-<div class="gallery-filter" role="group" aria-label="Filter gallery photos"><button class="active" data-filter="all" type="button">All photos</button><button data-filter="colour-run" type="button">Colour Runs</button><button data-filter="nature" type="button">Nature &amp; planting</button><button data-filter="community" type="button">Community events</button></div>
+    <div class="gallery-filter">
+      <button class="active">All photos</button>
+      <button>🦡 Wildlife</button>
+      <button>🌸 Nature &amp; Plants</button>
+      <button>🎉 Events</button>
+      <button>🧹 Volunteering</button>
+    </div>
+
     <div class="masonry-grid">
-<button class="gallery-item fade-up" data-category="colour-run" data-event-group="2026-colour-run" type="button" aria-label="View Colour Run, July 2026"><div class="gallery-img h-sm"><img src="images/deploy/2026-colour-run-15.webp" alt="Colour Run, July 2026" loading="lazy"></div><span class="gallery-caption">Colour Run, July 2026</span></button>
-<button class="gallery-item fade-up" data-category="community" data-event-group="2026-family-walk" type="button" aria-label="View Family Walk, May 2026"><div class="gallery-img h-md"><img src="images/deploy/2026-family-walk-03.webp" alt="Family Walk, May 2026" loading="lazy"></div><span class="gallery-caption">Family Walk, May 2026</span></button>
-<button class="gallery-item fade-up" data-category="community" data-event-group="2025-christmas-carols" type="button" aria-label="View Christmas Carols, December 2025"><div class="gallery-img h-lg"><img src="images/deploy/2025-christmas-carols-02.webp" alt="Christmas Carols, December 2025" loading="lazy"></div><span class="gallery-caption">Christmas Carols, December 2025</span></button>
-<button class="gallery-item fade-up" data-category="colour-run" data-event-group="2025-colour-run" type="button" aria-label="View Colour Run, August 2025"><div class="gallery-img h-sm"><img src="images/deploy/2025-colour-run-07.webp" alt="Colour Run, August 2025" loading="lazy"></div><span class="gallery-caption">Colour Run, August 2025</span></button>
-<button class="gallery-item fade-up" data-category="community" data-event-group="2025-easter-crafts" type="button" aria-label="View Easter Crafts, April 2025"><div class="gallery-img h-md"><img src="images/deploy/2025-easter-crafts-02.webp" alt="Easter Crafts, April 2025" loading="lazy"></div><span class="gallery-caption">Easter Crafts, April 2025</span></button>
-<button class="gallery-item fade-up" data-category="community" data-event-group="2024-creepy-crafts" type="button" aria-label="View Creepy Crafts, November 2024"><div class="gallery-img h-lg"><img src="images/deploy/2024-creepy-crafts-01.webp" alt="Creepy Crafts, November 2024" loading="lazy"></div><span class="gallery-caption">Creepy Crafts, November 2024</span></button>
-<button class="gallery-item fade-up" data-category="colour-run" data-event-group="2024-colour-run" type="button" aria-label="View Colour Run, July 2024"><div class="gallery-img h-sm"><img src="images/deploy/2024-colour-run-06.webp" alt="Colour Run, July 2024" loading="lazy"></div><span class="gallery-caption">Colour Run, July 2024</span></button>
-<button class="gallery-item fade-up" data-category="colour-run" data-event-group="2023-colour-run" type="button" aria-label="View Colour Run, August 2023"><div class="gallery-img h-md"><img src="images/deploy/2023-colour-run-06.webp" alt="Colour Run, August 2023" loading="lazy"></div><span class="gallery-caption">Colour Run, August 2023</span></button>
-<button class="gallery-item fade-up" data-category="community" data-event-group="2023-half-term-fun" type="button" aria-label="View Half-term fun, June 2023"><div class="gallery-img h-lg"><img src="images/deploy/2023-half-term-fun-04.webp" alt="Half-term fun, June 2023" loading="lazy"></div><span class="gallery-caption">Half-term fun, June 2023</span></button>
-<button class="gallery-item fade-up" data-category="nature" data-event-group="2022-badger-park-tree-festival" type="button" aria-label="View Badger Park Tree Festival, October 2022"><div class="gallery-img h-sm"><img src="images/deploy/2022-tree-festival-11.webp" alt="Badger Park Tree Festival, October 2022" loading="lazy"></div><span class="gallery-caption">Badger Park Tree Festival, October 2022</span></button>
-<button class="gallery-item fade-up" data-category="community" data-event-group="2022-jubilee-picnic" type="button" aria-label="View Jubilee picnic, June 2022"><div class="gallery-img h-md"><img src="images/deploy/2022-jubilee-picnic-07.webp" alt="Jubilee picnic, June 2022" loading="lazy"></div><span class="gallery-caption">Jubilee picnic, June 2022</span></button>
-<button class="gallery-item fade-up" data-category="community" data-event-group="2022-official-opening-of-the-new-park" type="button" aria-label="View Official opening of the new park, February 2022"><div class="gallery-img h-lg"><img src="images/deploy/2022-park-opening-05.webp" alt="Official opening of the new park, February 2022" loading="lazy"></div><span class="gallery-caption">Official opening of the new park, February 2022</span></button>
-<button class="gallery-item fade-up" data-category="nature" data-event-group="2020-bulb-planting" type="button" aria-label="View Bulb planting, October 2020"><div class="gallery-img h-sm"><img src="images/deploy/2020-bulb-planting-11.webp" alt="Bulb planting, October 2020" loading="lazy"></div><span class="gallery-caption">Bulb planting, October 2020</span></button>
+
+      <div class="gallery-item fade-up">
+        <div class="gallery-img h-lg">🦡</div>
+        <div class="gallery-overlay">
+          <span>Our resident badgers</span>
+          <small>North woodland · May 2025</small>
+        </div>
+      </div>
+
+      <div class="gallery-item fade-up delay-1">
+        <div class="gallery-img h-sm c-amber">🌻</div>
+        <div class="gallery-overlay">
+          <span>Wildflower meadow</span>
+          <small>South meadow · June 2025</small>
+        </div>
+      </div>
+
+      <div class="gallery-item fade-up delay-2">
+        <div class="gallery-img h-md c-blue">🎉</div>
+        <div class="gallery-overlay">
+          <span>Summer Fun Day 2024</span>
+          <small>Bandstand area · July 2024</small>
+        </div>
+      </div>
+
+      <div class="gallery-item fade-up">
+        <div class="gallery-img h-md">🌿</div>
+        <div class="gallery-overlay">
+          <span>Spring planting day</span>
+          <small>Community orchard · April 2025</small>
+        </div>
+      </div>
+
+      <div class="gallery-item fade-up delay-1">
+        <div class="gallery-img h-lg c-parch">🦋</div>
+        <div class="gallery-overlay">
+          <span>Butterfly survey</span>
+          <small>Wildflower strip · August 2024</small>
+        </div>
+      </div>
+
+      <div class="gallery-item fade-up delay-2">
+        <div class="gallery-img h-sm c-blue">🧹</div>
+        <div class="gallery-overlay">
+          <span>Spring Litter Pick 2025</span>
+          <small>85 volunteers · May 2025</small>
+        </div>
+      </div>
+
+      <div class="gallery-item fade-up">
+        <div class="gallery-img h-lg c-amber">🌸</div>
+        <div class="gallery-overlay">
+          <span>Cherry blossom walk</span>
+          <small>Blossom avenue · March 2025</small>
+        </div>
+      </div>
+
+      <div class="gallery-item fade-up delay-1">
+        <div class="gallery-img h-md">🎨</div>
+        <div class="gallery-overlay">
+          <span>Badger mosaic unveiled</span>
+          <small>Park entrance · June 2025</small>
+        </div>
+      </div>
+
+      <div class="gallery-item fade-up delay-2">
+        <div class="gallery-img h-sm c-blue">🐦</div>
+        <div class="gallery-overlay">
+          <span>Bird ringing session</span>
+          <small>East woodland · February 2025</small>
+        </div>
+      </div>
+
+      <div class="gallery-item fade-up">
+        <div class="gallery-img h-md c-parch">🌳</div>
+        <div class="gallery-overlay">
+          <span>New trees planted</span>
+          <small>North boundary · November 2024</small>
+        </div>
+      </div>
+
+      <div class="gallery-item fade-up delay-1">
+        <div class="gallery-img h-sm">🏆</div>
+        <div class="gallery-overlay">
+          <span>Green Flag shortlist announcement</span>
+          <small>July 2025</small>
+        </div>
+      </div>
+
+      <div class="gallery-item fade-up delay-2">
+        <div class="gallery-img h-lg c-amber">🎄</div>
+        <div class="gallery-overlay">
+          <span>Christmas lights switch-on</span>
+          <small>Bandstand · December 2024</small>
+        </div>
+      </div>
+
     </div>
 
     <div class="upload-cta">
@@ -147,11 +235,9 @@
 
 <!-- Lightbox -->
 <div class="lightbox" id="lightbox">
-  <button class="lightbox-nav lightbox-prev" id="lightboxPrev" type="button" aria-label="Previous photo">‹</button>
-  <button class="lightbox-nav lightbox-next" id="lightboxNext" type="button" aria-label="Next photo">›</button>
-  <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Close photo viewer">✕</button>
+  <button class="lightbox-close" id="lightboxClose">✕</button>
   <div class="lightbox-inner">
-    <img class="lightbox-img" id="lightboxPhoto" src="" alt="">
+    <div class="lightbox-img" id="lightboxEmoji">🦡</div>
     <div class="lightbox-body">
       <h3 id="lightboxTitle">Photo title</h3>
       <p id="lightboxMeta">Location · Date</p>
@@ -160,44 +246,33 @@
 </div>
 
 <script src="shared.js"></script>
-<script type="application/json" id="galleryPhotoGroups">{"2020-bulb-planting": ["images/deploy/2020-bulb-planting-03.webp", "images/deploy/2020-bulb-planting-21.webp", "images/deploy/2020-bulb-planting-11.webp"], "2022-official-opening-of-the-new-park": ["images/deploy/2022-park-opening-05.webp"], "2022-jubilee-picnic": ["images/deploy/2022-jubilee-picnic-07.webp"], "2022-badger-park-tree-festival": ["images/deploy/2022-tree-festival-03.webp", "images/deploy/2022-tree-festival-11.webp", "images/deploy/2022-tree-festival-31.webp"], "2023-half-term-fun": ["images/deploy/2023-half-term-fun-01.webp", "images/deploy/2023-half-term-fun-04.webp"], "2023-colour-run": ["images/deploy/2023-colour-run-03.webp", "images/deploy/2023-colour-run-06.webp", "images/deploy/2023-colour-run-11.webp"], "2024-colour-run": ["images/deploy/2024-colour-run-01.webp", "images/deploy/2024-colour-run-06.webp", "images/deploy/2024-colour-run-10.webp"], "2024-creepy-crafts": ["images/deploy/2024-creepy-crafts-01.webp", "images/deploy/2024-creepy-crafts-02.webp"], "2025-easter-crafts": ["images/deploy/2025-easter-crafts-01.webp", "images/deploy/2025-easter-crafts-02.webp", "images/deploy/2025-easter-crafts-03.webp", "images/deploy/2025-easter-crafts-04.webp"], "2025-colour-run": ["images/deploy/2025-colour-run-01.webp", "images/deploy/2025-colour-run-07.webp", "images/deploy/2025-colour-run-22.webp", "images/deploy/2025-colour-run-33.webp"], "2025-christmas-carols": ["images/deploy/2025-christmas-carols-01.webp", "images/deploy/2025-christmas-carols-02.webp"], "2026-family-walk": ["images/deploy/2026-family-walk-01.webp", "images/deploy/2026-family-walk-03.webp"], "2026-colour-run": ["images/deploy/2026-colour-run-01.webp", "images/deploy/2026-colour-run-07.webp", "images/deploy/2026-colour-run-13.webp", "images/deploy/2026-colour-run-15.webp", "images/deploy/2026-colour-run-22.webp"]}</script>
 <script>
   // Gallery filter
   document.querySelectorAll('.gallery-filter button').forEach(btn => {
     btn.addEventListener('click', function(){
       document.querySelectorAll('.gallery-filter button').forEach(b => b.classList.remove('active'));
       this.classList.add('active');
-      const filter=this.dataset.filter;
-      document.querySelectorAll('.gallery-item').forEach(item => { item.hidden=filter!=='all' && item.dataset.category!==filter; });
     });
   });
 
-  // Keep one event tile in the grid; browse only photos from that event in the viewer.
-  const galleryPhotoGroups=JSON.parse(document.getElementById('galleryPhotoGroups').textContent);
-  const lightbox=document.getElementById('lightbox');
-  let activeGroup=[]; let activeIndex=0; let activeTitle='';
-  function paintPhoto(){
-    if(!activeGroup.length)return;
-    const src=activeGroup[activeIndex];
-    const img=document.getElementById('lightboxPhoto'); img.src=src; img.alt=activeTitle;
-    document.getElementById('lightboxTitle').textContent=activeTitle;
-    document.getElementById('lightboxMeta').textContent=`Photo ${activeIndex+1} of ${activeGroup.length} · this event`;
-    document.getElementById('lightboxPrev').hidden=activeGroup.length<2;
-    document.getElementById('lightboxNext').hidden=activeGroup.length<2;
-  }
-  function stepPhoto(direction){if(activeGroup.length<2)return;activeIndex=(activeIndex+direction+activeGroup.length)%activeGroup.length;paintPhoto();}
-  document.querySelectorAll('.gallery-item').forEach(item=>item.addEventListener('click',()=>{
-    const img=item.querySelector('img'); activeTitle=img.alt;
-    activeGroup=galleryPhotoGroups[item.dataset.eventGroup]||[img.getAttribute('src')];
-    activeIndex=Math.max(0,activeGroup.indexOf(img.getAttribute('src'))); paintPhoto(); lightbox.classList.add('open');
-  }));
-  document.getElementById('lightboxPrev').addEventListener('click',()=>stepPhoto(-1));
-  document.getElementById('lightboxNext').addEventListener('click',()=>stepPhoto(1));
-  function closeLightbox(){lightbox.classList.remove('open');}
-  document.getElementById('lightboxClose').addEventListener('click',closeLightbox);
-  lightbox.addEventListener('click',e=>{if(e.target===lightbox)closeLightbox();});
-  document.addEventListener('keydown',e=>{if(!lightbox.classList.contains('open'))return;if(e.key==='ArrowLeft')stepPhoto(-1);else if(e.key==='ArrowRight')stepPhoto(1);else if(e.key==='Escape')closeLightbox();});
+  // Lightbox
+  document.querySelectorAll('.gallery-item').forEach(item => {
+    item.addEventListener('click', function(){
+      const emoji = this.querySelector('.gallery-img').textContent.trim();
+      const title = this.querySelector('.gallery-overlay span').textContent;
+      const meta  = this.querySelector('.gallery-overlay small').textContent;
+      document.getElementById('lightboxEmoji').textContent = emoji;
+      document.getElementById('lightboxTitle').textContent = title;
+      document.getElementById('lightboxMeta').textContent  = meta;
+      document.getElementById('lightbox').classList.add('open');
+    });
+  });
+  document.getElementById('lightboxClose').addEventListener('click', () => {
+    document.getElementById('lightbox').classList.remove('open');
+  });
+  document.getElementById('lightbox').addEventListener('click', function(e){
+    if(e.target === this) this.classList.remove('open');
+  });
 </script>
 </body>
 </html>
-
