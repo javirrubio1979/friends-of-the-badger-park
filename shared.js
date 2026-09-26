@@ -54,7 +54,7 @@
         <h4>Contact Us</h4>
         <p>📍 Badger Park, Chesterfield<br>Derbyshire</p>
         <p>📧 <a href="mailto:friendsofbadgerpark@gmail.com">friendsofbadgerpark@gmail.com</a></p>
-        <p>Registered Charity — England & Wales</p>
+
       </div>
     </div>
     <div class="footer-bottom">
