@@ -32,18 +32,32 @@
 .community-cta{background:#f4fbfd;padding:4rem 0}.community-cta .container{display:flex;align-items:center;justify-content:space-between;gap:2rem}.community-cta h2{font-family:'Nunito',sans-serif;font-weight:900;color:#0d4568;margin-bottom:.5rem}.community-cta p{color:var(--text-muted);max-width:620px;margin:0}.cta-buttons{display:flex;gap:.7rem;flex-wrap:wrap}.btn-pink{background:#ee4f91;color:#fff}.btn-pink:hover{background:#d93d7e;color:#fff}.btn-yellow{background:#ffd43b;color:#21451f}.btn-yellow:hover{background:#f4c31e;color:#21451f}
 @media(max-width:900px){.hero-art{opacity:.35;right:-20%;width:80vw}.event-intro,.impact-grid{grid-template-columns:1fr}.what-grid{grid-template-columns:1fr}.story-line{grid-template-columns:1fr 1fr}.story-step:not(:last-child):after{display:none}.community-cta .container{flex-direction:column;align-items:flex-start}.grid-3{grid-template-columns:1fr}}
 @media(max-width:640px){.hero-copy{padding:4rem 0 5rem}.hero-copy h1{font-size:3.2rem}.hero-art{display:none}.impact-projects{grid-template-columns:1fr}.story-line{grid-template-columns:1fr}.home-gallery{grid-template-columns:1fr 1fr;grid-template-rows:150px 150px 150px}.gallery-box:nth-child(1){grid-row:span 2}.gallery-box:nth-child(5){grid-column:span 2}}
+
+/* V9 hero refinement — real Colour Run photo + text panel */
+.home-hero{
+  min-height:78vh;
+  background-image:linear-gradient(90deg,rgba(7,49,75,.90) 0%,rgba(13,69,104,.66) 38%,rgba(13,69,104,.16) 72%,rgba(13,69,104,.05) 100%),url('assets/hero-colour-run.jpg');
+  background-position:center center;
+  background-size:cover;
+}
+.home-hero:after{background:linear-gradient(90deg,rgba(7,49,75,.18),transparent 65%);}
+.hero-copy{max-width:690px;padding:4rem 0;}
+.hero-copy h1{font-size:clamp(3.2rem,6.5vw,5.6rem);text-shadow:0 3px 20px rgba(0,0,0,.16);}
+.hero-copy h1 span{color:#8ed8f5;}
+.hero-copy p{font-size:1.18rem;max-width:600px;text-shadow:0 2px 12px rgba(0,0,0,.22);}
+.hero-copy{background:linear-gradient(90deg,rgba(7,49,75,.62),rgba(7,49,75,.22) 72%,transparent);padding:3rem 3rem 3rem 2.2rem;border-left:5px solid #63c7ec;border-radius:0 24px 24px 0;backdrop-filter:blur(1px);}
+@media(max-width:640px){.hero-copy{padding:2.25rem 1.5rem;border-left:4px solid #63c7ec;border-radius:0 18px 18px 0}.hero-copy h1{font-size:3rem}.hero-copy p{font-size:1.05rem}.home-hero{min-height:72vh;background-position:62% center;}}
 </style>
 </head>
 <body>
 
 <section class="home-hero">
 <div class="container"><div class="hero-copy fade-up">
-<span class="hero-kicker">🦡 Friends of the Badger Park · Chesterfield</span>
 <h1>Bringing Badger Park <span>to life.</span></h1>
 <p>Events, activities and projects bringing our local community together — with the money we raise going back into the park and the people who enjoy it.</p>
 
 </div></div>
-<div class="hero-art" aria-hidden="true"><div class="sun"></div><div class="hill"></div><div class="tree t1"></div><div class="tree t2"></div><div class="people">🏃‍♀️</div></div>
+
 </section>
 
 <section class="section home-events"><div class="container">

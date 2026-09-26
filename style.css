@@ -561,6 +561,10 @@ a:hover { color: var(--blue-dark); }
 .home-gallery .gallery-box img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease}
 .home-gallery .gallery-box:hover img{transform:scale(1.04)}
 
+
+/* V9 navigation refinement — move desktop menu slightly left */
+@media(min-width:901px){.navbar-inner{padding-left:1.5rem;padding-right:1.5rem}.nav-links{transform:translateX(-28px);}}
+
 /* V6 master palette: blue replaces the previous green-heavy visual system. */
 :root{--blue-community:#17658f;--blue-community-dark:#0d4568;--blue-community-mid:#2e86b7;--blue-sky:#e8f5fb}
 .navbar{background:#fff}.nav-links a.active{color:#17658f}.nav-links a.active:after{background:#17658f}.btn-donate{background:#17658f!important}.btn-donate:hover{background:#0d4568!important}.btn-primary,.btn-green{background:#17658f!important}.btn-primary:hover,.btn-green:hover{background:#0d4568!important}.page-hero{background:linear-gradient(120deg,#0d4568,#17658f 55%,#43a1c8)!important}
