@@ -1,278 +1,1360 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gallery — Friends of the Badger Park</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    .gallery-filter {
-      display: flex; gap: 0.5rem; flex-wrap: wrap;
-      justify-content: center; margin-bottom: 2.5rem;
-    }
-    .gallery-filter button {
-      padding: 0.45rem 1.1rem; border-radius: 50px;
-      border: 2px solid #ddd; background: var(--white);
-      font-family: 'Nunito', sans-serif;
-      font-weight: 700; font-size: 0.85rem;
-      cursor: pointer; transition: all var(--transition);
-    }
-    .gallery-filter button:hover,
-    .gallery-filter button.active { background: var(--blue); color: #fff; border-color: var(--blue); }
-
-    .masonry-grid {
-      columns: 3; column-gap: 1.25rem;
-    }
-    .gallery-item {
-      break-inside: avoid;
-      margin-bottom: 1.25rem;
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      cursor: pointer;
-      position: relative;
-      transition: transform var(--transition), box-shadow var(--transition);
-    }
-    .gallery-item:hover { transform: scale(1.02); box-shadow: var(--shadow-lg); }
-    .gallery-item:hover .gallery-overlay { opacity: 1; }
-
-    /* Placeholder coloured image tiles */
-    .gallery-img {
-      width: 100%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 3.5rem;
-      background: var(--green-light);
-    }
-    .gallery-img.h-sm  { height: 180px; }
-    .gallery-img.h-md  { height: 240px; }
-    .gallery-img.h-lg  { height: 310px; }
-    .gallery-img.c-blue   { background: var(--blue-light); }
-    .gallery-img.c-amber  { background: #FFF3D6; }
-    .gallery-img.c-parch  { background: var(--parchment); }
-
-    .gallery-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(14,61,128,0.85) 0%, transparent 60%);
-      opacity: 0; transition: opacity var(--transition);
-      display: flex; flex-direction: column; justify-content: flex-end;
-      padding: 1rem;
-    }
-    .gallery-overlay span { color: #fff; font-weight: 700; font-size: 0.88rem; }
-    .gallery-overlay small { color: rgba(255,255,255,0.7); font-size: 0.76rem; }
-
-    /* Lightbox */
-    .lightbox {
-      position: fixed; inset: 0; z-index: 9999;
-      background: rgba(0,0,0,0.92);
-      display: flex; align-items: center; justify-content: center;
-      opacity: 0; pointer-events: none; transition: opacity 0.3s;
-    }
-    .lightbox.open { opacity: 1; pointer-events: all; }
-    .lightbox-inner {
-      background: var(--white); border-radius: 16px;
-      max-width: 600px; width: 90%; overflow: hidden;
-      transform: scale(0.9); transition: transform 0.3s;
-    }
-    .lightbox.open .lightbox-inner { transform: scale(1); }
-    .lightbox-img {
-      width: 100%; height: 320px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 6rem; background: var(--green-light);
-    }
-    .lightbox-body { padding: 1.5rem; }
-    .lightbox-body h3 { margin-bottom: 0.4rem; color: var(--blue-dark); }
-    .lightbox-body p  { color: var(--text-muted); font-size: 0.9rem; margin: 0; }
-    .lightbox-close {
-      position: absolute; top: 1rem; right: 1rem;
-      width: 40px; height: 40px; border-radius: 50%;
-      background: rgba(255,255,255,0.2); border: none;
-      color: #fff; font-size: 1.25rem; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: background var(--transition);
-    }
-    .lightbox-close:hover { background: rgba(255,255,255,0.35); }
-
-    .upload-cta {
-      text-align: center; background: var(--parchment);
-      border-radius: var(--radius); padding: 2.5rem;
-      border: 2px dashed #ccc; margin-top: 2rem;
-    }
-
-    @media(max-width:900px){ .masonry-grid { columns: 2; } }
-    @media(max-width:520px){ .masonry-grid { columns: 1; } }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery — Friends of the Badger Park</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.gallery-hero{background:linear-gradient(120deg,#0d4568,#17658f 55%,#43a1c8);color:#fff;padding:5rem 0 4rem}
+.gallery-hero h1{font-family:'Nunito',sans-serif;font-size:clamp(2.7rem,6vw,4.5rem);font-weight:900;margin:.4rem 0 .8rem}
+.gallery-hero p{max-width:680px;opacity:.92;font-size:1.05rem}
+.gallery-controls{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;margin:2rem 0}
+.filter-btn{border:2px solid #c7dce7;background:#fff;color:#17658f;padding:.5rem 1rem;border-radius:999px;font-weight:800;cursor:pointer}
+.filter-btn.active,.filter-btn:hover{background:#17658f;color:#fff;border-color:#17658f}
+.gallery-grid{columns:4 240px;column-gap:1rem}
+.gallery-card{break-inside:avoid;margin:0 0 1rem;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px rgba(13,69,104,.10);background:#fff}
+.gallery-open{display:block;border:0;padding:0;width:100%;position:relative;background:#fff;cursor:pointer;text-align:left}
+.gallery-open img{display:block;width:100%;height:auto;max-height:430px;object-fit:cover;transition:transform .3s}
+.gallery-open:hover img{transform:scale(1.025)}
+.gallery-caption{position:absolute;left:0;right:0;bottom:0;padding:2.2rem .9rem .8rem;background:linear-gradient(transparent,rgba(5,37,56,.84));color:#fff;display:flex;align-items:flex-end;justify-content:space-between;gap:.5rem}
+.gallery-caption strong{font-size:.82rem}
+.gallery-caption small{font-size:.72rem;opacity:.85}
+.gallery-empty{display:none;text-align:center;padding:3rem;color:#61727d}
+.gallery-videos{margin-top:4rem;padding-top:3rem;border-top:1px solid #d8e8ef}
+.gallery-videos h2{font-family:'Nunito',sans-serif;color:#0d4568;font-weight:900;text-align:center}
+.gallery-videos>p{text-align:center;color:#60717c;margin-bottom:2rem}
+.video-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.video-card{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 6px 22px rgba(13,69,104,.10)}
+.video-card video{display:block;width:100%;background:#071923}
+.video-card div{padding:1rem}
+.video-year{font-size:.7rem;font-weight:900;color:#17658f;text-transform:uppercase;letter-spacing:.06em}
+.video-card h3{font-family:'Nunito',sans-serif;color:#0d4568;font-weight:900;margin:.2rem 0}
+.video-card p{font-size:.82rem;color:#61727d;margin:0}
+.gallery-note{margin-top:2rem;background:#edf7fb;border-radius:16px;padding:1.25rem;text-align:center;color:#526b78}
+.gallery-note a{color:#17658f;font-weight:900}
+.lightbox{position:fixed;inset:0;background:rgba(4,20,29,.94);z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s;padding:1rem}
+.lightbox.open{opacity:1;pointer-events:auto}
+.lightbox-panel{max-width:1100px;width:100%;max-height:95vh;display:flex;flex-direction:column;align-items:center}
+.lightbox-panel img{max-width:100%;max-height:78vh;object-fit:contain;border-radius:10px}
+.lightbox-info{color:#fff;text-align:center;padding:.8rem}
+.lightbox-info h3{margin:0 0 .2rem;font-family:'Nunito',sans-serif}
+.lightbox-info p{margin:0;opacity:.75;font-size:.82rem}
+.lightbox-close{position:fixed;right:1.2rem;top:1rem;border:0;background:rgba(255,255,255,.16);color:#fff;width:44px;height:44px;border-radius:50%;font-size:1.5rem;cursor:pointer}
+@media(max-width:900px){.video-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.video-grid{grid-template-columns:1fr}.gallery-grid{columns:2 150px}}
+</style>
 </head>
 <body>
-
-<section class="page-hero">
-  <div class="container">
-    <p class="breadcrumb"><a href="index.html">Home</a> / Gallery</p>
-    <h1>Photo Gallery</h1>
-    <p>A glimpse of life at Badger Park — from wildlife and wildflowers to events and volunteering.</p>
-  </div>
+<section class="gallery-hero">
+ <div class="container">
+  <p class="breadcrumb"><a href="index.html" style="color:#d8f0fb">Home</a> / Gallery</p>
+  <h1>Our community in pictures</h1>
+  <p>From bulb planting and the opening of the new playground to Colour Runs, crafts, walks and community celebrations — a record of Friends of the Badger Park in action.</p>
+ </div>
 </section>
-
 <section class="section">
-  <div class="container">
-
-    <div class="gallery-filter">
-      <button class="active">All photos</button>
-      <button>🦡 Wildlife</button>
-      <button>🌸 Nature &amp; Plants</button>
-      <button>🎉 Events</button>
-      <button>🧹 Volunteering</button>
-    </div>
-
-    <div class="masonry-grid">
-
-      <div class="gallery-item fade-up">
-        <div class="gallery-img h-lg">🦡</div>
-        <div class="gallery-overlay">
-          <span>Our resident badgers</span>
-          <small>North woodland · May 2025</small>
-        </div>
-      </div>
-
-      <div class="gallery-item fade-up delay-1">
-        <div class="gallery-img h-sm c-amber">🌻</div>
-        <div class="gallery-overlay">
-          <span>Wildflower meadow</span>
-          <small>South meadow · June 2025</small>
-        </div>
-      </div>
-
-      <div class="gallery-item fade-up delay-2">
-        <div class="gallery-img h-md c-blue">🎉</div>
-        <div class="gallery-overlay">
-          <span>Summer Fun Day 2024</span>
-          <small>Bandstand area · July 2024</small>
-        </div>
-      </div>
-
-      <div class="gallery-item fade-up">
-        <div class="gallery-img h-md">🌿</div>
-        <div class="gallery-overlay">
-          <span>Spring planting day</span>
-          <small>Community orchard · April 2025</small>
-        </div>
-      </div>
-
-      <div class="gallery-item fade-up delay-1">
-        <div class="gallery-img h-lg c-parch">🦋</div>
-        <div class="gallery-overlay">
-          <span>Butterfly survey</span>
-          <small>Wildflower strip · August 2024</small>
-        </div>
-      </div>
-
-      <div class="gallery-item fade-up delay-2">
-        <div class="gallery-img h-sm c-blue">🧹</div>
-        <div class="gallery-overlay">
-          <span>Spring Litter Pick 2025</span>
-          <small>85 volunteers · May 2025</small>
-        </div>
-      </div>
-
-      <div class="gallery-item fade-up">
-        <div class="gallery-img h-lg c-amber">🌸</div>
-        <div class="gallery-overlay">
-          <span>Cherry blossom walk</span>
-          <small>Blossom avenue · March 2025</small>
-        </div>
-      </div>
-
-      <div class="gallery-item fade-up delay-1">
-        <div class="gallery-img h-md">🎨</div>
-        <div class="gallery-overlay">
-          <span>Badger mosaic unveiled</span>
-          <small>Park entrance · June 2025</small>
-        </div>
-      </div>
-
-      <div class="gallery-item fade-up delay-2">
-        <div class="gallery-img h-sm c-blue">🐦</div>
-        <div class="gallery-overlay">
-          <span>Bird ringing session</span>
-          <small>East woodland · February 2025</small>
-        </div>
-      </div>
-
-      <div class="gallery-item fade-up">
-        <div class="gallery-img h-md c-parch">🌳</div>
-        <div class="gallery-overlay">
-          <span>New trees planted</span>
-          <small>North boundary · November 2024</small>
-        </div>
-      </div>
-
-      <div class="gallery-item fade-up delay-1">
-        <div class="gallery-img h-sm">🏆</div>
-        <div class="gallery-overlay">
-          <span>Green Flag shortlist announcement</span>
-          <small>July 2025</small>
-        </div>
-      </div>
-
-      <div class="gallery-item fade-up delay-2">
-        <div class="gallery-img h-lg c-amber">🎄</div>
-        <div class="gallery-overlay">
-          <span>Christmas lights switch-on</span>
-          <small>Bandstand · December 2024</small>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="upload-cta">
-      <div style="font-size:2.5rem;margin-bottom:0.75rem;">📸</div>
-      <h3 style="color:var(--blue-dark);margin-bottom:0.5rem;">Got photos to share?</h3>
-      <p style="color:var(--text-muted);margin-bottom:1.25rem;max-width:440px;margin-left:auto;margin-right:auto;">We'd love to see your photos from the park! Send them to us and we may feature them in our gallery.</p>
-      <a href="contact.html" class="btn btn-primary">Send us your photos</a>
-    </div>
-
+ <div class="container">
+  <div class="gallery-controls">
+   <button class="filter-btn active" data-filter="all" data-value="all">All photos</button>
+   <button class="filter-btn" data-filter="year" data-value="2026">2026</button><button class="filter-btn" data-filter="year" data-value="2025">2025</button><button class="filter-btn" data-filter="year" data-value="2024">2024</button><button class="filter-btn" data-filter="year" data-value="2023">2023</button><button class="filter-btn" data-filter="year" data-value="2022">2022</button><button class="filter-btn" data-filter="year" data-value="2020">2020</button>
   </div>
+  <div class="gallery-grid" id="galleryGrid">
+   
+      <figure class="gallery-card" data-year="2020" data-event="Bulb Planting">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2020-bulb-planting/122961698-163122578847772-328835138697477001-n.jpg" data-title="Bulb Planting" data-description="Planting bulbs together and helping the park bloom." aria-label="Open Bulb Planting photo">
+          <img src="assets/gallery/2020-bulb-planting/122961698-163122578847772-328835138697477001-n.jpg" alt="Bulb Planting" loading="lazy">
+          <span class="gallery-caption"><strong>Bulb Planting</strong><small>2020</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2020" data-event="Bulb Planting">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2020-bulb-planting/122970107-163122655514431-7256764973566813740-n.jpg" data-title="Bulb Planting" data-description="Planting bulbs together and helping the park bloom." aria-label="Open Bulb Planting photo">
+          <img src="assets/gallery/2020-bulb-planting/122970107-163122655514431-7256764973566813740-n.jpg" alt="Bulb Planting" loading="lazy">
+          <span class="gallery-caption"><strong>Bulb Planting</strong><small>2020</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2020" data-event="Bulb Planting">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2020-bulb-planting/122975912-163186988841331-7693767666484171463-n.jpg" data-title="Bulb Planting" data-description="Planting bulbs together and helping the park bloom." aria-label="Open Bulb Planting photo">
+          <img src="assets/gallery/2020-bulb-planting/122975912-163186988841331-7693767666484171463-n.jpg" alt="Bulb Planting" loading="lazy">
+          <span class="gallery-caption"><strong>Bulb Planting</strong><small>2020</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2020" data-event="Bulb Planting">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2020-bulb-planting/122982584-163122665514430-9143590659708801402-n.jpg" data-title="Bulb Planting" data-description="Planting bulbs together and helping the park bloom." aria-label="Open Bulb Planting photo">
+          <img src="assets/gallery/2020-bulb-planting/122982584-163122665514430-9143590659708801402-n.jpg" alt="Bulb Planting" loading="lazy">
+          <span class="gallery-caption"><strong>Bulb Planting</strong><small>2020</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2020" data-event="Bulb Planting">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2020-bulb-planting/122984300-163122502181113-3836553336755268344-n.jpg" data-title="Bulb Planting" data-description="Planting bulbs together and helping the park bloom." aria-label="Open Bulb Planting photo">
+          <img src="assets/gallery/2020-bulb-planting/122984300-163122502181113-3836553336755268344-n.jpg" alt="Bulb Planting" loading="lazy">
+          <span class="gallery-caption"><strong>Bulb Planting</strong><small>2020</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2020" data-event="Bulb Planting">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2020-bulb-planting/122994881-163122648847765-4343208341254459131-n.jpg" data-title="Bulb Planting" data-description="Planting bulbs together and helping the park bloom." aria-label="Open Bulb Planting photo">
+          <img src="assets/gallery/2020-bulb-planting/122994881-163122648847765-4343208341254459131-n.jpg" alt="Bulb Planting" loading="lazy">
+          <span class="gallery-caption"><strong>Bulb Planting</strong><small>2020</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2020" data-event="Bulb Planting">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2020-bulb-planting/122997978-163187015507995-269444398441830743-n.jpg" data-title="Bulb Planting" data-description="Planting bulbs together and helping the park bloom." aria-label="Open Bulb Planting photo">
+          <img src="assets/gallery/2020-bulb-planting/122997978-163187015507995-269444398441830743-n.jpg" alt="Bulb Planting" loading="lazy">
+          <span class="gallery-caption"><strong>Bulb Planting</strong><small>2020</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2020" data-event="Bulb Planting">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2020-bulb-planting/122997978-163187095507987-5857162931061261632-n.jpg" data-title="Bulb Planting" data-description="Planting bulbs together and helping the park bloom." aria-label="Open Bulb Planting photo">
+          <img src="assets/gallery/2020-bulb-planting/122997978-163187095507987-5857162931061261632-n.jpg" alt="Bulb Planting" loading="lazy">
+          <span class="gallery-caption"><strong>Bulb Planting</strong><small>2020</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2020" data-event="Bulb Planting">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2020-bulb-planting/123008570-163187062174657-3079771589446922628-n.jpg" data-title="Bulb Planting" data-description="Planting bulbs together and helping the park bloom." aria-label="Open Bulb Planting photo">
+          <img src="assets/gallery/2020-bulb-planting/123008570-163187062174657-3079771589446922628-n.jpg" alt="Bulb Planting" loading="lazy">
+          <span class="gallery-caption"><strong>Bulb Planting</strong><small>2020</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2020" data-event="Bulb Planting">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2020-bulb-planting/123016696-163187105507986-1536330462635586247-n.jpg" data-title="Bulb Planting" data-description="Planting bulbs together and helping the park bloom." aria-label="Open Bulb Planting photo">
+          <img src="assets/gallery/2020-bulb-planting/123016696-163187105507986-1536330462635586247-n.jpg" alt="Bulb Planting" loading="lazy">
+          <span class="gallery-caption"><strong>Bulb Planting</strong><small>2020</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2020" data-event="Bulb Planting">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2020-bulb-planting/123027019-163188352174528-1314788523600839548-n.jpg" data-title="Bulb Planting" data-description="Planting bulbs together and helping the park bloom." aria-label="Open Bulb Planting photo">
+          <img src="assets/gallery/2020-bulb-planting/123027019-163188352174528-1314788523600839548-n.jpg" alt="Bulb Planting" loading="lazy">
+          <span class="gallery-caption"><strong>Bulb Planting</strong><small>2020</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2020" data-event="Bulb Planting">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2020-bulb-planting/123056833-163187132174650-7404663368398745006-n.jpg" data-title="Bulb Planting" data-description="Planting bulbs together and helping the park bloom." aria-label="Open Bulb Planting photo">
+          <img src="assets/gallery/2020-bulb-planting/123056833-163187132174650-7404663368398745006-n.jpg" alt="Bulb Planting" loading="lazy">
+          <span class="gallery-caption"><strong>Bulb Planting</strong><small>2020</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2020" data-event="Bulb Planting">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2020-bulb-planting/123084491-163122595514437-7220046344779860011-n.jpg" data-title="Bulb Planting" data-description="Planting bulbs together and helping the park bloom." aria-label="Open Bulb Planting photo">
+          <img src="assets/gallery/2020-bulb-planting/123084491-163122595514437-7220046344779860011-n.jpg" alt="Bulb Planting" loading="lazy">
+          <span class="gallery-caption"><strong>Bulb Planting</strong><small>2020</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2020" data-event="Bulb Planting">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2020-bulb-planting/123088651-163122495514447-8510734432905617451-n.jpg" data-title="Bulb Planting" data-description="Planting bulbs together and helping the park bloom." aria-label="Open Bulb Planting photo">
+          <img src="assets/gallery/2020-bulb-planting/123088651-163122495514447-8510734432905617451-n.jpg" alt="Bulb Planting" loading="lazy">
+          <span class="gallery-caption"><strong>Bulb Planting</strong><small>2020</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2020" data-event="Bulb Planting">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2020-bulb-planting/123100240-163122542181109-6634765318237491239-n.jpg" data-title="Bulb Planting" data-description="Planting bulbs together and helping the park bloom." aria-label="Open Bulb Planting photo">
+          <img src="assets/gallery/2020-bulb-planting/123100240-163122542181109-6634765318237491239-n.jpg" alt="Bulb Planting" loading="lazy">
+          <span class="gallery-caption"><strong>Bulb Planting</strong><small>2020</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2020" data-event="Bulb Planting">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2020-bulb-planting/123106192-163122675514429-745057932573394417-n.jpg" data-title="Bulb Planting" data-description="Planting bulbs together and helping the park bloom." aria-label="Open Bulb Planting photo">
+          <img src="assets/gallery/2020-bulb-planting/123106192-163122675514429-745057932573394417-n.jpg" alt="Bulb Planting" loading="lazy">
+          <span class="gallery-caption"><strong>Bulb Planting</strong><small>2020</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2020" data-event="Bulb Planting">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2020-bulb-planting/123114582-163187068841323-8332521925165787269-n.jpg" data-title="Bulb Planting" data-description="Planting bulbs together and helping the park bloom." aria-label="Open Bulb Planting photo">
+          <img src="assets/gallery/2020-bulb-planting/123114582-163187068841323-8332521925165787269-n.jpg" alt="Bulb Planting" loading="lazy">
+          <span class="gallery-caption"><strong>Bulb Planting</strong><small>2020</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2020" data-event="Bulb Planting">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2020-bulb-planting/123130426-163122725514424-955257146772171933-n.jpg" data-title="Bulb Planting" data-description="Planting bulbs together and helping the park bloom." aria-label="Open Bulb Planting photo">
+          <img src="assets/gallery/2020-bulb-planting/123130426-163122725514424-955257146772171933-n.jpg" alt="Bulb Planting" loading="lazy">
+          <span class="gallery-caption"><strong>Bulb Planting</strong><small>2020</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2020" data-event="Bulb Planting">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2020-bulb-planting/123134258-163122738847756-1221909174766453240-n.jpg" data-title="Bulb Planting" data-description="Planting bulbs together and helping the park bloom." aria-label="Open Bulb Planting photo">
+          <img src="assets/gallery/2020-bulb-planting/123134258-163122738847756-1221909174766453240-n.jpg" alt="Bulb Planting" loading="lazy">
+          <span class="gallery-caption"><strong>Bulb Planting</strong><small>2020</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2020" data-event="Bulb Planting">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2020-bulb-planting/123137702-163122535514443-4527244181659498553-n.jpg" data-title="Bulb Planting" data-description="Planting bulbs together and helping the park bloom." aria-label="Open Bulb Planting photo">
+          <img src="assets/gallery/2020-bulb-planting/123137702-163122535514443-4527244181659498553-n.jpg" alt="Bulb Planting" loading="lazy">
+          <span class="gallery-caption"><strong>Bulb Planting</strong><small>2020</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2020" data-event="Bulb Planting">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2020-bulb-planting/123168210-163130512180312-1495409073473957446-n.jpg" data-title="Bulb Planting" data-description="Planting bulbs together and helping the park bloom." aria-label="Open Bulb Planting photo">
+          <img src="assets/gallery/2020-bulb-planting/123168210-163130512180312-1495409073473957446-n.jpg" alt="Bulb Planting" loading="lazy">
+          <span class="gallery-caption"><strong>Bulb Planting</strong><small>2020</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2020" data-event="Bulb Planting">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2020-bulb-planting/123192649-163122718847758-6811827581611479826-n.jpg" data-title="Bulb Planting" data-description="Planting bulbs together and helping the park bloom." aria-label="Open Bulb Planting photo">
+          <img src="assets/gallery/2020-bulb-planting/123192649-163122718847758-6811827581611479826-n.jpg" alt="Bulb Planting" loading="lazy">
+          <span class="gallery-caption"><strong>Bulb Planting</strong><small>2020</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2020" data-event="Bulb Planting">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2020-bulb-planting/123200816-163122585514438-2025636309881786113-n.jpg" data-title="Bulb Planting" data-description="Planting bulbs together and helping the park bloom." aria-label="Open Bulb Planting photo">
+          <img src="assets/gallery/2020-bulb-planting/123200816-163122585514438-2025636309881786113-n.jpg" alt="Bulb Planting" loading="lazy">
+          <span class="gallery-caption"><strong>Bulb Planting</strong><small>2020</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2020" data-event="Bulb Planting">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2020-bulb-planting/123208726-163122742181089-7399046480537621021-n.jpg" data-title="Bulb Planting" data-description="Planting bulbs together and helping the park bloom." aria-label="Open Bulb Planting photo">
+          <img src="assets/gallery/2020-bulb-planting/123208726-163122742181089-7399046480537621021-n.jpg" alt="Bulb Planting" loading="lazy">
+          <span class="gallery-caption"><strong>Bulb Planting</strong><small>2020</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2020" data-event="Bulb Planting">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2020-bulb-planting/123218163-163122575514439-580724767771760473-n.jpg" data-title="Bulb Planting" data-description="Planting bulbs together and helping the park bloom." aria-label="Open Bulb Planting photo">
+          <img src="assets/gallery/2020-bulb-planting/123218163-163122575514439-580724767771760473-n.jpg" alt="Bulb Planting" loading="lazy">
+          <span class="gallery-caption"><strong>Bulb Planting</strong><small>2020</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2020" data-event="Bulb Planting">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2020-bulb-planting/123234490-163130492180314-7687620981246579581-n.jpg" data-title="Bulb Planting" data-description="Planting bulbs together and helping the park bloom." aria-label="Open Bulb Planting photo">
+          <img src="assets/gallery/2020-bulb-planting/123234490-163130492180314-7687620981246579581-n.jpg" alt="Bulb Planting" loading="lazy">
+          <span class="gallery-caption"><strong>Bulb Planting</strong><small>2020</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2020" data-event="Bulb Planting">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2020-bulb-planting/123236396-163130502180313-1745835019820510294-n.jpg" data-title="Bulb Planting" data-description="Planting bulbs together and helping the park bloom." aria-label="Open Bulb Planting photo">
+          <img src="assets/gallery/2020-bulb-planting/123236396-163130502180313-1745835019820510294-n.jpg" alt="Bulb Planting" loading="lazy">
+          <span class="gallery-caption"><strong>Bulb Planting</strong><small>2020</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2020" data-event="Bulb Planting">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2020-bulb-planting/123249095-163130488846981-4542448426266702029-n.jpg" data-title="Bulb Planting" data-description="Planting bulbs together and helping the park bloom." aria-label="Open Bulb Planting photo">
+          <img src="assets/gallery/2020-bulb-planting/123249095-163130488846981-4542448426266702029-n.jpg" alt="Bulb Planting" loading="lazy">
+          <span class="gallery-caption"><strong>Bulb Planting</strong><small>2020</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2020" data-event="Bulb Planting">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2020-bulb-planting/123329654-163130508846979-7612213367196027783-n.jpg" data-title="Bulb Planting" data-description="Planting bulbs together and helping the park bloom." aria-label="Open Bulb Planting photo">
+          <img src="assets/gallery/2020-bulb-planting/123329654-163130508846979-7612213367196027783-n.jpg" alt="Bulb Planting" loading="lazy">
+          <span class="gallery-caption"><strong>Bulb Planting</strong><small>2020</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Official Opening">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-official-opening/472415597-1129689105524443-2393883216844037401-n.jpg" data-title="Official Opening" data-description="The official opening of the new Badger Park playground." aria-label="Open Official Opening photo">
+          <img src="assets/gallery/2022-official-opening/472415597-1129689105524443-2393883216844037401-n.jpg" alt="Official Opening" loading="lazy">
+          <span class="gallery-caption"><strong>Official Opening</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Official Opening">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-official-opening/472452997-1129689095524444-8081670705959827645-n.jpg" data-title="Official Opening" data-description="The official opening of the new Badger Park playground." aria-label="Open Official Opening photo">
+          <img src="assets/gallery/2022-official-opening/472452997-1129689095524444-8081670705959827645-n.jpg" alt="Official Opening" loading="lazy">
+          <span class="gallery-caption"><strong>Official Opening</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Official Opening">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-official-opening/472481803-1129688862191134-8943963470141113124-n.jpg" data-title="Official Opening" data-description="The official opening of the new Badger Park playground." aria-label="Open Official Opening photo">
+          <img src="assets/gallery/2022-official-opening/472481803-1129688862191134-8943963470141113124-n.jpg" alt="Official Opening" loading="lazy">
+          <span class="gallery-caption"><strong>Official Opening</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Official Opening">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-official-opening/472496387-1129689235524430-3288536694504688824-n.jpg" data-title="Official Opening" data-description="The official opening of the new Badger Park playground." aria-label="Open Official Opening photo">
+          <img src="assets/gallery/2022-official-opening/472496387-1129689235524430-3288536694504688824-n.jpg" alt="Official Opening" loading="lazy">
+          <span class="gallery-caption"><strong>Official Opening</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Official Opening">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-official-opening/472512124-1129689072191113-6836343235479247261-n.jpg" data-title="Official Opening" data-description="The official opening of the new Badger Park playground." aria-label="Open Official Opening photo">
+          <img src="assets/gallery/2022-official-opening/472512124-1129689072191113-6836343235479247261-n.jpg" alt="Official Opening" loading="lazy">
+          <span class="gallery-caption"><strong>Official Opening</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Official Opening">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-official-opening/472548990-1129688868857800-896210381653488278-n.jpg" data-title="Official Opening" data-description="The official opening of the new Badger Park playground." aria-label="Open Official Opening photo">
+          <img src="assets/gallery/2022-official-opening/472548990-1129688868857800-896210381653488278-n.jpg" alt="Official Opening" loading="lazy">
+          <span class="gallery-caption"><strong>Official Opening</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Official Opening">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-official-opening/472555513-1129689322191088-8992733954080992160-n.jpg" data-title="Official Opening" data-description="The official opening of the new Badger Park playground." aria-label="Open Official Opening photo">
+          <img src="assets/gallery/2022-official-opening/472555513-1129689322191088-8992733954080992160-n.jpg" alt="Official Opening" loading="lazy">
+          <span class="gallery-caption"><strong>Official Opening</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Official Opening">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-official-opening/472577529-1129688875524466-6684879164351940631-n.jpg" data-title="Official Opening" data-description="The official opening of the new Badger Park playground." aria-label="Open Official Opening photo">
+          <img src="assets/gallery/2022-official-opening/472577529-1129688875524466-6684879164351940631-n.jpg" alt="Official Opening" loading="lazy">
+          <span class="gallery-caption"><strong>Official Opening</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Official Opening">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-official-opening/472591771-1129689052191115-1707888262924728773-n.jpg" data-title="Official Opening" data-description="The official opening of the new Badger Park playground." aria-label="Open Official Opening photo">
+          <img src="assets/gallery/2022-official-opening/472591771-1129689052191115-1707888262924728773-n.jpg" alt="Official Opening" loading="lazy">
+          <span class="gallery-caption"><strong>Official Opening</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Official Opening">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-official-opening/472697357-1129688882191132-8370756039745537087-n.jpg" data-title="Official Opening" data-description="The official opening of the new Badger Park playground." aria-label="Open Official Opening photo">
+          <img src="assets/gallery/2022-official-opening/472697357-1129688882191132-8370756039745537087-n.jpg" alt="Official Opening" loading="lazy">
+          <span class="gallery-caption"><strong>Official Opening</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Official Opening">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-official-opening/472712082-1129689255524428-3900882207817500734-n.jpg" data-title="Official Opening" data-description="The official opening of the new Badger Park playground." aria-label="Open Official Opening photo">
+          <img src="assets/gallery/2022-official-opening/472712082-1129689255524428-3900882207817500734-n.jpg" alt="Official Opening" loading="lazy">
+          <span class="gallery-caption"><strong>Official Opening</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Official Opening">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-official-opening/472721553-1129688982191122-3096454952928667728-n.jpg" data-title="Official Opening" data-description="The official opening of the new Badger Park playground." aria-label="Open Official Opening photo">
+          <img src="assets/gallery/2022-official-opening/472721553-1129688982191122-3096454952928667728-n.jpg" alt="Official Opening" loading="lazy">
+          <span class="gallery-caption"><strong>Official Opening</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Official Opening">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-official-opening/472841220-1129689242191096-7879398134303305150-n.jpg" data-title="Official Opening" data-description="The official opening of the new Badger Park playground." aria-label="Open Official Opening photo">
+          <img src="assets/gallery/2022-official-opening/472841220-1129689242191096-7879398134303305150-n.jpg" alt="Official Opening" loading="lazy">
+          <span class="gallery-caption"><strong>Official Opening</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Official Opening">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-official-opening/472845026-1129689222191098-566113413155282942-n.jpg" data-title="Official Opening" data-description="The official opening of the new Badger Park playground." aria-label="Open Official Opening photo">
+          <img src="assets/gallery/2022-official-opening/472845026-1129689222191098-566113413155282942-n.jpg" alt="Official Opening" loading="lazy">
+          <span class="gallery-caption"><strong>Official Opening</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Official Opening">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-official-opening/481072944-1017969190378415-6400613686012861319-n.jpg" data-title="Official Opening" data-description="The official opening of the new Badger Park playground." aria-label="Open Official Opening photo">
+          <img src="assets/gallery/2022-official-opening/481072944-1017969190378415-6400613686012861319-n.jpg" alt="Official Opening" loading="lazy">
+          <span class="gallery-caption"><strong>Official Opening</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Jubilee Picnic">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-jubilee-picnic/473440370-1139604084532945-5660777175598105122-n.jpg" data-title="Jubilee Picnic" data-description="A community picnic in the park." aria-label="Open Jubilee Picnic photo">
+          <img src="assets/gallery/2022-jubilee-picnic/473440370-1139604084532945-5660777175598105122-n.jpg" alt="Jubilee Picnic" loading="lazy">
+          <span class="gallery-caption"><strong>Jubilee Picnic</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Jubilee Picnic">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-jubilee-picnic/473443122-1139604251199595-7370965115051760904-n.jpg" data-title="Jubilee Picnic" data-description="A community picnic in the park." aria-label="Open Jubilee Picnic photo">
+          <img src="assets/gallery/2022-jubilee-picnic/473443122-1139604251199595-7370965115051760904-n.jpg" alt="Jubilee Picnic" loading="lazy">
+          <span class="gallery-caption"><strong>Jubilee Picnic</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Jubilee Picnic">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-jubilee-picnic/473445023-1139603834532970-3543014538470307554-n.jpg" data-title="Jubilee Picnic" data-description="A community picnic in the park." aria-label="Open Jubilee Picnic photo">
+          <img src="assets/gallery/2022-jubilee-picnic/473445023-1139603834532970-3543014538470307554-n.jpg" alt="Jubilee Picnic" loading="lazy">
+          <span class="gallery-caption"><strong>Jubilee Picnic</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Jubilee Picnic">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-jubilee-picnic/473450355-1139602757866411-6385434016617272714-n.jpg" data-title="Jubilee Picnic" data-description="A community picnic in the park." aria-label="Open Jubilee Picnic photo">
+          <img src="assets/gallery/2022-jubilee-picnic/473450355-1139602757866411-6385434016617272714-n.jpg" alt="Jubilee Picnic" loading="lazy">
+          <span class="gallery-caption"><strong>Jubilee Picnic</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Jubilee Picnic">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-jubilee-picnic/473521030-1139603127866374-8382042862994671807-n.jpg" data-title="Jubilee Picnic" data-description="A community picnic in the park." aria-label="Open Jubilee Picnic photo">
+          <img src="assets/gallery/2022-jubilee-picnic/473521030-1139603127866374-8382042862994671807-n.jpg" alt="Jubilee Picnic" loading="lazy">
+          <span class="gallery-caption"><strong>Jubilee Picnic</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Jubilee Picnic">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-jubilee-picnic/473525603-1139604144532939-101263945181594778-n.jpg" data-title="Jubilee Picnic" data-description="A community picnic in the park." aria-label="Open Jubilee Picnic photo">
+          <img src="assets/gallery/2022-jubilee-picnic/473525603-1139604144532939-101263945181594778-n.jpg" alt="Jubilee Picnic" loading="lazy">
+          <span class="gallery-caption"><strong>Jubilee Picnic</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Jubilee Picnic">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-jubilee-picnic/473813588-1139604194532934-7675431332930075004-n.jpg" data-title="Jubilee Picnic" data-description="A community picnic in the park." aria-label="Open Jubilee Picnic photo">
+          <img src="assets/gallery/2022-jubilee-picnic/473813588-1139604194532934-7675431332930075004-n.jpg" alt="Jubilee Picnic" loading="lazy">
+          <span class="gallery-caption"><strong>Jubilee Picnic</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Jubilee Picnic">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-jubilee-picnic/474217035-1139603137866373-3224373217912819824-n.jpg" data-title="Jubilee Picnic" data-description="A community picnic in the park." aria-label="Open Jubilee Picnic photo">
+          <img src="assets/gallery/2022-jubilee-picnic/474217035-1139603137866373-3224373217912819824-n.jpg" alt="Jubilee Picnic" loading="lazy">
+          <span class="gallery-caption"><strong>Jubilee Picnic</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Jubilee Picnic">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-jubilee-picnic/474520742-1139604121199608-6119640932886042583-n.jpg" data-title="Jubilee Picnic" data-description="A community picnic in the park." aria-label="Open Jubilee Picnic photo">
+          <img src="assets/gallery/2022-jubilee-picnic/474520742-1139604121199608-6119640932886042583-n.jpg" alt="Jubilee Picnic" loading="lazy">
+          <span class="gallery-caption"><strong>Jubilee Picnic</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Jubilee Picnic">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-jubilee-picnic/474612504-1139604244532929-8752906044760654809-n.jpg" data-title="Jubilee Picnic" data-description="A community picnic in the park." aria-label="Open Jubilee Picnic photo">
+          <img src="assets/gallery/2022-jubilee-picnic/474612504-1139604244532929-8752906044760654809-n.jpg" alt="Jubilee Picnic" loading="lazy">
+          <span class="gallery-caption"><strong>Jubilee Picnic</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Jubilee Picnic">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-jubilee-picnic/474752576-1139604277866259-2235265763146886707-n.jpg" data-title="Jubilee Picnic" data-description="A community picnic in the park." aria-label="Open Jubilee Picnic photo">
+          <img src="assets/gallery/2022-jubilee-picnic/474752576-1139604277866259-2235265763146886707-n.jpg" alt="Jubilee Picnic" loading="lazy">
+          <span class="gallery-caption"><strong>Jubilee Picnic</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Jubilee Picnic">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-jubilee-picnic/474759459-1139602931199727-4792449458180149387-n.jpg" data-title="Jubilee Picnic" data-description="A community picnic in the park." aria-label="Open Jubilee Picnic photo">
+          <img src="assets/gallery/2022-jubilee-picnic/474759459-1139602931199727-4792449458180149387-n.jpg" alt="Jubilee Picnic" loading="lazy">
+          <span class="gallery-caption"><strong>Jubilee Picnic</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Jubilee Picnic">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-jubilee-picnic/474761147-1139604214532932-6597236311682262497-n.jpg" data-title="Jubilee Picnic" data-description="A community picnic in the park." aria-label="Open Jubilee Picnic photo">
+          <img src="assets/gallery/2022-jubilee-picnic/474761147-1139604214532932-6597236311682262497-n.jpg" alt="Jubilee Picnic" loading="lazy">
+          <span class="gallery-caption"><strong>Jubilee Picnic</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Tree Festival">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-tree-festival/476330323-1007567378085263-1917675109704728398-n.jpg" data-title="Tree Festival" data-description="The Badger Park tree festival." aria-label="Open Tree Festival photo">
+          <img src="assets/gallery/2022-tree-festival/476330323-1007567378085263-1917675109704728398-n.jpg" alt="Tree Festival" loading="lazy">
+          <span class="gallery-caption"><strong>Tree Festival</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Tree Festival">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-tree-festival/476343923-1007567241418610-1582542765192483967-n.jpg" data-title="Tree Festival" data-description="The Badger Park tree festival." aria-label="Open Tree Festival photo">
+          <img src="assets/gallery/2022-tree-festival/476343923-1007567241418610-1582542765192483967-n.jpg" alt="Tree Festival" loading="lazy">
+          <span class="gallery-caption"><strong>Tree Festival</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Tree Festival">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-tree-festival/476361868-1007567301418604-5414298092006544885-n.jpg" data-title="Tree Festival" data-description="The Badger Park tree festival." aria-label="Open Tree Festival photo">
+          <img src="assets/gallery/2022-tree-festival/476361868-1007567301418604-5414298092006544885-n.jpg" alt="Tree Festival" loading="lazy">
+          <span class="gallery-caption"><strong>Tree Festival</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Tree Festival">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-tree-festival/476377308-1007567461418588-3427494274639089536-n.jpg" data-title="Tree Festival" data-description="The Badger Park tree festival." aria-label="Open Tree Festival photo">
+          <img src="assets/gallery/2022-tree-festival/476377308-1007567461418588-3427494274639089536-n.jpg" alt="Tree Festival" loading="lazy">
+          <span class="gallery-caption"><strong>Tree Festival</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Tree Festival">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-tree-festival/476379369-1007567398085261-7639368743570329257-n.jpg" data-title="Tree Festival" data-description="The Badger Park tree festival." aria-label="Open Tree Festival photo">
+          <img src="assets/gallery/2022-tree-festival/476379369-1007567398085261-7639368743570329257-n.jpg" alt="Tree Festival" loading="lazy">
+          <span class="gallery-caption"><strong>Tree Festival</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Tree Festival">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-tree-festival/476427569-1007567248085276-884085898487059253-n.jpg" data-title="Tree Festival" data-description="The Badger Park tree festival." aria-label="Open Tree Festival photo">
+          <img src="assets/gallery/2022-tree-festival/476427569-1007567248085276-884085898487059253-n.jpg" alt="Tree Festival" loading="lazy">
+          <span class="gallery-caption"><strong>Tree Festival</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Tree Festival">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-tree-festival/476596400-1007567274751940-6470177555959919267-n.jpg" data-title="Tree Festival" data-description="The Badger Park tree festival." aria-label="Open Tree Festival photo">
+          <img src="assets/gallery/2022-tree-festival/476596400-1007567274751940-6470177555959919267-n.jpg" alt="Tree Festival" loading="lazy">
+          <span class="gallery-caption"><strong>Tree Festival</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Tree Festival">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-tree-festival/476671308-1007567194751948-2718563905447030548-n.jpg" data-title="Tree Festival" data-description="The Badger Park tree festival." aria-label="Open Tree Festival photo">
+          <img src="assets/gallery/2022-tree-festival/476671308-1007567194751948-2718563905447030548-n.jpg" alt="Tree Festival" loading="lazy">
+          <span class="gallery-caption"><strong>Tree Festival</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Tree Festival">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-tree-festival/476729817-1007567488085252-780084142448708-n.jpg" data-title="Tree Festival" data-description="The Badger Park tree festival." aria-label="Open Tree Festival photo">
+          <img src="assets/gallery/2022-tree-festival/476729817-1007567488085252-780084142448708-n.jpg" alt="Tree Festival" loading="lazy">
+          <span class="gallery-caption"><strong>Tree Festival</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Tree Festival">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-tree-festival/476731388-1007567164751951-836269069930237669-n.jpg" data-title="Tree Festival" data-description="The Badger Park tree festival." aria-label="Open Tree Festival photo">
+          <img src="assets/gallery/2022-tree-festival/476731388-1007567164751951-836269069930237669-n.jpg" alt="Tree Festival" loading="lazy">
+          <span class="gallery-caption"><strong>Tree Festival</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Tree Festival">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-tree-festival/476821187-1007567404751927-1828666747024989857-n.jpg" data-title="Tree Festival" data-description="The Badger Park tree festival." aria-label="Open Tree Festival photo">
+          <img src="assets/gallery/2022-tree-festival/476821187-1007567404751927-1828666747024989857-n.jpg" alt="Tree Festival" loading="lazy">
+          <span class="gallery-caption"><strong>Tree Festival</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Tree Festival">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-tree-festival/476822842-1007567388085262-5655086371764061144-n.jpg" data-title="Tree Festival" data-description="The Badger Park tree festival." aria-label="Open Tree Festival photo">
+          <img src="assets/gallery/2022-tree-festival/476822842-1007567388085262-5655086371764061144-n.jpg" alt="Tree Festival" loading="lazy">
+          <span class="gallery-caption"><strong>Tree Festival</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Tree Festival">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-tree-festival/476834580-1007567311418603-5343420318271616532-n.jpg" data-title="Tree Festival" data-description="The Badger Park tree festival." aria-label="Open Tree Festival photo">
+          <img src="assets/gallery/2022-tree-festival/476834580-1007567311418603-5343420318271616532-n.jpg" alt="Tree Festival" loading="lazy">
+          <span class="gallery-caption"><strong>Tree Festival</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Tree Festival">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-tree-festival/476835130-1007567391418595-2526301263208029986-n.jpg" data-title="Tree Festival" data-description="The Badger Park tree festival." aria-label="Open Tree Festival photo">
+          <img src="assets/gallery/2022-tree-festival/476835130-1007567391418595-2526301263208029986-n.jpg" alt="Tree Festival" loading="lazy">
+          <span class="gallery-caption"><strong>Tree Festival</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Tree Festival">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-tree-festival/476835455-1007567251418609-1449516554962113058-n.jpg" data-title="Tree Festival" data-description="The Badger Park tree festival." aria-label="Open Tree Festival photo">
+          <img src="assets/gallery/2022-tree-festival/476835455-1007567251418609-1449516554962113058-n.jpg" alt="Tree Festival" loading="lazy">
+          <span class="gallery-caption"><strong>Tree Festival</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Tree Festival">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-tree-festival/476835624-1007567551418579-1729973581658311397-n.jpg" data-title="Tree Festival" data-description="The Badger Park tree festival." aria-label="Open Tree Festival photo">
+          <img src="assets/gallery/2022-tree-festival/476835624-1007567551418579-1729973581658311397-n.jpg" alt="Tree Festival" loading="lazy">
+          <span class="gallery-caption"><strong>Tree Festival</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Tree Festival">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-tree-festival/476835627-1007567201418614-4615000265604603517-n.jpg" data-title="Tree Festival" data-description="The Badger Park tree festival." aria-label="Open Tree Festival photo">
+          <img src="assets/gallery/2022-tree-festival/476835627-1007567201418614-4615000265604603517-n.jpg" alt="Tree Festival" loading="lazy">
+          <span class="gallery-caption"><strong>Tree Festival</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Tree Festival">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-tree-festival/476968214-1007567134751954-5663390183944018816-n.jpg" data-title="Tree Festival" data-description="The Badger Park tree festival." aria-label="Open Tree Festival photo">
+          <img src="assets/gallery/2022-tree-festival/476968214-1007567134751954-5663390183944018816-n.jpg" alt="Tree Festival" loading="lazy">
+          <span class="gallery-caption"><strong>Tree Festival</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Tree Festival">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-tree-festival/476988791-1007567364751931-8101303662550165184-n.jpg" data-title="Tree Festival" data-description="The Badger Park tree festival." aria-label="Open Tree Festival photo">
+          <img src="assets/gallery/2022-tree-festival/476988791-1007567364751931-8101303662550165184-n.jpg" alt="Tree Festival" loading="lazy">
+          <span class="gallery-caption"><strong>Tree Festival</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Tree Festival">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-tree-festival/477211924-1007567171418617-8571416172360659084-n.jpg" data-title="Tree Festival" data-description="The Badger Park tree festival." aria-label="Open Tree Festival photo">
+          <img src="assets/gallery/2022-tree-festival/477211924-1007567171418617-8571416172360659084-n.jpg" alt="Tree Festival" loading="lazy">
+          <span class="gallery-caption"><strong>Tree Festival</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Tree Festival">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-tree-festival/477562909-1007567181418616-892720324285535121-n.jpg" data-title="Tree Festival" data-description="The Badger Park tree festival." aria-label="Open Tree Festival photo">
+          <img src="assets/gallery/2022-tree-festival/477562909-1007567181418616-892720324285535121-n.jpg" alt="Tree Festival" loading="lazy">
+          <span class="gallery-caption"><strong>Tree Festival</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Tree Festival">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-tree-festival/477631522-1007567578085243-828269895672093799-n.jpg" data-title="Tree Festival" data-description="The Badger Park tree festival." aria-label="Open Tree Festival photo">
+          <img src="assets/gallery/2022-tree-festival/477631522-1007567578085243-828269895672093799-n.jpg" alt="Tree Festival" loading="lazy">
+          <span class="gallery-caption"><strong>Tree Festival</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Tree Festival">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-tree-festival/477734418-1007567264751941-6421162298419592098-n.jpg" data-title="Tree Festival" data-description="The Badger Park tree festival." aria-label="Open Tree Festival photo">
+          <img src="assets/gallery/2022-tree-festival/477734418-1007567264751941-6421162298419592098-n.jpg" alt="Tree Festival" loading="lazy">
+          <span class="gallery-caption"><strong>Tree Festival</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Tree Festival">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-tree-festival/477945193-1007567178085283-1722925584107169558-n.jpg" data-title="Tree Festival" data-description="The Badger Park tree festival." aria-label="Open Tree Festival photo">
+          <img src="assets/gallery/2022-tree-festival/477945193-1007567178085283-1722925584107169558-n.jpg" alt="Tree Festival" loading="lazy">
+          <span class="gallery-caption"><strong>Tree Festival</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Tree Festival">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-tree-festival/477992541-1007567564751911-7676232143728645179-n.jpg" data-title="Tree Festival" data-description="The Badger Park tree festival." aria-label="Open Tree Festival photo">
+          <img src="assets/gallery/2022-tree-festival/477992541-1007567564751911-7676232143728645179-n.jpg" alt="Tree Festival" loading="lazy">
+          <span class="gallery-caption"><strong>Tree Festival</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Tree Festival">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-tree-festival/478413452-1007567568085244-6428776121883199863-n.jpg" data-title="Tree Festival" data-description="The Badger Park tree festival." aria-label="Open Tree Festival photo">
+          <img src="assets/gallery/2022-tree-festival/478413452-1007567568085244-6428776121883199863-n.jpg" alt="Tree Festival" loading="lazy">
+          <span class="gallery-caption"><strong>Tree Festival</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Tree Festival">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-tree-festival/478919298-1007567148085286-5761046881109320624-n.jpg" data-title="Tree Festival" data-description="The Badger Park tree festival." aria-label="Open Tree Festival photo">
+          <img src="assets/gallery/2022-tree-festival/478919298-1007567148085286-5761046881109320624-n.jpg" alt="Tree Festival" loading="lazy">
+          <span class="gallery-caption"><strong>Tree Festival</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Tree Festival">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-tree-festival/479187483-1007567408085260-438580296326370979-n.jpg" data-title="Tree Festival" data-description="The Badger Park tree festival." aria-label="Open Tree Festival photo">
+          <img src="assets/gallery/2022-tree-festival/479187483-1007567408085260-438580296326370979-n.jpg" alt="Tree Festival" loading="lazy">
+          <span class="gallery-caption"><strong>Tree Festival</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Tree Festival">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-tree-festival/480664060-1016236413885026-1793501644384307644-n.jpg" data-title="Tree Festival" data-description="The Badger Park tree festival." aria-label="Open Tree Festival photo">
+          <img src="assets/gallery/2022-tree-festival/480664060-1016236413885026-1793501644384307644-n.jpg" alt="Tree Festival" loading="lazy">
+          <span class="gallery-caption"><strong>Tree Festival</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Tree Festival">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-tree-festival/480689490-1016236423885025-4796885918043565178-n.jpg" data-title="Tree Festival" data-description="The Badger Park tree festival." aria-label="Open Tree Festival photo">
+          <img src="assets/gallery/2022-tree-festival/480689490-1016236423885025-4796885918043565178-n.jpg" alt="Tree Festival" loading="lazy">
+          <span class="gallery-caption"><strong>Tree Festival</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Tree Festival">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-tree-festival/480781160-1016236453885022-9079097780696615210-n.jpg" data-title="Tree Festival" data-description="The Badger Park tree festival." aria-label="Open Tree Festival photo">
+          <img src="assets/gallery/2022-tree-festival/480781160-1016236453885022-9079097780696615210-n.jpg" alt="Tree Festival" loading="lazy">
+          <span class="gallery-caption"><strong>Tree Festival</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Tree Festival">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-tree-festival/480987156-1016236500551684-4924863988357630843-n.jpg" data-title="Tree Festival" data-description="The Badger Park tree festival." aria-label="Open Tree Festival photo">
+          <img src="assets/gallery/2022-tree-festival/480987156-1016236500551684-4924863988357630843-n.jpg" alt="Tree Festival" loading="lazy">
+          <span class="gallery-caption"><strong>Tree Festival</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2022" data-event="Tree Festival">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2022-tree-festival/481055839-1016236407218360-2388054652747476203-n.jpg" data-title="Tree Festival" data-description="The Badger Park tree festival." aria-label="Open Tree Festival photo">
+          <img src="assets/gallery/2022-tree-festival/481055839-1016236407218360-2388054652747476203-n.jpg" alt="Tree Festival" loading="lazy">
+          <span class="gallery-caption"><strong>Tree Festival</strong><small>2022</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2023" data-event="Half Term Fun">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2023-half-term-fun/472718244-1129689315524422-3333191677676765335-n.jpg" data-title="Half Term Fun" data-description="Samba sports, minibeasts and sunflowers." aria-label="Open Half Term Fun photo">
+          <img src="assets/gallery/2023-half-term-fun/472718244-1129689315524422-3333191677676765335-n.jpg" alt="Half Term Fun" loading="lazy">
+          <span class="gallery-caption"><strong>Half Term Fun</strong><small>2023</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2023" data-event="Half Term Fun">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2023-half-term-fun/480815753-1017969163711751-9027326163008914009-n.jpg" data-title="Half Term Fun" data-description="Samba sports, minibeasts and sunflowers." aria-label="Open Half Term Fun photo">
+          <img src="assets/gallery/2023-half-term-fun/480815753-1017969163711751-9027326163008914009-n.jpg" alt="Half Term Fun" loading="lazy">
+          <span class="gallery-caption"><strong>Half Term Fun</strong><small>2023</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2023" data-event="Half Term Fun">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2023-half-term-fun/480917447-1018251643683503-1171328439964483985-n.jpg" data-title="Half Term Fun" data-description="Samba sports, minibeasts and sunflowers." aria-label="Open Half Term Fun photo">
+          <img src="assets/gallery/2023-half-term-fun/480917447-1018251643683503-1171328439964483985-n.jpg" alt="Half Term Fun" loading="lazy">
+          <span class="gallery-caption"><strong>Half Term Fun</strong><small>2023</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2023" data-event="Half Term Fun">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2023-half-term-fun/481008256-1018251383683529-1779212154007664975-n.jpg" data-title="Half Term Fun" data-description="Samba sports, minibeasts and sunflowers." aria-label="Open Half Term Fun photo">
+          <img src="assets/gallery/2023-half-term-fun/481008256-1018251383683529-1779212154007664975-n.jpg" alt="Half Term Fun" loading="lazy">
+          <span class="gallery-caption"><strong>Half Term Fun</strong><small>2023</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2023" data-event="Half Term Fun">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2023-half-term-fun/481069936-1018251197016881-6318247684497592420-n.jpg" data-title="Half Term Fun" data-description="Samba sports, minibeasts and sunflowers." aria-label="Open Half Term Fun photo">
+          <img src="assets/gallery/2023-half-term-fun/481069936-1018251197016881-6318247684497592420-n.jpg" alt="Half Term Fun" loading="lazy">
+          <span class="gallery-caption"><strong>Half Term Fun</strong><small>2023</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2023" data-event="Half Term Fun">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2023-half-term-fun/481072367-1018251180350216-7535323048707226159-n.jpg" data-title="Half Term Fun" data-description="Samba sports, minibeasts and sunflowers." aria-label="Open Half Term Fun photo">
+          <img src="assets/gallery/2023-half-term-fun/481072367-1018251180350216-7535323048707226159-n.jpg" alt="Half Term Fun" loading="lazy">
+          <span class="gallery-caption"><strong>Half Term Fun</strong><small>2023</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2023" data-event="Half Term Fun">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2023-half-term-fun/481085139-1017969253711742-985940306902982541-n.jpg" data-title="Half Term Fun" data-description="Samba sports, minibeasts and sunflowers." aria-label="Open Half Term Fun photo">
+          <img src="assets/gallery/2023-half-term-fun/481085139-1017969253711742-985940306902982541-n.jpg" alt="Half Term Fun" loading="lazy">
+          <span class="gallery-caption"><strong>Half Term Fun</strong><small>2023</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2023" data-event="Half Term Fun">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2023-half-term-fun/481474885-1018251640350170-5680324452695884455-n.jpg" data-title="Half Term Fun" data-description="Samba sports, minibeasts and sunflowers." aria-label="Open Half Term Fun photo">
+          <img src="assets/gallery/2023-half-term-fun/481474885-1018251640350170-5680324452695884455-n.jpg" alt="Half Term Fun" loading="lazy">
+          <span class="gallery-caption"><strong>Half Term Fun</strong><small>2023</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2023" data-event="Half Term Fun">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2023-half-term-fun/481680325-1018251463683521-5504710415868752260-n.jpg" data-title="Half Term Fun" data-description="Samba sports, minibeasts and sunflowers." aria-label="Open Half Term Fun photo">
+          <img src="assets/gallery/2023-half-term-fun/481680325-1018251463683521-5504710415868752260-n.jpg" alt="Half Term Fun" loading="lazy">
+          <span class="gallery-caption"><strong>Half Term Fun</strong><small>2023</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2023" data-event="Half Term Fun">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2023-half-term-fun/482264645-1018251560350178-7089028108200982640-n.jpg" data-title="Half Term Fun" data-description="Samba sports, minibeasts and sunflowers." aria-label="Open Half Term Fun photo">
+          <img src="assets/gallery/2023-half-term-fun/482264645-1018251560350178-7089028108200982640-n.jpg" alt="Half Term Fun" loading="lazy">
+          <span class="gallery-caption"><strong>Half Term Fun</strong><small>2023</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2023" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2023-colour-run/480659306-1019283000247034-5721488578589384070-n.jpg" data-title="Colour Run" data-description="A colourful community day at Badger Park." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2023-colour-run/480659306-1019283000247034-5721488578589384070-n.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2023</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2023" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2023-colour-run/480850699-1019283243580343-5786534695910258546-n.jpg" data-title="Colour Run" data-description="A colourful community day at Badger Park." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2023-colour-run/480850699-1019283243580343-5786534695910258546-n.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2023</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2023" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2023-colour-run/480878362-1019283386913662-9025963115610921946-n.jpg" data-title="Colour Run" data-description="A colourful community day at Badger Park." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2023-colour-run/480878362-1019283386913662-9025963115610921946-n.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2023</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2023" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2023-colour-run/480904303-1019283003580367-6713267374309653274-n.jpg" data-title="Colour Run" data-description="A colourful community day at Badger Park." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2023-colour-run/480904303-1019283003580367-6713267374309653274-n.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2023</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2023" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2023-colour-run/480912361-1019283456913655-4815630883029344792-n.jpg" data-title="Colour Run" data-description="A colourful community day at Badger Park." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2023-colour-run/480912361-1019283456913655-4815630883029344792-n.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2023</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2023" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2023-colour-run/481086705-1019283256913675-4479087831312498263-n.jpg" data-title="Colour Run" data-description="A colourful community day at Badger Park." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2023-colour-run/481086705-1019283256913675-4479087831312498263-n.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2023</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2023" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2023-colour-run/481086809-1019283023580365-4141217351512337667-n.jpg" data-title="Colour Run" data-description="A colourful community day at Badger Park." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2023-colour-run/481086809-1019283023580365-4141217351512337667-n.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2023</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2023" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2023-colour-run/481210343-1019283010247033-3302719748687466311-n.jpg" data-title="Colour Run" data-description="A colourful community day at Badger Park." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2023-colour-run/481210343-1019283010247033-3302719748687466311-n.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2023</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2023" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2023-colour-run/481226985-1019283306913670-5780097873900326609-n.jpg" data-title="Colour Run" data-description="A colourful community day at Badger Park." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2023-colour-run/481226985-1019283306913670-5780097873900326609-n.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2023</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2023" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2023-colour-run/481260833-1019283313580336-2483025661113856105-n.jpg" data-title="Colour Run" data-description="A colourful community day at Badger Park." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2023-colour-run/481260833-1019283313580336-2483025661113856105-n.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2023</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2023" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2023-colour-run/481480285-1019283186913682-2987350904225096368-n.jpg" data-title="Colour Run" data-description="A colourful community day at Badger Park." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2023-colour-run/481480285-1019283186913682-2987350904225096368-n.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2023</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2023" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2023-colour-run/481673736-1019283246913676-671725325397671502-n.jpg" data-title="Colour Run" data-description="A colourful community day at Badger Park." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2023-colour-run/481673736-1019283246913676-671725325397671502-n.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2023</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2024" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2024-colour-run/20240731-143203.jpg" data-title="Colour Run" data-description="The 2024 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2024-colour-run/20240731-143203.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2024</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2024" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2024-colour-run/20240731-144104.jpg" data-title="Colour Run" data-description="The 2024 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2024-colour-run/20240731-144104.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2024</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2024" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2024-colour-run/20240731-144109.jpg" data-title="Colour Run" data-description="The 2024 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2024-colour-run/20240731-144109.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2024</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2024" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2024-colour-run/20240731-144112.jpg" data-title="Colour Run" data-description="The 2024 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2024-colour-run/20240731-144112.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2024</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2024" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2024-colour-run/20240731-144153.jpg" data-title="Colour Run" data-description="The 2024 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2024-colour-run/20240731-144153.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2024</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2024" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2024-colour-run/20240731-144203.jpg" data-title="Colour Run" data-description="The 2024 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2024-colour-run/20240731-144203.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2024</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2024" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2024-colour-run/20240731-144211.jpg" data-title="Colour Run" data-description="The 2024 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2024-colour-run/20240731-144211.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2024</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2024" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2024-colour-run/20240731-144221.jpg" data-title="Colour Run" data-description="The 2024 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2024-colour-run/20240731-144221.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2024</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2024" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2024-colour-run/20240731-144251.jpg" data-title="Colour Run" data-description="The 2024 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2024-colour-run/20240731-144251.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2024</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2024" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2024-colour-run/20240731-144301.jpg" data-title="Colour Run" data-description="The 2024 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2024-colour-run/20240731-144301.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2024</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2024" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2024-colour-run/20240731-144351.jpg" data-title="Colour Run" data-description="The 2024 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2024-colour-run/20240731-144351.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2024</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2024" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2024-colour-run/20240731-144420.jpg" data-title="Colour Run" data-description="The 2024 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2024-colour-run/20240731-144420.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2024</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2024" data-event="Creepy Crafts">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2024-creepy-crafts/img-20250628-wa0010.jpg" data-title="Creepy Crafts" data-description="Halloween-themed community crafts." aria-label="Open Creepy Crafts photo">
+          <img src="assets/gallery/2024-creepy-crafts/img-20250628-wa0010.jpg" alt="Creepy Crafts" loading="lazy">
+          <span class="gallery-caption"><strong>Creepy Crafts</strong><small>2024</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2024" data-event="Creepy Crafts">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2024-creepy-crafts/img-20250628-wa0011.jpg" data-title="Creepy Crafts" data-description="Halloween-themed community crafts." aria-label="Open Creepy Crafts photo">
+          <img src="assets/gallery/2024-creepy-crafts/img-20250628-wa0011.jpg" alt="Creepy Crafts" loading="lazy">
+          <span class="gallery-caption"><strong>Creepy Crafts</strong><small>2024</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Easter Crafts">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-easter-crafts/491360875-10162881687163151-3282401777753364258-n.jpg" data-title="Easter Crafts" data-description="Easter crafts and family activities." aria-label="Open Easter Crafts photo">
+          <img src="assets/gallery/2025-easter-crafts/491360875-10162881687163151-3282401777753364258-n.jpg" alt="Easter Crafts" loading="lazy">
+          <span class="gallery-caption"><strong>Easter Crafts</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Easter Crafts">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-easter-crafts/491977593-1056719193170081-1193597645720050232-n.jpg" data-title="Easter Crafts" data-description="Easter crafts and family activities." aria-label="Open Easter Crafts photo">
+          <img src="assets/gallery/2025-easter-crafts/491977593-1056719193170081-1193597645720050232-n.jpg" alt="Easter Crafts" loading="lazy">
+          <span class="gallery-caption"><strong>Easter Crafts</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Easter Crafts">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-easter-crafts/img-20250628-wa0003.jpg" data-title="Easter Crafts" data-description="Easter crafts and family activities." aria-label="Open Easter Crafts photo">
+          <img src="assets/gallery/2025-easter-crafts/img-20250628-wa0003.jpg" alt="Easter Crafts" loading="lazy">
+          <span class="gallery-caption"><strong>Easter Crafts</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Easter Crafts">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-easter-crafts/img-20250628-wa0004.jpg" data-title="Easter Crafts" data-description="Easter crafts and family activities." aria-label="Open Easter Crafts photo">
+          <img src="assets/gallery/2025-easter-crafts/img-20250628-wa0004.jpg" alt="Easter Crafts" loading="lazy">
+          <span class="gallery-caption"><strong>Easter Crafts</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0006.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0006.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0007.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0007.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0008.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0008.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0011.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0011.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0012.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0012.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0013.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0013.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0014.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0014.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0015.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0015.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0016.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0016.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0017.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0017.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0018.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0018.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0020.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0020.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0021.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0021.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0022.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0022.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0023.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0023.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0025.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0025.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0026.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0026.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0027.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0027.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0028.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0028.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0029.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0029.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0030.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0030.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0031.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0031.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0032.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0032.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0033.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0033.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0034.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0034.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0035.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0035.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0036.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0036.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0037.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0037.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0038.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0038.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0039.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0039.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0040.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0040.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0041.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0041.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0042.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0042.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0043.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0043.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0044.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0044.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0045.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0045.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0046.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0046.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0047.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0047.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0050.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0050.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0051.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0051.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-colour-run/img-20250821-wa0052.jpg" data-title="Colour Run" data-description="The 2025 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2025-colour-run/img-20250821-wa0052.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Christmas Carols">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-christmas-carols/20251219-160647.jpg" data-title="Christmas Carols" data-description="Christmas carols at Badger Park." aria-label="Open Christmas Carols photo">
+          <img src="assets/gallery/2025-christmas-carols/20251219-160647.jpg" alt="Christmas Carols" loading="lazy">
+          <span class="gallery-caption"><strong>Christmas Carols</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Christmas Carols">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-christmas-carols/20251219-161101.jpg" data-title="Christmas Carols" data-description="Christmas carols at Badger Park." aria-label="Open Christmas Carols photo">
+          <img src="assets/gallery/2025-christmas-carols/20251219-161101.jpg" alt="Christmas Carols" loading="lazy">
+          <span class="gallery-caption"><strong>Christmas Carols</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Christmas Carols">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-christmas-carols/20251219-162614.jpg" data-title="Christmas Carols" data-description="Christmas carols at Badger Park." aria-label="Open Christmas Carols photo">
+          <img src="assets/gallery/2025-christmas-carols/20251219-162614.jpg" alt="Christmas Carols" loading="lazy">
+          <span class="gallery-caption"><strong>Christmas Carols</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Christmas Carols">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-christmas-carols/20251219-162616.jpg" data-title="Christmas Carols" data-description="Christmas carols at Badger Park." aria-label="Open Christmas Carols photo">
+          <img src="assets/gallery/2025-christmas-carols/20251219-162616.jpg" alt="Christmas Carols" loading="lazy">
+          <span class="gallery-caption"><strong>Christmas Carols</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2025" data-event="Christmas Carols">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2025-christmas-carols/20251219-162632.jpg" data-title="Christmas Carols" data-description="Christmas carols at Badger Park." aria-label="Open Christmas Carols photo">
+          <img src="assets/gallery/2025-christmas-carols/20251219-162632.jpg" alt="Christmas Carols" loading="lazy">
+          <span class="gallery-caption"><strong>Christmas Carols</strong><small>2025</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2026" data-event="Family Walk">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2026-family-walk/20260528-095318.jpg" data-title="Family Walk" data-description="The 2026 community family walk." aria-label="Open Family Walk photo">
+          <img src="assets/gallery/2026-family-walk/20260528-095318.jpg" alt="Family Walk" loading="lazy">
+          <span class="gallery-caption"><strong>Family Walk</strong><small>2026</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2026" data-event="Family Walk">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2026-family-walk/20260528-103446.jpg" data-title="Family Walk" data-description="The 2026 community family walk." aria-label="Open Family Walk photo">
+          <img src="assets/gallery/2026-family-walk/20260528-103446.jpg" alt="Family Walk" loading="lazy">
+          <span class="gallery-caption"><strong>Family Walk</strong><small>2026</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2026" data-event="Family Walk">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2026-family-walk/20260528-133737.jpg" data-title="Family Walk" data-description="The 2026 community family walk." aria-label="Open Family Walk photo">
+          <img src="assets/gallery/2026-family-walk/20260528-133737.jpg" alt="Family Walk" loading="lazy">
+          <span class="gallery-caption"><strong>Family Walk</strong><small>2026</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2026" data-event="Family Walk">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2026-family-walk/20260528-133749.jpg" data-title="Family Walk" data-description="The 2026 community family walk." aria-label="Open Family Walk photo">
+          <img src="assets/gallery/2026-family-walk/20260528-133749.jpg" alt="Family Walk" loading="lazy">
+          <span class="gallery-caption"><strong>Family Walk</strong><small>2026</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2026" data-event="Family Walk">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2026-family-walk/20260528-133750.jpg" data-title="Family Walk" data-description="The 2026 community family walk." aria-label="Open Family Walk photo">
+          <img src="assets/gallery/2026-family-walk/20260528-133750.jpg" alt="Family Walk" loading="lazy">
+          <span class="gallery-caption"><strong>Family Walk</strong><small>2026</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2026" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2026-colour-run/20260730-142601.jpg" data-title="Colour Run" data-description="The 2026 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2026-colour-run/20260730-142601.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2026</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2026" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2026-colour-run/20260730-142604.jpg" data-title="Colour Run" data-description="The 2026 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2026-colour-run/20260730-142604.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2026</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2026" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2026-colour-run/20260730-142608.jpg" data-title="Colour Run" data-description="The 2026 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2026-colour-run/20260730-142608.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2026</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2026" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2026-colour-run/20260730-142623.jpg" data-title="Colour Run" data-description="The 2026 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2026-colour-run/20260730-142623.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2026</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2026" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2026-colour-run/20260730-142641.jpg" data-title="Colour Run" data-description="The 2026 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2026-colour-run/20260730-142641.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2026</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2026" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2026-colour-run/20260730-142719.jpg" data-title="Colour Run" data-description="The 2026 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2026-colour-run/20260730-142719.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2026</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2026" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2026-colour-run/20260730-143053.jpg" data-title="Colour Run" data-description="The 2026 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2026-colour-run/20260730-143053.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2026</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2026" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2026-colour-run/20260730-143059.jpg" data-title="Colour Run" data-description="The 2026 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2026-colour-run/20260730-143059.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2026</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2026" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2026-colour-run/20260730-143126.jpg" data-title="Colour Run" data-description="The 2026 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2026-colour-run/20260730-143126.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2026</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2026" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2026-colour-run/20260730-143135.jpg" data-title="Colour Run" data-description="The 2026 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2026-colour-run/20260730-143135.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2026</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2026" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2026-colour-run/20260730-143137.jpg" data-title="Colour Run" data-description="The 2026 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2026-colour-run/20260730-143137.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2026</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2026" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2026-colour-run/20260730-143138.jpg" data-title="Colour Run" data-description="The 2026 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2026-colour-run/20260730-143138.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2026</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2026" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2026-colour-run/20260730-143139.jpg" data-title="Colour Run" data-description="The 2026 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2026-colour-run/20260730-143139.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2026</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2026" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2026-colour-run/20260730-143140.jpg" data-title="Colour Run" data-description="The 2026 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2026-colour-run/20260730-143140.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2026</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2026" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2026-colour-run/20260730-143142.jpg" data-title="Colour Run" data-description="The 2026 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2026-colour-run/20260730-143142.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2026</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2026" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2026-colour-run/20260730-144502.jpg" data-title="Colour Run" data-description="The 2026 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2026-colour-run/20260730-144502.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2026</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2026" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2026-colour-run/20260730-144508.jpg" data-title="Colour Run" data-description="The 2026 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2026-colour-run/20260730-144508.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2026</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2026" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2026-colour-run/express-collage.jpg" data-title="Colour Run" data-description="The 2026 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2026-colour-run/express-collage.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2026</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2026" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2026-colour-run/img-20260730-wa0011.jpg" data-title="Colour Run" data-description="The 2026 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2026-colour-run/img-20260730-wa0011.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2026</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2026" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2026-colour-run/img-20260730-wa0012.jpg" data-title="Colour Run" data-description="The 2026 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2026-colour-run/img-20260730-wa0012.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2026</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2026" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2026-colour-run/img-20260730-wa0013.jpg" data-title="Colour Run" data-description="The 2026 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2026-colour-run/img-20260730-wa0013.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2026</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2026" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2026-colour-run/img-20260730-wa0014.jpg" data-title="Colour Run" data-description="The 2026 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2026-colour-run/img-20260730-wa0014.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2026</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2026" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2026-colour-run/img-20260730-wa0015.jpg" data-title="Colour Run" data-description="The 2026 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2026-colour-run/img-20260730-wa0015.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2026</small></span>
+        </button>
+      </figure>
+      <figure class="gallery-card" data-year="2026" data-event="Colour Run">
+        <button class="gallery-open" type="button" data-src="assets/gallery/2026-colour-run/img-20260730-wa0016.jpg" data-title="Colour Run" data-description="The 2026 Colour Run." aria-label="Open Colour Run photo">
+          <img src="assets/gallery/2026-colour-run/img-20260730-wa0016.jpg" alt="Colour Run" loading="lazy">
+          <span class="gallery-caption"><strong>Colour Run</strong><small>2026</small></span>
+        </button>
+      </figure>
+  </div>
+  <div class="gallery-empty" id="galleryEmpty">No photos found for this selection.</div>
+
+  <div class="gallery-videos">
+   <h2>Videos from the park</h2>
+   <p>A few moving moments from our community events.</p>
+   <div class="video-grid">
+      <article class="video-card">
+        <video controls preload="metadata" playsinline>
+          <source src="assets/videos/2024-colour-run-20240731-144536.mp4" type="video/mp4">
+        </video>
+        <div><span class="video-year">2024</span><h3>Colour Run</h3><p>The 2024 Colour Run.</p></div>
+      </article>
+      <article class="video-card">
+        <video controls preload="metadata" playsinline>
+          <source src="assets/videos/2026-colour-run-vid-20260730-wa0009.mp4" type="video/mp4">
+        </video>
+        <div><span class="video-year">2026</span><h3>Colour Run</h3><p>The 2026 Colour Run.</p></div>
+      </article>
+      <article class="video-card">
+        <video controls preload="metadata" playsinline>
+          <source src="assets/videos/2026-colour-run-vid-20260730-wa0010.mp4" type="video/mp4">
+        </video>
+        <div><span class="video-year">2026</span><h3>Colour Run</h3><p>The 2026 Colour Run.</p></div>
+      </article></div>
+   <div class="gallery-note">More original photos and videos can also be found in our <a href="https://drive.google.com/drive/folders/11dIv8jjvduF8ILrW1DOzJeFQCYEOewWN" target="_blank" rel="noopener">Google Drive photo archive ↗</a>.</div>
+  </div>
+ </div>
 </section>
 
-<!-- Lightbox -->
-<div class="lightbox" id="lightbox">
-  <button class="lightbox-close" id="lightboxClose">✕</button>
-  <div class="lightbox-inner">
-    <div class="lightbox-img" id="lightboxEmoji">🦡</div>
-    <div class="lightbox-body">
-      <h3 id="lightboxTitle">Photo title</h3>
-      <p id="lightboxMeta">Location · Date</p>
-    </div>
-  </div>
+<div class="lightbox" id="lightbox" aria-hidden="true">
+ <button class="lightbox-close" id="lightboxClose" aria-label="Close">×</button>
+ <div class="lightbox-panel">
+  <img id="lightboxImage" src="" alt="">
+  <div class="lightbox-info"><h3 id="lightboxTitle"></h3><p id="lightboxDescription"></p></div>
+ </div>
 </div>
 
-<script src="shared.js"></script>
 <script>
-  // Gallery filter
-  document.querySelectorAll('.gallery-filter button').forEach(btn => {
-    btn.addEventListener('click', function(){
-      document.querySelectorAll('.gallery-filter button').forEach(b => b.classList.remove('active'));
-      this.classList.add('active');
-    });
+const buttons=[...document.querySelectorAll('.filter-btn')];
+const cards=[...document.querySelectorAll('.gallery-card')];
+const empty=document.getElementById('galleryEmpty');
+buttons.forEach(btn=>btn.addEventListener('click',()=>{
+  buttons.forEach(b=>b.classList.remove('active')); btn.classList.add('active');
+  const value=btn.dataset.value;
+  let visible=0;
+  cards.forEach(card=>{
+    const show=value==='all'||card.dataset.year===value;
+    card.style.display=show?'':'none'; if(show) visible++;
   });
+  empty.style.display=visible?'none':'block';
+}));
 
-  // Lightbox
-  document.querySelectorAll('.gallery-item').forEach(item => {
-    item.addEventListener('click', function(){
-      const emoji = this.querySelector('.gallery-img').textContent.trim();
-      const title = this.querySelector('.gallery-overlay span').textContent;
-      const meta  = this.querySelector('.gallery-overlay small').textContent;
-      document.getElementById('lightboxEmoji').textContent = emoji;
-      document.getElementById('lightboxTitle').textContent = title;
-      document.getElementById('lightboxMeta').textContent  = meta;
-      document.getElementById('lightbox').classList.add('open');
-    });
-  });
-  document.getElementById('lightboxClose').addEventListener('click', () => {
-    document.getElementById('lightbox').classList.remove('open');
-  });
-  document.getElementById('lightbox').addEventListener('click', function(e){
-    if(e.target === this) this.classList.remove('open');
-  });
+const lb=document.getElementById('lightbox'), lbImg=document.getElementById('lightboxImage');
+const lbTitle=document.getElementById('lightboxTitle'), lbDesc=document.getElementById('lightboxDescription');
+function closeLb(){lb.classList.remove('open');lb.setAttribute('aria-hidden','true');}
+document.querySelectorAll('.gallery-open').forEach(btn=>btn.addEventListener('click',()=>{
+  lbImg.src=btn.dataset.src; lbImg.alt=btn.dataset.title; lbTitle.textContent=btn.dataset.title; lbDesc.textContent=btn.dataset.description;
+  lb.classList.add('open');lb.setAttribute('aria-hidden','false');
+}));
+document.getElementById('lightboxClose').addEventListener('click',closeLb);
+lb.addEventListener('click',e=>{if(e.target===lb)closeLb();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLb();});
 </script>
+<script src="shared.js"></script>
 </body>
 </html>
