@@ -37,13 +37,15 @@
 </head>
 <body>
 
-<section class="home-hero">
-<div class="container"><div class="hero-copy fade-up">
-<h1>Bringing Badger Park <span>to life.</span></h1>
-<p>Events, activities and projects bringing our local community together — with the money we raise going back into the park and the people who enjoy it.</p>
-
-</div></div>
-
+<section class="home-hero photo-hero">
+  <img class="hero-bg-image" src="assets/hero-colour-run.jpg" alt="Children and families taking part in the Badger Park Colour Run">
+  <div class="hero-photo-overlay" aria-hidden="true"></div>
+  <div class="container hero-container">
+    <div class="hero-copy fade-up">
+      <h1>Bringing Badger Park <span>to life.</span></h1>
+      <p>Events, activities and projects bringing our local community together — with the money we raise going back into the park and the people who enjoy it.</p>
+    </div>
+  </div>
 </section>
 
 <section class="section home-events"><div class="container">
@@ -76,6 +78,20 @@
 
 <script src="shared.js"></script>
 </body>
-<style>.achievements-teaser{background:#e8f5fb}.achievements-teaser-inner{display:flex;align-items:center;justify-content:space-between;gap:2rem}.achievements-teaser h2{font-family:Nunito,sans-serif;color:#0d4568;font-size:clamp(2rem,4vw,3rem);max-width:720px;margin:.35rem 0 .7rem}.achievements-teaser p{color:var(--text-muted);max-width:700px}.achievements-teaser .btn{flex-shrink:0}@media(max-width:800px){.achievements-teaser-inner{flex-direction:column;align-items:flex-start}}</style></html>
+<style>.achievements-teaser{background:#e8f5fb}.achievements-teaser-inner{display:flex;align-items:center;justify-content:space-between;gap:2rem}.achievements-teaser h2{font-family:Nunito,sans-serif;color:#0d4568;font-size:clamp(2rem,4vw,3rem);max-width:720px;margin:.35rem 0 .7rem}.achievements-teaser p{color:var(--text-muted);max-width:700px}.achievements-teaser .btn{flex-shrink:0}@media(max-width:800px){.achievements-teaser-inner{flex-direction:column;align-items:flex-start}}</style>
+<style id="photo-hero-fix">
+.photo-hero{position:relative;min-height:calc(100vh - 70px);display:flex;align-items:center;overflow:hidden;color:#fff;background:#0d4568!important;}
+.photo-hero .hero-bg-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;z-index:0;display:block;}
+.photo-hero .hero-photo-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(7,49,75,.80) 0%,rgba(7,49,75,.54) 25%,rgba(7,49,75,.18) 52%,rgba(7,49,75,.02) 78%);} 
+.photo-hero .hero-container{position:relative;z-index:2;width:100%;} 
+.photo-hero .hero-copy{max-width:650px;padding:2rem 0 3rem;background:none;border:0;border-radius:0;backdrop-filter:none;}
+.photo-hero .hero-copy h1{font-size:clamp(3.8rem,6.4vw,6.4rem);line-height:.93;letter-spacing:-.045em;margin:0 0 1.55rem;text-shadow:0 3px 18px rgba(0,0,0,.18);}
+.photo-hero .hero-copy h1 span{color:#8ed8f5;}
+.photo-hero .hero-copy p{max-width:590px;font-size:1.2rem;line-height:1.55;margin:0;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.25);}
+.photo-hero .hero-copy:after{content:"";display:block;width:150px;height:7px;margin-top:2rem;border-radius:999px;background:#63c7ec;transform:rotate(-1deg);}
+@media(max-width:900px){.photo-hero{min-height:78vh}.photo-hero .hero-bg-image{object-position:58% center}.photo-hero .hero-photo-overlay{background:linear-gradient(90deg,rgba(7,49,75,.78),rgba(7,49,75,.20) 82%);}}
+@media(max-width:640px){.photo-hero{min-height:78vh}.photo-hero .hero-bg-image{object-position:62% center}.photo-hero .hero-copy{padding:2rem 0 2.5rem}.photo-hero .hero-copy h1{font-size:3.35rem;line-height:.95}.photo-hero .hero-copy p{font-size:1.05rem;max-width:430px}.photo-hero .hero-copy:after{width:110px;height:6px;margin-top:1.5rem;}}
+</style>
+</html>
 
 <style> .event-tile-art.photo-art{padding:0;background:#dff3fb}.event-tile-art.photo-art img{width:100%;height:100%;object-fit:cover;display:block}.home-gallery .gallery-box{background:none!important}.home-gallery .gallery-box img{width:100%;height:100%;object-fit:cover;display:block}.home-hero .btn-light{color:#0d4568}.community-cta .btn-pink{color:#fff}.community-cta .btn-yellow{color:#21451f}</style>
