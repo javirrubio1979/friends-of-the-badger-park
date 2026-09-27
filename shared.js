@@ -20,8 +20,7 @@
       <li><a href="news.html"   class="${isActive('news.html')}">News</a></li>
       <li><a href="gallery.html" class="${isActive('gallery.html')}">Gallery</a></li>
       <li><a href="contact.html" class="${isActive('contact.html')}">Contact</a></li>
-      <li><a href="donate.html"  class="btn-donate ${isActive('donate.html')}">Donate ♥</a></li>
-    </ul>
+      </ul>
   </div>
 </nav>`;
 
