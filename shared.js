@@ -20,6 +20,8 @@
       <li><a href="news.html"   class="${isActive('news.html')}">News</a></li>
       <li><a href="gallery.html" class="${isActive('gallery.html')}">Gallery</a></li>
       <li><a href="contact.html" class="${isActive('contact.html')}">Contact</a></li>
+      <li class="nav-social"><a href="#" aria-label="Facebook">Facebook</a></li>
+      <li class="nav-social"><a href="#" aria-label="Instagram">Instagram</a></li>
       </ul>
   </div>
 </nav>`;
@@ -32,9 +34,8 @@
         <img src="logo.png" alt="Friends of the Badger Park">
         <p>A volunteer community group formed in 2020 to replace and improve Badger Park for the whole community of Chesterfield.</p>
         <div class="footer-social">
-          <a href="#" aria-label="Facebook">f</a>
-          <a href="#" aria-label="Twitter">𝕏</a>
-          <a href="#" aria-label="Instagram">▣</a>
+          <a href="#" aria-label="Facebook">Facebook</a>
+          <a href="#" aria-label="Instagram">Instagram</a>
         </div>
       </div>
       <div>
@@ -46,6 +47,8 @@
           <li><a href="gallery.html">Photo Gallery</a></li>
           <li><a href="donate.html">Support Us</a></li>
           <li><a href="contact.html">Get in Touch</a></li>
+          <li><a href="#" aria-label="Facebook">Facebook</a></li>
+          <li><a href="#" aria-label="Instagram">Instagram</a></li>
         </ul>
       </div>
       <div>
