@@ -54,6 +54,18 @@
     .pdf-toolbar button { border:0; background:rgba(255,255,255,.15); color:#fff; border-radius:9px; padding:.5rem .75rem; cursor:pointer; font-weight:800; }
     .pdf-frame { flex:1; width:100%; border:0; }
 
+    .press-section { padding:4.5rem 0; background:#fff; }
+    .press-heading { max-width:760px; margin:0 auto 2.2rem; text-align:center; }
+    .press-heading h2 { color:var(--blue-community-dark); font-family:'Nunito',sans-serif; font-weight:900; margin:.4rem 0 .7rem; }
+    .press-heading p { color:var(--text-muted); margin:0; }
+    .press-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1.25rem; }
+    .press-card { display:flex; flex-direction:column; justify-content:space-between; background:#f7fbfd; border:1px solid #d9edf6; border-radius:18px; padding:1.35rem 1.45rem; min-height:150px; box-shadow:0 6px 20px rgba(13,69,104,.06); }
+    .press-source { display:inline-block; font-size:.76rem; font-weight:900; color:var(--blue-community); text-transform:uppercase; letter-spacing:.05em; margin-bottom:.55rem; }
+    .press-card h3 { color:var(--blue-community-dark); font-family:'Nunito',sans-serif; font-weight:900; font-size:1.08rem; line-height:1.3; margin:0 0 .9rem; }
+    .press-card a { color:var(--blue-community); font-weight:900; text-decoration:none; }
+    .press-card a:hover { text-decoration:underline; }
+    @media(max-width:640px) { .press-grid { grid-template-columns:1fr; } }
+
     @media(max-width:900px) {
       .latest-news { grid-template-columns:1fr; }
       .newsletter-grid { grid-template-columns:1fr 1fr; }
@@ -130,6 +142,7 @@
             <li>Friends of Badger Park formed in 2020</li>
             <li>£8,000+ raised during 2021</li>
             <li>New playground opened in February 2022</li>
+            <li>Bulb planting and tree planting</li>
             <li>Colour Run 2023 and the challenges that followed</li>
           </ul>
           <div class="newsletter-action"><button class="btn btn-green open-newsletter" data-title="Friends of Badger Park — Newsletter 2024" data-pdf="assets/newsletters/newsletter-2024.pdf">Read newsletter →</button></div>
@@ -139,6 +152,58 @@
 
     <div class="archive-note">
       <strong>Have an older newsletter?</strong> We can add earlier editions to the archive as well, so the News page becomes a complete history of Friends of the Badger Park.
+    </div>
+  </div>
+</section>
+
+<section class="press-section" id="press">
+  <div class="container">
+    <div class="press-heading">
+      <span class="eyebrow">In the press</span>
+      <h2>Friends of the Badger Park in the News</h2>
+      <p>A selection of local press coverage following the work of our community group and the improvements at Badger Park.</p>
+    </div>
+
+    <div class="press-grid">
+      <article class="press-card">
+        <div>
+          <span class="press-source">Derby Telegraph</span>
+          <h3>Playground stripped of dangerous equipment</h3>
+        </div>
+        <a href="https://www.derbytelegraph.co.uk/news/local-news/playground-stripped-dangerous-equipment-ensure-4644120" target="_blank" rel="noopener noreferrer">Read article ↗</a>
+      </article>
+
+      <article class="press-card">
+        <div>
+          <span class="press-source">Derbyshire Times</span>
+          <h3>Hopes to build something better at Chesterfield park after dangerous play area removed</h3>
+        </div>
+        <a href="https://www.derbyshiretimes.co.uk/news/people/hopes-to-build-something-better-at-chesterfield-park-after-dangerous-play-area-removed-3017746" target="_blank" rel="noopener noreferrer">Read article ↗</a>
+      </article>
+
+      <article class="press-card">
+        <div>
+          <span class="press-source">Derbyshire Times</span>
+          <h3>Chesterfield residents launch campaign to replace unsafe playground</h3>
+        </div>
+        <a href="https://www.derbyshiretimes.co.uk/news/people/chesterfield-residents-launch-campaign-to-replace-unsafe-playground-3034252" target="_blank" rel="noopener noreferrer">Read article ↗</a>
+      </article>
+
+      <article class="press-card">
+        <div>
+          <span class="press-source">Derbyshire Times</span>
+          <h3>Urgent appeal for funding for play area after arson and flood</h3>
+        </div>
+        <a href="https://www.derbyshiretimes.co.uk/news/people/urgent-appeal-for-funding-for-play-area-at-popular-chesterfield-park-after-arson-and-flood-4840275" target="_blank" rel="noopener noreferrer">Read article ↗</a>
+      </article>
+
+      <article class="press-card">
+        <div>
+          <span class="press-source">Derbyshire Times</span>
+          <h3>Sadness as popular Chesterfield play area is set on fire for the third time</h3>
+        </div>
+        <a href="https://www.derbyshiretimes.co.uk/news/emergency-incident/it-feels-like-weve-been-deliberately-targeted-sadness-as-popular-chesterfield-play-area-set-on-fire-for-the-third-time-6567293" target="_blank" rel="noopener noreferrer">Read article ↗</a>
+      </article>
     </div>
   </div>
 </section>
