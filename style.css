@@ -654,7 +654,7 @@ a:hover { color: var(--blue-dark); }
   justify-content: flex-start;
 }
 .nav-links {
-  margin-left: 1.25rem;
+  margin-left: 2rem;
 }
 .nav-links .nav-social a {
   font-size: 0.82rem;
